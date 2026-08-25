@@ -65,6 +65,37 @@
     padding:6px 0;border-bottom:2px solid transparent;transition:.25s
   }
   .nav-links a:hover,.nav-links a.on{color:var(--paper);border-color:var(--gold)}
+  .nav-toggle{
+    display:none;margin-left:auto;width:44px;height:44px;padding:0;
+    background:none;border:0;cursor:pointer;color:var(--paper);
+    align-items:center;justify-content:center
+  }
+  .nav-toggle .bars{display:block;width:22px;height:2px;background:currentColor;position:relative}
+  .nav-toggle .bars::before,.nav-toggle .bars::after{
+    content:"";position:absolute;left:0;width:22px;height:2px;background:currentColor;transition:.25s
+  }
+  .nav-toggle .bars::before{top:-7px}
+  .nav-toggle .bars::after{top:7px}
+  .nav-toggle[aria-expanded="true"] .bars{background:transparent}
+  .nav-toggle[aria-expanded="true"] .bars::before{top:0;transform:rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] .bars::after{top:0;transform:rotate(-45deg)}
+
+  @media(max-width:760px){
+    .nav-toggle{display:flex}
+    /* absolute panel: opening the menu must not push the page down */
+    .nav-links{
+      position:absolute;left:0;right:0;top:100%;margin:0;
+      flex-direction:column;gap:0;overflow:visible;
+      background:rgba(11,16,32,.97);border-bottom:1px solid rgba(255,255,255,.08);
+      max-height:0;overflow-y:hidden;transition:max-height .25s ease
+    }
+    .nav-links a{
+      display:flex;align-items:center;min-height:48px;padding:0 20px;
+      font-size:1rem;border-bottom:1px solid rgba(255,255,255,.05);border-left:2px solid transparent
+    }
+    .nav-links a:hover,.nav-links a.on{border-bottom-color:rgba(255,255,255,.05);border-left-color:var(--gold)}
+    nav[data-open="true"] .nav-links{max-height:70vh;overflow-y:auto}
+  }
 
   /* ---------- hero ---------- */
   .hero{padding:56px 0 40px}
@@ -218,6 +249,15 @@
     .cover{max-width:210px}
     section{padding:56px 0}
     .hero h1{font-size:clamp(2.1rem,9vw,3rem)}
+    /* nothing below 12px on a phone, and every control at least 44px tall */
+    .eyebrow{font-size:.78rem}
+    .credit{font-size:.78rem}
+    .tag{font-size:.78rem}
+    .chars{font-size:.78rem}
+    .unit span{font-size:.78rem}
+    .copy{min-height:44px;padding:0 16px}
+    .chip{min-height:44px;padding:0 16px;display:inline-flex;align-items:center;font-size:.85rem}
+    .tabs{gap:10px}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -232,7 +272,10 @@
 <nav>
   <div class="wrap nav-in">
     <div class="brand">Bob <span>Chapek</span></div>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span class="bars"></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#career">Career</a>
       <a href="#man">The Man</a>
       <a href="#facts">Facts</a>
@@ -592,6 +635,31 @@ const cio = new IntersectionObserver(function(es){
   });
 },{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+/* ---------- mobile nav ---------- */
+(function(){
+  const bar=document.querySelector('nav'), btn=document.getElementById('navToggle'),
+        panel=document.getElementById('navLinks');
+  function setOpen(open){
+    bar.dataset.open=open?'true':'false';
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  setOpen(false);
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    setOpen(bar.dataset.open!=='true');
+  });
+  panel.addEventListener('click',function(e){ if(e.target.tagName==='A') setOpen(false); });
+  document.addEventListener('click',function(e){
+    if(bar.dataset.open==='true' && !bar.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && bar.dataset.open==='true'){ setOpen(false); btn.focus(); }
+  });
+  // a resize past the breakpoint must not leave the panel stuck open
+  addEventListener('resize',function(){ if(innerWidth>760) setOpen(false); });
+})();
 
 /* ---------- nav highlight ---------- */
 const secs=[].slice.call(document.querySelectorAll('section[id]'));
