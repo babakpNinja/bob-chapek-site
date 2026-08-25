@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bob Chapek — Thirty Years, One Castle</title>
+<meta name="description" content="The career, the craft and the September 2026 memoir of Bob Chapek, former CEO of The Walt Disney Company.">
+<meta property="og:title" content="Bob Chapek — Thirty Years, One Castle">
+<meta property="og:description" content="From a refinery town in Indiana to the corner office at Disney. Career timeline, the man behind it, and Behind the Castle Walls (Sept 29, 2026).">
+<meta property="og:image" content="assets/chapek.jpg">
+<meta name="theme-color" content="#0b1020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1020;
+    --ink-2:#121933;
+    --paper:#f6f4ee;
+    --gold:#d9b169;
+    --gold-soft:#f0dcb4;
+    --mist:rgba(246,244,238,.66);
+    --line:rgba(217,177,105,.28);
+    --max:1120px;
+    --r:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--ink);color:var(--paper);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-weight:300;line-height:1.65;overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;font-weight:500;line-height:1.15;letter-spacing:-.01em}
+  a{color:var(--gold-soft)}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 22px}
+  section{padding:76px 0;position:relative}
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin:0 0 14px
+  }
+  .lede{font-size:1.05rem;color:var(--mist);max-width:62ch}
+
+  /* ---------- ambient background ---------- */
+  .glow{position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(60vw 60vw at 12% 8%, rgba(217,177,105,.16), transparent 60%),
+      radial-gradient(50vw 50vw at 88% 22%, rgba(96,132,255,.14), transparent 60%),
+      radial-gradient(70vw 70vw at 50% 105%, rgba(217,177,105,.10), transparent 60%);
+  }
+  .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(11,16,32,.72);border-bottom:1px solid rgba(255,255,255,.06)
+  }
+  .nav-in{display:flex;align-items:center;gap:18px;height:58px}
+  .brand{font-family:Fraunces,serif;font-weight:600;letter-spacing:.02em;font-size:1.02rem;white-space:nowrap}
+  .brand span{color:var(--gold)}
+  .nav-links{margin-left:auto;display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{
+    color:var(--mist);text-decoration:none;font-size:.85rem;white-space:nowrap;
+    padding:6px 0;border-bottom:2px solid transparent;transition:.25s
+  }
+  .nav-links a:hover,.nav-links a.on{color:var(--paper);border-color:var(--gold)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:56px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}
+  .hero h1{font-size:clamp(2.4rem,6.4vw,4.3rem);margin:.15em 0 .35em}
+  .hero h1 em{font-style:normal;color:var(--gold);display:block}
+  .hero p{font-size:1.06rem;color:var(--mist);max-width:52ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;
+    text-decoration:none;font-size:.9rem;font-weight:500;border:1px solid var(--line);
+    color:var(--paper);background:rgba(255,255,255,.04);transition:.25s;cursor:pointer
+  }
+  .btn:hover{transform:translateY(-2px);border-color:var(--gold);background:rgba(217,177,105,.12)}
+  .btn.solid{background:linear-gradient(120deg,var(--gold),#e8cf9a);color:#241a05;border-color:transparent;font-weight:600}
+  .portrait{position:relative;max-width:400px;justify-self:end;width:100%}
+  .portrait img{
+    width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;
+    border-radius:var(--r);display:block;
+    box-shadow:0 30px 70px rgba(0,0,0,.55);
+    filter:saturate(1.03) contrast(1.03)
+  }
+  .portrait::after{
+    content:"";position:absolute;inset:0;border-radius:var(--r);
+    background:linear-gradient(180deg,transparent 45%,rgba(11,16,32,.55));pointer-events:none
+  }
+  .credit{font-size:.68rem;color:rgba(246,244,238,.45);margin-top:9px;line-height:1.4}
+  .credit a{color:rgba(246,244,238,.6)}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+  .stat{
+    border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
+  }
+  .stat b{display:block;font-family:Fraunces,serif;font-size:1.8rem;color:var(--gold);line-height:1}
+  .stat span{font-size:.78rem;color:var(--mist);display:block;margin-top:7px}
+
+  /* ---------- timeline ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 30px}
+  .chip{
+    border:1px solid var(--line);background:transparent;color:var(--mist);
+    padding:7px 15px;border-radius:999px;font-size:.8rem;cursor:pointer;font-family:inherit;transition:.2s
+  }
+  .chip:hover{color:var(--paper)}
+  .chip.on{background:var(--gold);color:#241a05;border-color:var(--gold);font-weight:600}
+  .tl{position:relative;padding-left:30px}
+  .tl::before{
+    content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,transparent,var(--gold),transparent);opacity:.5
+  }
+  .ev{
+    position:relative;margin-bottom:14px;border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;background:rgba(255,255,255,.03);transition:.3s;
+    opacity:0;transform:translateY(18px)
+  }
+  .ev.in{opacity:1;transform:none}
+  .ev.hide{display:none}
+  .ev::before{
+    content:"";position:absolute;left:-29px;top:22px;width:11px;height:11px;border-radius:50%;
+    background:var(--ink);border:2px solid var(--gold);box-shadow:0 0 0 4px rgba(217,177,105,.12)
+  }
+  .ev:hover{border-color:var(--line);background:rgba(255,255,255,.055)}
+  .ev summary{
+    list-style:none;cursor:pointer;padding:16px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap
+  }
+  .ev summary::-webkit-details-marker{display:none}
+  .yr{font-family:Fraunces,serif;color:var(--gold);font-size:1rem;min-width:78px;font-weight:600}
+  .ev h3{margin:0;font-size:1.02rem;font-weight:500;flex:1;min-width:180px}
+  .tag{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,244,238,.45);border:1px solid rgba(255,255,255,.12);padding:3px 9px;border-radius:999px}
+  .ev .body{padding:0 18px 18px 18px;color:var(--mist);font-size:.93rem;max-width:75ch}
+  .ev .body p{margin:.2em 0 0}
+  .plus{color:var(--gold);font-size:1.1rem;line-height:1;transition:.25s}
+  .ev[open] .plus{transform:rotate(45deg)}
+
+  /* ---------- cards ---------- */
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{
+    border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    transition:.3s;opacity:0;transform:translateY(18px)
+  }
+  .card.in{opacity:1;transform:none}
+  .card:hover{transform:translateY(-4px);border-color:var(--line)}
+  .card h3{margin:0 0 8px;font-size:1.03rem}
+  .card p{margin:0;color:var(--mist);font-size:.92rem}
+  .card .ic{font-size:1.4rem;display:block;margin-bottom:12px}
+
+  /* ---------- book ---------- */
+  #book{background:linear-gradient(180deg,rgba(217,177,105,.07),transparent)}
+  .book-grid{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start}
+  .cover{position:relative;perspective:1200px}
+  .cover img{
+    width:100%;border-radius:6px;display:block;box-shadow:0 26px 60px rgba(0,0,0,.6);
+    transition:transform .5s cubic-bezier(.2,.7,.3,1)
+  }
+  .cover:hover img{transform:rotateY(-9deg) rotateX(3deg) scale(1.03)}
+  .count{display:flex;gap:10px;margin:22px 0 6px;flex-wrap:wrap}
+  .unit{
+    border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:78px;text-align:center;
+    background:rgba(255,255,255,.04)
+  }
+  .unit b{display:block;font-family:Fraunces,serif;font-size:1.7rem;color:var(--gold);line-height:1}
+  .unit span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .meta span{font-size:.76rem;color:var(--mist);border:1px solid rgba(255,255,255,.1);padding:5px 11px;border-radius:999px}
+  blockquote{
+    margin:22px 0 0;padding:16px 20px;border-left:3px solid var(--gold);
+    background:rgba(255,255,255,.03);border-radius:0 12px 12px 0;color:var(--paper);
+    font-family:Fraunces,serif;font-size:1.02rem;font-weight:300
+  }
+
+  /* ---------- launch kit ---------- */
+  .tabs{display:flex;gap:8px;margin:22px 0 22px;flex-wrap:wrap}
+  .post{
+    border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:20px;margin-bottom:14px;
+    background:rgba(255,255,255,.035);position:relative
+  }
+  .post .txt{white-space:pre-wrap;font-size:.95rem;color:var(--paper);line-height:1.62;margin:0 0 14px}
+  .post .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .copy{
+    border:1px solid var(--line);background:rgba(217,177,105,.1);color:var(--gold-soft);
+    padding:8px 15px;border-radius:999px;font-size:.8rem;cursor:pointer;font-family:inherit;transition:.2s
+  }
+  .copy:hover{background:var(--gold);color:#241a05}
+  .copy.done{background:#7ddba0;color:#0b2617;border-color:#7ddba0}
+  .chars{font-size:.72rem;color:rgba(246,244,238,.4)}
+
+  /* ---------- advisory ---------- */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .col{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;background:rgba(255,255,255,.03)}
+  .col h3{color:var(--gold);font-size:1.05rem;margin:0 0 14px}
+  .col ul{margin:0;padding-left:18px;color:var(--mist);font-size:.93rem}
+  .col li{margin-bottom:11px}
+  .col li b{color:var(--paper);font-weight:500}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid rgba(255,255,255,.08);padding:40px 0 60px;color:rgba(246,244,238,.5);font-size:.82rem}
+  footer a{color:rgba(246,244,238,.72)}
+  .srcs{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .srcs a{font-size:.75rem;text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:4px 11px;border-radius:999px}
+  .srcs a:hover{border-color:var(--gold)}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:30px}
+    .portrait{order:-1;max-width:340px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .g3,.g2,.two{grid-template-columns:1fr}
+    .book-grid{grid-template-columns:1fr;gap:26px}
+    .cover{max-width:210px}
+    section{padding:56px 0}
+    .hero h1{font-size:clamp(2.1rem,9vw,3rem)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .ev,.card{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<canvas class="stars" id="stars"></canvas>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand">Bob <span>Chapek</span></div>
+    <div class="nav-links">
+      <a href="#career">Career</a>
+      <a href="#man">The Man</a>
+      <a href="#facts">Facts</a>
+      <a href="#book">The Book</a>
+      <a href="#kit">Launch Kit</a>
+      <a href="#advisory">Advisory</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Thirty years · One castle</p>
+      <h1>He was hired to sell videotapes.<em>He left running Disney.</em></h1>
+      <p>Robert A. Chapek spent 29 years inside The Walt Disney Company — from marketing director for home video in 1993 to Chief Executive Officer from February 2020 to November 2022. He built theme parks on three continents, made Disney the world's largest licensor of intellectual property, and steered the company through the only period in its history when it had to close almost all of itself.</p>
+      <div class="cta">
+        <a class="btn solid" href="#book">📕 The memoir · Sept 29, 2026</a>
+        <a class="btn" href="#career">Explore the career →</a>
+      </div>
+    </div>
+    <figure class="portrait" style="margin:0">
+      <img src="assets/chapek.jpg" alt="Bob Chapek at Walt Disney World, February 2020" loading="eager" width="800" height="1000">
+      <figcaption class="credit">Bob Chapek at Walt Disney World, February 2020. Photo by <a href="https://www.flickr.com/people/187103922@N04" rel="noopener">elisfkc2</a>, via Wikimedia Commons — <a href="https://creativecommons.org/licenses/by-sa/2.0/" rel="noopener">CC BY-SA 2.0</a>.</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b data-count="29">0</b><span>Years at Disney (1993–2022)</span></div>
+      <div class="stat"><b data-count="24" data-prefix="$" data-suffix="B">0</b><span>Invested in parks &amp; experiences as chairman</span></div>
+      <div class="stat"><b data-count="11" data-suffix="M">0</b><span>Guests in Shanghai Disneyland's first year</span></div>
+      <div class="stat"><b data-count="272">0</b><span>Pages of memoir, out Sept 29, 2026</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="career">
+  <div class="wrap">
+    <p class="eyebrow">Career progression</p>
+    <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 12px">A ladder almost nobody else has climbed</h2>
+    <p class="lede">Home video → consumer products → parks → the corner office. Tap any milestone to open it.</p>
+
+    <div class="filters" id="filters">
+      <button class="chip on" data-f="all">All</button>
+      <button class="chip" data-f="early">Before Disney</button>
+      <button class="chip" data-f="home">Home Entertainment</button>
+      <button class="chip" data-f="cp">Consumer Products</button>
+      <button class="chip" data-f="parks">Parks</button>
+      <button class="chip" data-f="ceo">CEO</button>
+      <button class="chip" data-f="after">After Disney</button>
+    </div>
+
+    <div class="tl" id="timeline">
+
+      <details class="ev" data-c="early">
+        <summary><span class="yr">1981</span><h3>B.S. in Microbiology, Indiana University Bloomington</h3><span class="tag">Roots</span><span class="plus">+</span></summary>
+        <div class="body"><p>A kid from Robertsdale — the Hammond, Indiana neighbourhood beside the Whiting oil refinery where his father worked — arrives at IU behind his classmates and has to catch up alone. He has called it his first lesson in grit. He also met his future wife, Cynthia, on his second day on campus, and watched <em>Breaking Away</em> being filmed around him — his first look at how a production actually gets made.</p></div>
+      </details>
+
+      <details class="ev" data-c="early">
+        <summary><span class="yr">1980s</span><h3>MBA, Michigan State · brand management at H.J. Heinz · advertising at J. Walter Thompson</h3><span class="tag">Foundations</span><span class="plus">+</span></summary>
+        <div class="body"><p>Before he ever sold a Disney product he learned to sell ketchup. Packaged goods and agency work gave him the discipline that would later define him: know the consumer, know the margin, and don't confuse the two.</p></div>
+      </details>
+
+      <details class="ev" data-c="home">
+        <summary><span class="yr">1993</span><h3>Joins Disney as marketing director, Buena Vista Home Entertainment</h3><span class="tag">Entry</span><span class="plus">+</span></summary>
+        <div class="body"><p>The VHS era. Michael Eisner later said of him: <em>"He was always an executive that you knew would be on the rise… He knew how to grow the business while adjusting to the changing marketplace, which was intense."</em></p></div>
+      </details>
+
+      <details class="ev" data-c="home">
+        <summary><span class="yr">2006–2009</span><h3>President, Buena Vista Home Entertainment → President of Distribution, Walt Disney Studios</h3><span class="tag">Format shift</span><span class="plus">+</span></summary>
+        <div class="body"><p>He carried Disney's home entertainment business from tape to DVD to Blu-ray — the sort of format transition that has killed other companies. His rise from the home video division to the top of the company has been called the home entertainment industry's single biggest success story.</p></div>
+      </details>
+
+      <details class="ev" data-c="cp">
+        <summary><span class="yr">2011</span><h3>President, Disney Consumer Products</h3><span class="tag">Licensing</span><span class="plus">+</span></summary>
+        <div class="body"><p>After the Lucasfilm acquisition he folded <em>Star Wars</em> into Disney's licensing machine and made Disney the largest licensor of intellectual property on earth. In 2013 he closed a Hasbro deal worth $80M in Marvel royalties plus up to $225M for <em>Star Wars</em> rights. In 2014 he launched Disney Imagicademy, the company's first real move into children's learning apps — prompted, he said, by parents telling his team that good ones were impossible to find.</p></div>
+      </details>
+
+      <details class="ev" data-c="parks">
+        <summary><span class="yr">2015</span><h3>Chairman, Walt Disney Parks and Resorts</h3><span class="tag">Builder</span><span class="plus">+</span></summary>
+        <div class="body"><p>Handed the biggest capital budget in entertainment. Over his tenure he invested more than $24 billion into parks, attractions, hotels and ships — more, the New York Times noted, than Disney paid for Pixar, Marvel and Lucasfilm combined.</p></div>
+      </details>
+
+      <details class="ev" data-c="parks">
+        <summary><span class="yr">2016</span><h3>Opens Shanghai Disneyland — $5.5B, 11M guests in year one</h3><span class="tag">Landmark</span><span class="plus">+</span></summary>
+        <div class="body"><p>The project that made his reputation with the board. Bob Iger travelled to Shanghai with him more than ten times, watching how he handled budget overruns and construction delays. It opened. It worked.</p></div>
+      </details>
+
+      <details class="ev" data-c="parks">
+        <summary><span class="yr">2017–2019</span><h3>Pandora – The World of Avatar · Star Wars: Galaxy's Edge</h3><span class="tag">Immersion</span><span class="plus">+</span></summary>
+        <div class="body"><p>Two of the most ambitious themed lands ever built. Disney called Galaxy's Edge "the most immersive land we have ever built" — roughly $1 billion for 14 acres in Anaheim. In 2018 he was also given back consumer products, creating Disney Parks, Experiences and Products, and with it the clearest signal yet that he was next in line.</p></div>
+      </details>
+
+      <details class="ev" data-c="ceo">
+        <summary><span class="yr">Feb 2020</span><h3>Chief Executive Officer, The Walt Disney Company</h3><span class="tag">The job</span><span class="plus">+</span></summary>
+        <div class="body"><p>Named by Bob Iger as his hand-picked successor. Three days in, he made his first major decision: close roughly 80% of the company's operating businesses as COVID-19 arrived. "That was very difficult, because that was something that was unprecedented, unheard of."</p></div>
+      </details>
+
+      <details class="ev" data-c="ceo">
+        <summary><span class="yr">2020–2021</span><h3>Reopening the world — and turning Disneyland into a vaccination site</h3><span class="tag">Crisis</span><span class="plus">+</span></summary>
+        <div class="body"><p>Shanghai reopened first, capped at 24,000 guests a day — "a baby step," he called it. Walt Disney World followed with masks and temperature checks. Disneyland became a mass vaccination site, a decision he framed with characteristic plainness: <em>"If there's one thing we do, it's handle large numbers of people… It was just the right thing to do."</em> Meanwhile <em>Mulan</em> and <em>Soul</em> went straight to Disney+, and the streaming era began in earnest.</p></div>
+      </details>
+
+      <details class="ev" data-c="ceo">
+        <summary><span class="yr">2022</span><h3>The hardest year: Florida, the reversal, the apology</h3><span class="tag">Turbulence</span><span class="plus">+</span></summary>
+        <div class="body"><p>Chapek initially declined to take a public position on Florida's Parental Rights in Education Act, arguing in a board-approved memo that "corporate statements do very little to change outcomes or minds… they can be counterproductive." The backlash from Disney's own creative community was severe. He reversed course, apologised, paused Florida political donations and pledged support to LGBTQ+ organisations — but the episode set off the Reedy Creek fight and defined the year. By then, parks, experiences and products revenue had more than doubled to $6.7B in the first quarter of 2022.</p></div>
+      </details>
+
+      <details class="ev" data-c="ceo">
+        <summary><span class="yr">Nov 20, 2022</span><h3>Out — five months after a three-year extension</h3><span class="tag">The exit</span><span class="plus">+</span></summary>
+        <div class="body"><p>A weekend. A phone call. Iger back in the chair. CNBC later reported that Iger had repeatedly failed to champion the successor he chose, keeping his office and calling himself "Big Bob." The board pointed to the November earnings report. Chapek has spent four years deciding what he thinks happened — and the answer is the book.</p></div>
+      </details>
+
+      <details class="ev" data-c="after">
+        <summary><span class="yr">2024–2025</span><h3>Board of directors, Masimo</h3><span class="tag">Next chapter</span><span class="plus">+</span></summary>
+        <div class="body"><p>He joined the board of the medical technology company in January 2024, during one of the most closely watched governance fights in med-tech, and stepped off the board in 2025.</p></div>
+      </details>
+
+      <details class="ev" data-c="after">
+        <summary><span class="yr">Sept 29, 2026</span><h3><em>Behind the Castle Walls</em> — Gallery Books</h3><span class="tag">Now</span><span class="plus">+</span></summary>
+        <div class="body"><p>272 pages, written with New York Times bestselling author Don Yaeger. His side, in his words, after four years of what the publisher calls "reflection and distance."</p></div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section id="man">
+  <div class="wrap">
+    <p class="eyebrow">The man</p>
+    <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 12px">Passions, principles, and a North Star</h2>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card"><span class="ic">🧭</span><h3>The North Star doctrine</h3><p>"Pick a North Star and make sure that's the highest value you have. When the noise comes in and there's a lot of different signals and inputs and you have to make a decision, you have to think about what your North Star is." In the parks, it was exceeding guest expectations — and everything else became easier to decide.</p></div>
+      <div class="card"><span class="ic">🔬</span><h3>A scientist's mind</h3><p>He is one of very few entertainment CEOs with a microbiology degree. He credits an arts-and-sciences education with the "elasticity" a media career demands — and it shows in how he reasons: hypothesis, data, iterate.</p></div>
+      <div class="card"><span class="ic">🏰</span><h3>A guest before he was an executive</h3><p>His family drove to Walt Disney World every year when he was a boy. He didn't arrive at Disney as a strategist studying a brand; he arrived as someone who had stood in its queues.</p></div>
+      <div class="card"><span class="ic">💍</span><h3>Married since 1980 — to the girl he met on day two</h3><p>He met Cynthia on his second day at Indiana University. Three children — including Marvel Studios producer Brian Chapek — and four grandchildren. They live in Westlake Village, California.</p></div>
+      <div class="card"><span class="ic">⚒️</span><h3>Refinery-town grit</h3><p>Father: a WWII veteran and machinist at the oil refinery in Whiting. Mother: an insurance agency in East Chicago. He was an altar boy at St. John the Baptist. "You get what you earn in the Region, and you don't expect anything beyond what it is that you work hard for."</p></div>
+      <div class="card"><span class="ic">🎬</span><h3>Breaking Away, literally</h3><p>He walked past the filming of <em>Breaking Away</em> on his way to class at IU and couldn't believe how big and complicated a production was. "Maybe in some ways that was what wet my whistle for what I eventually do now."</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="facts">
+  <div class="wrap">
+    <p class="eyebrow">Things you probably didn't know</p>
+    <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 12px">Ten facts worth a conversation</h2>
+    <div class="grid g2" style="margin-top:26px">
+      <div class="card"><h3>01 · The whole family are Clark High alumni</h3><p>He graduated from George Rogers Clark Jr./Sr. High School in Hammond in 1977 — as did his entire family.</p></div>
+      <div class="card"><h3>02 · The first ride back</h3><p>Asked which attraction he'd visit first when Walt Disney World reopened in 2020, he named Pirates of the Caribbean.</p></div>
+      <div class="card"><h3>03 · He made Disney the world's biggest licensor</h3><p>Not through a movie — through consumer products, by integrating <em>Star Wars</em> into Disney's licensing engine after the Lucasfilm deal.</p></div>
+      <div class="card"><h3>04 · $24B &gt; Pixar + Marvel + Lucasfilm</h3><p>His parks capital programme outspent Disney's three defining acquisitions combined.</p></div>
+      <div class="card"><h3>05 · Disney inside Target</h3><p>In 2019 he put 25 mini Disney Store shop-in-shops inside Target stores — roughly 750 sq ft each, 450+ items — because Disney shoppers were already there.</p></div>
+      <div class="card"><h3>06 · Imagicademy</h3><p>Disney's first serious learning-app suite existed because parents told his team that finding good ones was impossible.</p></div>
+      <div class="card"><h3>07 · Eisner saw it early</h3><p>"He was always an executive that you knew would be on the rise." — Michael Eisner</p></div>
+      <div class="card"><h3>08 · Ten trips to Shanghai — with the boss watching</h3><p>Iger accompanied him on more than ten trips to the Shanghai build, an unusually long audition for the top job.</p></div>
+      <div class="card"><h3>09 · A theme park as public health infrastructure</h3><p>Disneyland became one of California's largest vaccination sites because, as he put it, moving enormous numbers of people through a process is literally what Disney does.</p></div>
+      <div class="card"><h3>10 · The scapegoat question</h3><p>The memoir's own blurb says the experience left him "to wonder whether he had become the scapegoat in it all." Few CEO books open with a question that honest.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <p class="eyebrow">The memoir</p>
+    <h2 style="font-size:clamp(1.8rem,4.4vw,2.7rem);margin:0 0 6px">Behind the Castle Walls</h2>
+    <p class="lede" style="margin-top:0">My Thirty Years at the Happiest Place on Earth — with Don Yaeger · Gallery Books (Simon &amp; Schuster)</p>
+    <div class="book-grid" style="margin-top:30px">
+      <div class="cover">
+        <img src="assets/book-cover.jpg" alt="Behind the Castle Walls book cover" loading="lazy">
+      </div>
+      <div>
+        <p style="color:var(--mist);margin-top:0">Within weeks of his becoming CEO, the pandemic shut down parks, movie theatres and cruise ships, forcing Chapek to steer the empire through unprecedented times. "The stakes were high, the decisions unforgiving, and the backlash often inordinate." In 2022 he was out and his former boss was back in. Four years later, with reflection and distance, he goes behind the scenes of one of the most recognisable — and most reticent — companies on earth.</p>
+        <blockquote>"A revealing and thrilling story of ambition, power and the price of Disney magic." — Gallery Books</blockquote>
+        <div class="count" id="count" aria-label="Countdown to publication">
+          <div class="unit"><b id="d">–</b><span>Days</span></div>
+          <div class="unit"><b id="h">–</b><span>Hours</span></div>
+          <div class="unit"><b id="m">–</b><span>Minutes</span></div>
+          <div class="unit"><b id="s">–</b><span>Seconds</span></div>
+        </div>
+        <p class="chars" style="margin:2px 0 0">until publication — September 29, 2026</p>
+        <div class="meta">
+          <span>272 pages</span><span>Hardcover $30.00</span><span>Ebook</span><span>Unabridged audio</span><span>ISBN 9781668222089</span>
+        </div>
+        <div class="cta">
+          <a class="btn solid" href="https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089" target="_blank" rel="noopener">Pre-order at Simon &amp; Schuster</a>
+          <a class="btn" href="#kit">Get the launch kit ↓</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kit">
+  <div class="wrap">
+    <p class="eyebrow">Launch kit · ready to copy &amp; paste</p>
+    <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 12px">Eight posts, written in his voice</h2>
+    <p class="lede">Drafted for Bob to use as-is or edit. The rule we wrote to: sound like the man who ran the place, not a man selling a book. One tap copies a post.</p>
+
+    <div class="tabs" id="tabs">
+      <button class="chip on" data-t="x">𝕏 / Twitter · 5</button>
+      <button class="chip" data-t="li">LinkedIn · 3</button>
+      <button class="chip" data-t="idea">Campaign ideas · 3</button>
+    </div>
+
+    <div id="posts"></div>
+  </div>
+</section>
+
+<section id="advisory">
+  <div class="wrap">
+    <p class="eyebrow">Advisory fit</p>
+    <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 12px">Chapek × NinjaTech AI — a two-way trade</h2>
+    <p class="lede">An operator who scaled experiences for hundreds of millions of people, meeting a company teaching AI agents to do real work. Here's the honest exchange rate.</p>
+    <div class="two" style="margin-top:26px">
+      <div class="col">
+        <h3>What he brings to NinjaTech</h3>
+        <ul>
+          <li><b>Scaling an experience business, not just a product.</b> Disney parks are the world's largest human-throughput operation. An agent platform is the same problem in software: capacity, queues, expectation-setting, and recovery when it fails.</li>
+          <li><b>Pricing and packaging under fire.</b> He ran the most scrutinised consumer pricing on earth. Agentic AI has a pricing problem nobody has solved — per seat, per task, per outcome. His scars are worth borrowing.</li>
+          <li><b>Format transitions.</b> VHS → DVD → Blu-ray → streaming. He has personally led a business through three platform deaths. That is exactly the muscle a company betting on agents needs.</li>
+          <li><b>Licensing and partnerships.</b> He made Disney the world's biggest IP licensor. Distribution, OEM and enterprise partnerships are a rerun of that playbook.</li>
+          <li><b>Board and crisis literacy.</b> Public-company board dynamics, succession, activist pressure, communications crises — learned the hard way, which is the only way it is actually learned.</li>
+          <li><b>Brand trust.</b> Nobody protects a beloved brand from itself better than someone who has watched what happens when that trust slips.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>What NinjaTech gives him</h3>
+        <ul>
+          <li><b>A front-row seat to agentic AI — hands on, not briefings.</b> His own fleet of Ninja agents doing real work: research, launch ops, inbox, scheduling, competitive tracking.</li>
+          <li><b>A book launch partly run by agents.</b> Media monitoring, reviewer tracking, personalised outreach drafts and daily digests through September 29 — a live case study he can talk about publicly.</li>
+          <li><b>A credible second-act narrative.</b> "Thirty years at Disney, now helping build the next platform shift" is a better stage than the retired-CEO circuit, and gives the book a forward-looking frame rather than only a backward one.</li>
+          <li><b>Deal flow and relevance.</b> Silicon Valley proximity, founder network, and the AI literacy that boards are now screening directors for.</li>
+          <li><b>A team that says what it means.</b> NinjaTech's stated value is that kindness and directness are not opposites — a fair trade for an advisor who was on the wrong end of an organisation that wouldn't say things out loud.</li>
+          <li><b>Equity in the upside.</b> Advisory that compounds, not an honorarium.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0 0 6px">An independent tribute and briefing page, built by <b>Ninja</b> 🥷 — the AI employee at NinjaTech AI — ahead of a conversation with Bob Chapek. Not affiliated with or endorsed by The Walt Disney Company, Gallery Books or Simon &amp; Schuster. All facts are drawn from public reporting; quotes are attributed to their original publications.</p>
+    <p style="margin:10px 0 0">Portrait: elisfkc2 via Wikimedia Commons, CC BY-SA 2.0. Book cover: Gallery Books / Simon &amp; Schuster, shown for identification of the work.</p>
+    <div class="srcs">
+      <a href="https://en.wikipedia.org/wiki/Bob_Chapek" target="_blank" rel="noopener">Wikipedia</a>
+      <a href="https://variety.com/2026/film/news/bob-chapek-ousted-disney-ceo-memoir-behind-the-castle-walls-1236833366" target="_blank" rel="noopener">Variety</a>
+      <a href="https://deadline.com/2026/08/former-disney-ceo-bob-chapek-memoir-fall-release-date-1237032448" target="_blank" rel="noopener">Deadline</a>
+      <a href="https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089" target="_blank" rel="noopener">Simon &amp; Schuster</a>
+      <a href="https://magazine.college.indiana.edu/alumni-spotlights/bob-chapek.html" target="_blank" rel="noopener">Indiana University</a>
+      <a href="https://www.cnbc.com/2023/09/06/disney-succession-mess-iger-chapek.html" target="_blank" rel="noopener">CNBC</a>
+      <a href="https://www.hollywoodreporter.com/business/business-news/bob-chapek-new-job-medical-device-firm-masimo-1235790287" target="_blank" rel="noopener">The Hollywood Reporter</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- launch kit content ---------- */
+const POSTS = {
+  x: [
+    "Thirty years ago Disney hired me to sell videotapes.\n\nI stayed long enough to watch the tapes disappear, the parks double, and the whole business turn inside out.\n\nOn September 29, I'm telling the rest of it.\n\nBEHIND THE CASTLE WALLS 🏰",
+    "Three days into the CEO job I had to close about 80% of the company.\n\nThere's no chapter in any business book for that. So I wrote one.\n\nBehind the Castle Walls — 9.29.26",
+    "For thirty years my job was to protect the magic, which mostly meant never explaining how it's made.\n\nThat job ended in 2022.\n\nThis one starts September 29. 📕",
+    "Every family photo we have from the 1970s has a castle somewhere in the background.\n\nMy dad worked the refinery in Whiting, Indiana. We drove to Florida every year anyway.\n\nI never planned to run the place. I just never stopped showing up.",
+    "I've had four years to decide whether I was the villain, the victim, or simply the man holding the job when the music stopped.\n\nI've landed on an answer. You're welcome to disagree with it — starting September 29."
+  ],
+  li: [
+    "Why I waited four years.\n\nWhen I left Disney in November 2022 I could have written this book in ninety days. Plenty of people told me to. The story was hot, the phone was ringing, and I had a version of events I was certain about.\n\nI'm glad I didn't.\n\nDistance does something to a story. It doesn't make it softer — it makes it truer. Four years on I can see which decisions were genuinely wrong, which were right and simply arrived at the wrong moment, and which were never mine to make in the first place. A book written in 2023 would have been a defence. This one is an account.\n\nOne thing I'd offer anyone who has been pushed out of something they gave their life to: your first draft of what happened is almost never your best one. Wait for the second.\n\nBehind the Castle Walls is out September 29.",
+    "The hardest decision of my career reached me on day three.\n\nI became CEO of The Walt Disney Company on February 25, 2020. Within roughly seventy-two hours I was closing the overwhelming majority of our operating businesses — parks, cruise ships, stores, theatrical releases. Tens of thousands of people affected. No playbook, no precedent, no data set. Just a judgement call.\n\nWhat I learned that week is the most useful thing I know about leadership: in true uncertainty you cannot optimise, you can only choose a North Star and steer by it. Ours was simple — the safety of our guests and our cast members. Once that was fixed, a hundred impossible decisions became merely difficult ones.\n\nEvery leader eventually gets a week like that. What you decide in advance is the only thing you'll actually have when it arrives.\n\nI've written about that week, and the thirty years that led to it, in Behind the Castle Walls — out September 29.",
+    "A microbiology degree, a ketchup company, and a job selling videotapes.\n\nThat's the first decade of my résumé. Show it to a search firm and they'll tell you it goes nowhere near a CEO's office.\n\nI grew up in Robertsdale, Indiana, next to the refinery where my father worked. I arrived at Indiana University badly under-prepared and spent a year quietly catching up to students who'd had better schools. I studied microbiology because I assumed I'd end up in a lab. I ended up in brand management at H.J. Heinz, then in advertising, then in 1993 at a Disney division that sold films on cassette — an industry that no longer exists.\n\nNone of it was a plan. All of it was preparation. The science taught me to test rather than assert. Packaged goods taught me that the consumer is not a theory. Home video taught me that every format you love will eventually die, and your job is to be ready before it does.\n\nIf you're early in your career and your path looks illegible: good. Legible paths are also the easiest to replace.\n\nBehind the Castle Walls — thirty years of it — is out September 29."
+  ],
+  idea: [
+    "🎢 \"One chapter, one queue.\"\nRelease the opening chapter as free audio, cut to roughly the length of a classic attraction's standby line, and invite readers to listen while they wait in one. Affectionate, shareable, and it earns fan goodwill instead of demanding it — fans will post their own queue-listening clips and the campaign runs itself.",
+    "🎟️ \"A Fastpass to the truth.\"\nOne landing page, a countdown, and a real fastpass-style ticket readers can claim by email for a launch-day excerpt. Nostalgic, quietly self-aware about the FastPass decision he's most criticised for, and it converts curiosity into an owned audience before September 29.",
+    "🎙️ Book the operators, not only the entertainment press.\nEveryone will pitch him to Disney podcasts, where the audience has already reached a verdict. The bigger win is business and leadership shows — crisis leadership, succession, taking over from a founder-figure. Same book, an audience with no prior verdict, and it positions him as an operator with a story rather than a defendant with a rebuttal."
+  ]
+};
+
+const wrapEl = document.getElementById('posts');
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function render(kind){
+  wrapEl.innerHTML = POSTS[kind].map((t,i)=>{
+    const isIdea = kind === 'idea';
+    const chars = isIdea ? '' : '<span class="chars">' + t.length + ' characters</span>';
+    const btn = isIdea ? '' : '<button class="copy" data-i="' + i + '" data-k="' + kind + '">Copy</button>';
+    return '<div class="post"><p class="txt">' + esc(t) + '</p><div class="row">' + btn + chars + '</div></div>';
+  }).join('');
+}
+render('x');
+
+document.getElementById('tabs').addEventListener('click', function(e){
+  const b = e.target.closest('.chip'); if(!b) return;
+  document.querySelectorAll('#tabs .chip').forEach(c=>c.classList.remove('on'));
+  b.classList.add('on'); render(b.dataset.t);
+});
+
+wrapEl.addEventListener('click', async function(e){
+  const b = e.target.closest('.copy'); if(!b) return;
+  const text = POSTS[b.dataset.k][+b.dataset.i];
+  try { await navigator.clipboard.writeText(text); }
+  catch(_) {
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');ta.remove();
+  }
+  b.textContent='Copied ✓'; b.classList.add('done');
+  setTimeout(function(){b.textContent='Copy';b.classList.remove('done');},1800);
+});
+
+/* ---------- timeline filters ---------- */
+document.getElementById('filters').addEventListener('click', function(e){
+  const b = e.target.closest('.chip'); if(!b) return;
+  document.querySelectorAll('#filters .chip').forEach(c=>c.classList.remove('on'));
+  b.classList.add('on');
+  const f = b.dataset.f;
+  document.querySelectorAll('#timeline .ev').forEach(function(ev){
+    ev.classList.toggle('hide', f!=='all' && ev.dataset.c!==f);
+  });
+});
+
+/* ---------- countdown ---------- */
+const TARGET = new Date('2026-09-29T00:00:00-04:00').getTime();
+function tick(){
+  let diff = TARGET - Date.now();
+  if(diff < 0) diff = 0;
+  const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5),
+        m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+  document.getElementById('d').textContent=d;
+  document.getElementById('h').textContent=String(h).padStart(2,'0');
+  document.getElementById('m').textContent=String(m).padStart(2,'0');
+  document.getElementById('s').textContent=String(s).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+
+/* ---------- reveal on scroll ---------- */
+const io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.ev,.card').forEach(function(el,i){
+  el.style.transitionDelay = (i%6)*45 + 'ms';
+  io.observe(el);
+});
+
+/* ---------- count-up stats ---------- */
+const cio = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    const el=e.target, end=+el.dataset.count, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+    let start=null;
+    const step=function(t){
+      if(!start) start=t;
+      const p=Math.min((t-start)/900,1);
+      el.textContent = pre + Math.round(end*(1-Math.pow(1-p,3))) + suf;
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step); cio.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+/* ---------- nav highlight ---------- */
+const secs=[].slice.call(document.querySelectorAll('section[id]'));
+const links=[].slice.call(document.querySelectorAll('.nav-links a'));
+addEventListener('scroll',function(){
+  const y=scrollY+120; let cur=null;
+  secs.forEach(function(s){ if(s.offsetTop<=y) cur=s.id; });
+  links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+cur); });
+},{passive:true});
+
+/* ---------- starfield ---------- */
+(function(){
+  const c=document.getElementById('stars'), x=c.getContext('2d');
+  let w,h,stars=[];
+  function init(){
+    w=c.width=innerWidth; h=c.height=innerHeight;
+    const n=Math.min(120, Math.round(innerWidth/12));
+    stars=Array.from({length:n},function(){return {
+      x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.3+.2,
+      a:Math.random(), s:Math.random()*.012+.003
+    };});
+  }
+  function draw(){
+    x.clearRect(0,0,w,h);
+    for(const st of stars){
+      st.a += st.s; const o = .25 + Math.abs(Math.sin(st.a))*.55;
+      x.beginPath(); x.arc(st.x,st.y,st.r,0,6.283);
+      x.fillStyle='rgba(240,220,180,'+o+')'; x.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize',init,{passive:true});
+  init();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) draw();
+})();
+</script>
+</body>
+</html>
