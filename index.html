@@ -191,21 +191,36 @@
   .meta span{font-size:.76rem;color:var(--mist);border:1px solid rgba(255,255,255,.1);padding:5px 11px;border-radius:999px}
 
   /* ---------- retailer rows ---------- */
-  .buy-group{margin-top:30px}
+  /* Three bins the reader shops by, not five format headings, and the publisher
+     gets one wide primary card instead of a heading that costs more vertical
+     space than the single link under it. */
+  .buy-primary{margin-top:26px}
+  .buy-group{margin-top:24px}
   .buy-group h3{
     font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
-    margin:0 0 12px;font-family:Inter,sans-serif;font-weight:600
+    margin:0 0 10px;font-family:Inter,sans-serif;font-weight:600
   }
-  .retailers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  /* A flex row that grows its items, not a fixed-column grid: a group whose
+     count does not divide evenly (7 links, say) fills its last row edge to edge
+     instead of leaving one lonely card on its own line. */
+  .retailers{display:flex;flex-wrap:wrap;gap:10px}
   .ret{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    flex:1 1 240px;display:flex;align-items:center;gap:12px;min-height:58px;padding:9px 14px;
     text-decoration:none;color:var(--paper);border:1px solid rgba(255,255,255,.1);
-    border-radius:14px;padding:15px 17px;background:rgba(255,255,255,.035);transition:.25s
+    border-radius:12px;background:rgba(255,255,255,.035);transition:.2s
   }
-  .ret:hover{border-color:var(--gold);background:rgba(217,177,105,.1);transform:translateY(-2px)}
-  .ret b{font-weight:500;font-size:.95rem}
-  .ret small{display:block;color:rgba(246,244,238,.5);font-size:.72rem;letter-spacing:.06em}
-  .ret .arw{color:var(--gold)}
+  .ret:hover{border-color:var(--gold);background:rgba(217,177,105,.1)}
+  .ret img{width:34px;height:34px;flex:0 0 34px;display:block}
+  .ret span{min-width:0}
+  .ret b{display:block;font-weight:500;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ret small{display:block;color:rgba(246,244,238,.5);font-size:.72rem;letter-spacing:.04em}
+  .ret.primary{
+    min-height:70px;padding:12px 18px;border-color:rgba(217,177,105,.55);
+    background:linear-gradient(180deg,rgba(217,177,105,.13),rgba(217,177,105,.04))
+  }
+  .ret.primary img{width:46px;height:46px;flex-basis:46px}
+  .ret.primary b{font-size:1.02rem}
+  .ret.primary::after{content:"\2192";margin-left:auto;color:var(--gold);font-size:1.1rem}
 
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
   .stat{
@@ -283,7 +298,8 @@
     .hero h1{font-size:clamp(2.1rem,9vw,3rem)}
     .stats{grid-template-columns:repeat(2,1fr)}
     .g2{grid-template-columns:1fr}
-    .retailers{grid-template-columns:1fr 1fr}
+    .ret{flex-basis:calc(50% - 8px)}
+    .ret img{width:30px;height:30px;flex-basis:30px}
     .gallery{grid-template-columns:1fr}
     section{padding:54px 0}
     .eyebrow{font-size:.78rem}
@@ -294,8 +310,28 @@
     .panel a[href^="mailto"]{display:inline-flex;align-items:center;min-height:44px}
     .srcs a{min-height:44px;padding:0 14px;display:inline-flex;align-items:center;font-size:.8rem}
   }
+  /* Phones: two compact pills per row so the whole section fits in about a
+     screen, with the seller icon carrying the recognition the label alone
+     cannot at this size. */
   @media(max-width:560px){
-    .retailers{grid-template-columns:1fr}
+    .buy-primary{margin-top:20px}
+    .buy-group{margin-top:18px}
+    .buy-group h3{margin-bottom:8px}
+    .ret{flex-basis:calc(50% - 8px);min-height:50px;padding:8px 12px;gap:10px}
+    .ret img{width:26px;height:26px;flex-basis:26px}
+    .ret.primary{min-height:58px;padding:10px 14px}
+    .ret.primary img{width:36px;height:36px;flex-basis:36px}
+    /* Recognition comes from the icon at this size, so drop the subtitles. A
+       nowrap label cannot shrink past its text, which pushes two-column rows
+       back to one, so let a longer name wrap instead of truncating it. */
+    .ret small{display:none}
+    .ret b{white-space:normal;line-height:1.2;font-size:.86rem}
+  }
+  /* Very narrow phones (Galaxy Fold, 280px): icons alone get ambiguous and two
+     columns get cramped, so fall back to one full-width pill per row. */
+  @media(max-width:340px){
+    .ret{flex-basis:100%}
+    .ret b{white-space:normal;overflow:visible;text-overflow:clip}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -390,55 +426,46 @@
   <div class="wrap">
     <p class="eyebrow">Preorder</p>
     <h2>Where to buy</h2>
-    <p class="lede">Every link below is a product page for <em>Behind the Castle Walls</em>, checked in a browser on September 19, 2026. The editions are grouped by format below, with the UK sellers at the end.</p>
+    <p class="lede">Every link below is a product page for <em>Behind the Castle Walls</em>, checked in a browser on September 19, 2026. Editions are grouped by where you shop, with the publisher first.</p>
+
+    <div class="buy-primary">
+      <a class="ret primary" href="https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/simon-schuster.png" alt="" width="46" height="46" loading="lazy"><span><b>Simon &amp; Schuster</b><small>Gallery Books, all editions</small></span></a>
+    </div>
 
     <div class="buy-group">
-      <h3>Publisher, all formats</h3>
+      <h3>United States</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089" target="_blank" rel="noopener"><span><b>Simon &amp; Schuster</b><small>Gallery Books, all editions</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="ret" href="https://www.amazon.com/dp/1668222086" target="_blank" rel="noopener"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.barnesandnoble.com/w/behind-the-castle-walls-bob-chapek/1151060503" target="_blank" rel="noopener"><img src="assets/retailers/barnes-noble.png" alt="" width="34" height="34" loading="lazy"><span><b>Barnes &amp; Noble</b><small>Print and ebook</small></span></a>
+        <a class="ret" href="https://www.target.com/p/untitled-bc-by-to-be-confirmed-gallery-hardcover/-/A-1010684183" target="_blank" rel="noopener"><img src="assets/retailers/target.png" alt="" width="34" height="34" loading="lazy"><span><b>Target</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.walmart.com/ip/Untitled-BC-Hardcover-9781668222089/19654602041" target="_blank" rel="noopener"><img src="assets/retailers/walmart.png" alt="" width="34" height="34" loading="lazy"><span><b>Walmart</b><small>Hardcover</small></span></a>
       </div>
     </div>
 
     <div class="buy-group">
-      <h3>United States: print and ebook</h3>
+      <h3>Digital and audio</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.amazon.com/dp/1668222086" target="_blank" rel="noopener"><span><b>Amazon</b><small>Hardcover</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.barnesandnoble.com/w/behind-the-castle-walls-bob-chapek/1151060503" target="_blank" rel="noopener"><span><b>Barnes &amp; Noble</b><small>Print and ebook</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.target.com/p/untitled-bc-by-to-be-confirmed-gallery-hardcover/-/A-1010684183" target="_blank" rel="noopener"><span><b>Target</b><small>Hardcover</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.walmart.com/ip/Untitled-BC-Hardcover-9781668222089/19654602041" target="_blank" rel="noopener"><span><b>Walmart</b><small>Hardcover</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="ret" href="https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ" target="_blank" rel="noopener"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Kindle</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://books.apple.com/us/book/behind-the-castle-walls/id6759482608" target="_blank" rel="noopener"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://play.google.com/store/books/details/Bob_Chapek_Behind_the_Castle_Walls?id=9vvDEQAAQBAJ" target="_blank" rel="noopener"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://www.kobo.com/us/en/ebook/behind-the-castle-walls-1" target="_blank" rel="noopener"><img src="assets/retailers/kobo.png" alt="" width="34" height="34" loading="lazy"><span><b>Kobo</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z" target="_blank" rel="noopener"><img src="assets/retailers/audible.png" alt="" width="34" height="34" loading="lazy"><span><b>Audible</b><small>Audiobook, US</small></span></a>
+        <a class="ret" href="https://books.apple.com/us/audiobook/behind-the-castle-walls-unabridged/id1878909192" target="_blank" rel="noopener"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Audiobook</small></span></a>
+        <a class="ret" href="https://play.google.com/store/audiobooks/details/Behind_the_Castle_Walls_My_Thirty_Years_at_the_Hap?id=AQAAAED6i3HLmM" target="_blank" rel="noopener"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Audiobook</small></span></a>
       </div>
     </div>
 
     <div class="buy-group">
-      <h3>Digital editions</h3>
+      <h3>International</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ" target="_blank" rel="noopener"><span><b>Amazon Kindle</b><small>Ebook</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://books.apple.com/us/book/behind-the-castle-walls/id6759482608" target="_blank" rel="noopener"><span><b>Apple Books</b><small>Ebook</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://play.google.com/store/books/details/Bob_Chapek_Behind_the_Castle_Walls?id=9vvDEQAAQBAJ" target="_blank" rel="noopener"><span><b>Google Play Books</b><small>Ebook</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.kobo.com/us/en/ebook/behind-the-castle-walls-1" target="_blank" rel="noopener"><span><b>Kobo</b><small>Ebook (US)</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="ret" href="https://www.amazon.co.uk/dp/1668222086" target="_blank" rel="noopener"><img src="assets/retailers/amazon-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon UK</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.waterstones.com/book/behind-the-castle-walls/bob-chapek/don-yaeger/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/waterstones.png" alt="" width="34" height="34" loading="lazy"><span><b>Waterstones</b><small>UK print</small></span></a>
+        <a class="ret" href="https://www.foyles.co.uk/book/behind-the-castle-walls/bob-chapek/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/foyles-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Foyles</b><small>UK print</small></span></a>
+        <a class="ret" href="https://uk.bookshop.org/p/books/untitled-bc-to-be-confirmed-gallery/f9ef3dbf036c1573" target="_blank" rel="noopener"><img src="assets/retailers/bookshop.png" alt="" width="34" height="34" loading="lazy"><span><b>Bookshop.org UK</b><small>Supports local shops</small></span></a>
       </div>
     </div>
 
-    <div class="buy-group">
-      <h3>Audiobooks</h3>
-      <div class="retailers">
-        <a class="ret" href="https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z" target="_blank" rel="noopener"><span><b>Audible</b><small>Unabridged audio, US</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://books.apple.com/us/audiobook/behind-the-castle-walls-unabridged/id1878909192" target="_blank" rel="noopener"><span><b>Apple Books</b><small>Audiobook, unabridged</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://play.google.com/store/audiobooks/details/Behind_the_Castle_Walls_My_Thirty_Years_at_the_Hap?id=AQAAAED6i3HLmM" target="_blank" rel="noopener"><span><b>Google Play</b><small>Audiobook</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-      </div>
-    </div>
-
-    <div class="buy-group">
-      <h3>United Kingdom</h3>
-      <div class="retailers">
-        <a class="ret" href="https://www.amazon.co.uk/dp/1668222086" target="_blank" rel="noopener"><span><b>Amazon UK</b><small>Hardcover</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.waterstones.com/book/behind-the-castle-walls/bob-chapek/don-yaeger/9781668222089" target="_blank" rel="noopener"><span><b>Waterstones</b><small>UK print</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://www.foyles.co.uk/book/behind-the-castle-walls/bob-chapek/9781668222089" target="_blank" rel="noopener"><span><b>Foyles</b><small>UK print</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-        <a class="ret" href="https://uk.bookshop.org/p/books/untitled-bc-to-be-confirmed-gallery/f9ef3dbf036c1573" target="_blank" rel="noopener"><span><b>Bookshop.org UK</b><small>Supports local shops</small></span><span class="arw" aria-hidden="true">&rarr;</span></a>
-      </div>
-    </div>
-
-    <p class="note" style="margin-top:22px">Bookshop.org and Audible have no United States product page for this title yet, so neither is shown as a US buy link here rather than passed off as one.</p>
+    <p class="note" style="margin-top:20px">Bookshop.org has no United States product page for this title yet, so it appears here only as a UK seller rather than passed off as a US one.</p>
   </div>
 </section>
 
