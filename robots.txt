@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://bobchapekbook.com/sitemap.xml
+Sitemap: https://bob-chapek.com/sitemap.xml
