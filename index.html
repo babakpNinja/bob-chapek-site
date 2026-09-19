@@ -230,6 +230,26 @@
   .card p{margin:0;color:var(--mist);font-size:.92rem}
   .card .ic{display:block;margin-bottom:12px;font:600 .78rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:var(--gold)}
 
+  /* ---------- trailer ---------- */
+  /* Fluid 16:9 box: the video can never be wider than its column, so it cannot
+     cause horizontal overflow on the narrowest phones. */
+  /* figure carries a default 1em 40px margin; reset it or the box overflows the
+     column at 390px (the gallery figures already reset theirs). */
+  .trailer{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);background:#05070f;margin:26px 0 0}
+  .trailer video{width:100%;height:100%;display:block;object-fit:cover}
+  .trailer figcaption{margin-top:12px;font-size:.8rem;color:rgba(246,244,238,.55)}
+  .trailer figcaption a{color:var(--gold-soft)}
+  .trailer .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  details.transcript{margin-top:14px;border:1px solid rgba(255,255,255,.09);border-radius:12px;
+    background:rgba(255,255,255,.03);padding:6px 16px}
+  details.transcript summary{cursor:pointer;padding:10px 0;font-size:.85rem;color:var(--gold-soft);list-style:none}
+  details.transcript summary::-webkit-details-marker{display:none}
+  details.transcript summary::before{content:"\25B8  ";color:var(--gold)}
+  details.transcript[open] summary::before{content:"\25BE  "}
+  details.transcript p{color:var(--mist);font-size:.9rem;margin:2px 0 14px;line-height:1.6}
+
   /* ---------- panels / press ---------- */
   .panel{border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px;background:rgba(255,255,255,.035)}
   .note{font-size:.86rem;color:rgba(246,244,238,.55)}
@@ -238,7 +258,10 @@
   .gallery figure{margin:0}
   .gallery img{width:100%;height:auto;border-radius:14px;display:block}
   .credit{font-size:.72rem;color:rgba(246,244,238,.45);margin-top:8px;line-height:1.45}
-  .credit a{color:rgba(246,244,238,.62)}
+  /* the two photo-credit links measured 15px tall, well under the 44px target,
+     while every other link on the page already met it. Inline padding keeps the
+     caption's visual rhythm while giving the tap target the height it needs. */
+  .credit a{color:rgba(246,244,238,.62);display:inline-block;padding:14px 2px;margin:-14px 0}
 
   footer{border-top:1px solid rgba(255,255,255,.08);padding:44px 0 64px;color:rgba(246,244,238,.52);font-size:.82rem}
   footer a{color:rgba(246,244,238,.74)}
@@ -335,6 +358,22 @@
     <p class="eyebrow">The book</p>
     <h2>A memoir four years in the making</h2>
     <p class="lede">Within weeks of taking the top job, a pandemic closed the parks and the cruise ships. Two years later he was out and his predecessor was back in the chair. This is his account of both, written with New York Times bestselling co-author Don Yaeger.</p>
+
+    <figure class="trailer" id="trailer">
+      <video controls preload="metadata" poster="assets/trailer-poster.jpg" playsinline
+             width="1280" height="720" title="Claymation trailer for Behind the Castle Walls">
+        <source src="assets/trailer.mp4" type="video/mp4">
+        Your browser cannot play this video. The book is <em>Behind the Castle Walls</em> by
+        Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
+      </video>
+      <span class="sr" id="trailer-desc">A 60-second claymation singalong trailer for the book, made with NinjaTech.ai.</span>
+    </figure>
+    <p class="note" aria-hidden="false">A 60-second claymation singalong trailer for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <details class="transcript">
+      <summary>Trailer transcript</summary>
+      <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
+      Order your copy today at bob-chapek.com. Powered by NinjaTech.ai.</p>
+    </details>
 
     <div class="grid g2" style="margin-top:30px">
       <div class="card"><span class="ic">THE STORY</span><h3>Ambition, power and the price of Disney magic</h3><p>The publisher's description: a revealing account of the executive who ran The Walt Disney Company through its hardest years, and of the succession that ended in 2022. The book opens in a refinery town in Indiana and closes on the weekend the board made its call.</p></div>
@@ -552,8 +591,17 @@ addEventListener('scroll',function(){
   const c=document.getElementById('stars'), x=c.getContext('2d');
   let w,h,stars=[];
   function init(){
-    w=c.width=innerWidth; h=c.height=innerHeight;
-    const n=Math.min(120, Math.round(innerWidth/12));
+    // The backing store must match the CSS viewport times the device pixel
+    // ratio. Sized to innerWidth alone, the canvas measured 290px against a
+    // 280px viewport (the one element wider than the screen in a full sweep
+    // across six phone widths), and it went blurry on retina. Cap the DPR so a
+    // 3x phone does not pay for triple the pixels of a starfield nobody focuses.
+    const dpr=Math.min(devicePixelRatio||1,2);
+    w=innerWidth; h=innerHeight;
+    c.width=Math.round(w*dpr); c.height=Math.round(h*dpr);
+    c.style.width=w+'px'; c.style.height=h+'px';
+    x.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.min(120, Math.round(w/12));
     stars=Array.from({length:n},function(){return {
       x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.3+.2,
       a:Math.random(), s:Math.random()*.012+.003
@@ -569,6 +617,9 @@ addEventListener('scroll',function(){
     requestAnimationFrame(draw);
   }
   addEventListener('resize',init,{passive:true});
+  // rotation fires with stale innerWidth/innerHeight on some phones; re-measure
+  // a beat later so the canvas is never left at the pre-rotation width.
+  addEventListener('orientationchange',function(){ setTimeout(init,120); },{passive:true});
   init();
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) draw();
 })();
