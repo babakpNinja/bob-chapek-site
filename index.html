@@ -263,6 +263,13 @@
   details.transcript summary::-webkit-details-marker{display:none}
   details.transcript summary::before{content:"\25B8  ";color:var(--gold)}
   details.transcript[open] summary::before{content:"\25BE  "}
+  /* Three cuts, one player: the buttons swap the <source> and the poster. */
+  .cut-switch{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+  .cut-switch button{flex:0 1 auto;min-height:44px;padding:9px 16px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);
+    color:var(--paper);font:inherit;font-size:.86rem;cursor:pointer}
+  .cut-switch button[aria-pressed="true"]{border-color:var(--gold);color:#0b1020;
+    background:var(--gold);font-weight:600}
   details.transcript p{color:var(--mist);font-size:.9rem;margin:2px 0 14px;line-height:1.6}
 
   /* ---------- panels / press ---------- */
@@ -396,19 +403,27 @@
     <p class="lede">Within weeks of taking the top job, a pandemic closed the parks and the cruise ships. Two years later he was out and his predecessor was back in the chair. This is his account of both, written with New York Times bestselling co-author Don Yaeger.</p>
 
     <figure class="trailer" id="trailer">
-      <video controls preload="metadata" poster="assets/trailer-poster.jpg" playsinline
+      <video id="trailer-video" controls preload="metadata" poster="assets/trailer-poster.jpg" playsinline
              width="1280" height="720" title="Claymation trailer for Behind the Castle Walls">
-        <source src="assets/trailer.mp4" type="video/mp4">
+        <source id="trailer-source" src="assets/trailer.mp4" type="video/mp4">
         Your browser cannot play this video. The book is <em>Behind the Castle Walls</em> by
         Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
       </video>
-      <span class="sr" id="trailer-desc">A 60-second claymation singalong trailer for the book, made with NinjaTech.ai.</span>
+      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in three cuts, made with NinjaTech.ai.</span>
     </figure>
-    <p class="note" aria-hidden="false">A 60-second claymation singalong trailer for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <div class="cut-switch" role="group" aria-label="Choose a trailer cut">
+      <button type="button" data-cut="assets/trailer.mp4"
+              data-poster="assets/trailer-poster.jpg" aria-pressed="true">The singalong (60s)</button>
+      <button type="button" data-cut="assets/trailer-playful.mp4"
+              data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful cut (60s)</button>
+      <button type="button" data-cut="assets/trailer-corporate.mp4"
+              data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation (60s)</button>
+    </div>
+    <p class="note" aria-hidden="false">Three 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
     <details class="transcript">
       <summary>Trailer transcript</summary>
       <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
-      Order your copy today at bob-chapek.com. Powered by NinjaTech.ai.</p>
+      Order your copy today at bob-chapek.com. Created by NinjaTech.AI.</p>
     </details>
 
     <div class="grid g2" style="margin-top:30px">
@@ -554,6 +569,25 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* ---------- trailer cut switch ----------
+   One <video> element, so only the chosen cut can ever be playing. Swapping the
+   source and calling load() resets the player to the new poster and start. */
+document.querySelectorAll('.cut-switch button').forEach(function(b){
+  b.addEventListener('click', function(){
+    const v = document.getElementById('trailer-video');
+    if (!v) return;
+    const s = document.getElementById('trailer-source');
+    s.setAttribute('src', b.dataset.cut);
+    v.setAttribute('poster', b.dataset.poster);
+    v.load();
+    document.querySelectorAll('.cut-switch button').forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+  });
+});
+</script>
 
 <script>
 /* ---------- reveal on scroll ---------- */
