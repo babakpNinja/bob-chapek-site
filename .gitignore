@@ -1,0 +1,5 @@
+# Video masters are NOT stored in git. They live as assets on the `media-v1`
+# GitHub release and are fetched into the image at build time by the Dockerfile,
+# verified against media.sha256. Keeping the deploy repo at zero mp4 is what the
+# client asked for; the player still works because the build puts them back.
+assets/*.mp4
