@@ -354,11 +354,41 @@
   .ninja-credit .mark img{height:26px;width:26px;display:block}
   .ninja-credit span{font-size:.76rem;color:var(--mist);letter-spacing:.04em}
 
+  /* ---------- About Bob: exec summary strip ---------- */
+  /* Six fields, not a bio. Text badges, no third-party logos: the Disney and
+     Indiana University marks are registered trademarks and are not cleared
+     here, so they ship as words. The only logo is the Ninja mark, which is
+     ours, kept transparent and legible on a light plate (see the credit). */
+  .about-bob{
+    margin-top:30px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));padding:22px 22px 20px
+  }
+  .about-bob h3{margin:0 0 4px;font-size:1.05rem}
+  .about-bob .about-note{margin:0 0 16px;font-size:.82rem;color:var(--mist)}
+  .about-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .ab-badge{
+    display:flex;align-items:center;gap:10px;min-height:52px;padding:9px 13px;
+    border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.035)
+  }
+  .ab-badge .k{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);display:block}
+  .ab-badge .v{font-size:.86rem;color:var(--paper);display:block;line-height:1.3}
+  .ab-badge .mk{
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+    width:30px;height:30px;border-radius:50%;background:var(--paper)
+  }
+  .ab-badge .mk img{height:20px;width:20px;display:block}
+  .about-link{
+    display:inline-flex;align-items:center;gap:8px;margin-top:16px;min-height:44px;
+    font-size:.86rem;color:var(--gold-soft);text-decoration:none
+  }
+  .about-link:hover{color:var(--gold)}
+
   @media(max-width:980px){
     .hero-grid{grid-template-columns:1fr;gap:32px}
     .cover{max-width:250px;order:-1}
     .hero h1{font-size:clamp(2.1rem,9vw,3rem)}
     .stats{grid-template-columns:repeat(2,1fr)}
+    .about-badges{grid-template-columns:repeat(2,1fr)}
     .g2{grid-template-columns:1fr}
     .ret{flex-basis:calc(50% - 8px)}
     .ret img{width:30px;height:30px;flex-basis:30px}
@@ -453,6 +483,23 @@
       <div class="meta">
         <span>Hardcover $30.00</span><span>272 pages</span><span>Gallery Books</span><span>With Don Yaeger</span><span>ISBN 9781668222089</span>
       </div>
+
+      <div class="about-bob">
+        <h3>About Bob</h3>
+        <p class="about-note">A quick read on who he is and what he ran.</p>
+        <div class="about-badges">
+          <div class="ab-badge"><span><span class="k">Former CEO</span><span class="v">The Walt Disney Company</span></span></div>
+          <div class="ab-badge"><span><span class="k">Tenure</span><span class="v">29 years at Disney</span></span></div>
+          <div class="ab-badge">
+            <span class="mk"><img src="assets/nta-logo-art-transparent.png" alt=""></span>
+            <span><span class="k">Advisor</span><span class="v">Ninja AI</span></span>
+          </div>
+          <div class="ab-badge"><span><span class="k">Author</span><span class="v">Behind the Castle Walls</span></span></div>
+          <div class="ab-badge"><span><span class="k">Alma mater</span><span class="v">Indiana University Bloomington</span></span></div>
+          <div class="ab-badge"><span><span class="k">Also</span><span class="v">Chairman, Disney Parks</span></span></div>
+        </div>
+        <a class="about-link" href="#career">See the full career record <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
     <figure class="cover">
       <img src="assets/book-cover.jpg" alt="Cover of Behind the Castle Walls by Bob Chapek, Gallery Books" width="265" height="400" loading="eager">
@@ -461,7 +508,7 @@
   <div class="wrap">
     <div class="stats">
       <div class="stat"><span class="num" data-count="272">0</span><span class="lbl">Pages, out September 29, 2026</span></div>
-      <div class="stat"><span class="num" data-count="30">0</span><span class="lbl">Years inside Disney that the book covers</span></div>
+      <div class="stat"><span class="num" data-count="29">0</span><span class="lbl">Years inside Disney that the book covers</span></div>
       <div class="stat"><span class="num" data-count="3">0</span><span class="lbl">Formats at launch: print, ebook, audio</span></div>
       <div class="stat"><span class="num" data-count="1">0</span><span class="lbl">Account, told from the room where it happened</span></div>
     </div>
