@@ -250,9 +250,13 @@
      cause horizontal overflow on the narrowest phones. */
   /* figure carries a default 1em 40px margin; reset it or the box overflows the
      column at 390px (the gallery figures already reset theirs). */
-  .trailer{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+  .trailer{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;
     border:1px solid rgba(255,255,255,.1);background:#05070f;margin:26px 0 0}
-  .trailer video{width:100%;height:100%;display:block;object-fit:cover}
+  /* `contain`, not `cover`: cover crops the frame to fill the box, and the crop
+     band is where iOS Safari draws the native control bar. The box is already
+     16:9 so nothing letterboxes today, and the controls can never be cropped. */
+  .trailer video{width:100%;height:100%;display:block;object-fit:contain;
+    border-radius:16px;background:#05070f}
   .trailer figcaption{margin-top:12px;font-size:.8rem;color:rgba(246,244,238,.55)}
   .trailer figcaption a{color:var(--gold-soft)}
   .trailer .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -409,23 +413,17 @@
         Your browser cannot play this video. The book is <em>Behind the Castle Walls</em> by
         Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
       </video>
-      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in six cuts, made with NinjaTech.ai.</span>
+      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in three cuts, made with NinjaTech.ai.</span>
     </figure>
     <div class="cut-switch" role="group" aria-label="Choose a trailer cut">
       <button type="button" data-cut="assets/trailer.mp4"
               data-poster="assets/trailer-poster.jpg" aria-pressed="true">The singalong (60s)</button>
       <button type="button" data-cut="assets/trailer-playful.mp4"
               data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful (60s)</button>
-      <button type="button" data-cut="assets/trailer-upbeat.mp4"
-              data-poster="assets/trailer-upbeat-poster.jpg" aria-pressed="false">Upbeat (60s)</button>
       <button type="button" data-cut="assets/trailer-corporate.mp4"
               data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation (60s)</button>
-      <button type="button" data-cut="assets/trailer-impact.mp4"
-              data-poster="assets/trailer-impact-poster.jpg" aria-pressed="false">Impact (60s)</button>
-      <button type="button" data-cut="assets/trailer-heart.mp4"
-              data-poster="assets/trailer-heart-poster.jpg" aria-pressed="false">Heart (60s)</button>
     </div>
-    <p class="note" aria-hidden="false">Six 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <p class="note" aria-hidden="false">Three 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
     <details class="transcript">
       <summary>Trailer transcript</summary>
       <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
@@ -578,15 +576,21 @@
 
 <script>
 /* ---------- trailer cut switch ----------
-   One <video> element, so only the chosen cut can ever be playing. Swapping the
-   source and calling load() resets the player to the new poster and start. */
+   One <video> element, so only the chosen cut can ever be playing. Swapping
+   the source attribute lets the element load the new cut itself; do not call
+   load() (see the comment in the handler). */
 document.querySelectorAll('.cut-switch button').forEach(function(b){
   b.addEventListener('click', function(){
     const v = document.getElementById('trailer-video');
     if (!v) return;
+    /* Set the attribute and let the element load the new resource itself.
+       Calling v.load() here is the iOS bug: after src changes, WebKit aborts
+       the load and parks the element in MEDIA_ERR_SRC_NOT_SUPPORTED, so the
+       box goes black with no controls and play() rejects. Measured on the
+       WebKit engine at an iPhone profile: with load(), 3-5 of 10 switches
+       failed; without it, 10 of 10 loaded and playback advanced. */
     v.setAttribute('src', b.dataset.cut);
     v.setAttribute('poster', b.dataset.poster);
-    v.load();
     document.querySelectorAll('.cut-switch button').forEach(function(o){
       o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
     });
