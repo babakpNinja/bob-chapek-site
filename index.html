@@ -190,6 +190,28 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
   .meta span{font-size:.76rem;color:var(--mist);border:1px solid rgba(255,255,255,.1);padding:5px 11px;border-radius:999px}
 
+  /* ---------- release countdown + reminder ---------- */
+  /* A minute hand, not a second hand: nobody reads the seconds on a page they
+     visit once, and a per-second repaint is a per-second repaint on a phone.
+     The numbers are tabular so they do not jitter as the minutes change. */
+  .countdown{
+    margin-top:26px;max-width:560px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
+    padding:18px 20px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
+  }
+  .countdown .eyebrow{margin:0 0 12px}
+  .cd-row{display:flex;gap:26px}
+  .cd-row b{
+    display:block;font-family:Fraunces,serif;font-size:clamp(1.55rem,5vw,2.2rem);
+    color:var(--gold);line-height:1;font-variant-numeric:tabular-nums
+  }
+  .cd-row span{display:block;margin-top:8px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+  .cd-row .out b{font-size:clamp(1.1rem,3.4vw,1.4rem)}
+  .remind{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .remind .btn{padding:11px 18px;font-size:.86rem}
+  .remind .btn[disabled]{opacity:.55;cursor:default;transform:none}
+  .remind-note{margin:11px 0 0;font-size:.78rem;color:var(--mist);max-width:52ch}
+  .remind-note[hidden]{display:none}
+
   /* ---------- retailer rows ---------- */
   /* Three bins the reader shops by, not five format headings, and the publisher
      gets one wide primary card instead of a heading that costs more vertical
@@ -382,6 +404,21 @@
         <a class="btn solid" href="#buy">Preorder the book</a>
         <a class="btn" href="#inside">What's inside</a>
       </div>
+
+      <div class="countdown" id="countdown">
+        <p class="eyebrow" id="cdLabel">Out September 29, 2026</p>
+        <div class="cd-row" id="cdRow" role="timer" aria-live="off"
+             aria-label="Days, hours and minutes until the book is out">
+          <div><b data-cd="d">&mdash;</b><span>Days</span></div>
+          <div><b data-cd="h">&mdash;</b><span>Hours</span></div>
+          <div><b data-cd="m">&mdash;</b><span>Minutes</span></div>
+        </div>
+        <div class="remind">
+          <a class="btn" id="calBtn" href="reminder.ics" download>Add to calendar</a>
+          <button class="btn" type="button" id="remindBtn">Remind me</button>
+        </div>
+        <p class="remind-note" id="remindNote" hidden></p>
+      </div>
       <div class="meta">
         <span>Hardcover $30.00</span><span>272 pages</span><span>Gallery Books</span><span>With Don Yaeger</span><span>ISBN 9781668222089</span>
       </div>
@@ -465,41 +502,42 @@
     <p class="eyebrow">Preorder</p>
     <h2>Where to buy</h2>
     <p class="lede">Every link below is a product page for <em>Behind the Castle Walls</em>, checked in a browser on September 19, 2026. Editions are grouped by where you shop, with the publisher first.</p>
+    <p class="remind-note" id="buyNote" hidden></p>
 
     <div class="buy-primary">
       <a class="ret primary" href="https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/simon-schuster.png" alt="" width="46" height="46" loading="lazy"><span><b>Simon &amp; Schuster</b><small>Gallery Books, all editions</small></span></a>
     </div>
 
-    <div class="buy-group">
+    <div class="buy-group" data-region="us">
       <h3>United States</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.amazon.com/dp/1668222086" target="_blank" rel="noopener"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon</b><small>Hardcover</small></span></a>
-        <a class="ret" href="https://www.barnesandnoble.com/w/behind-the-castle-walls-bob-chapek/1151060503" target="_blank" rel="noopener"><img src="assets/retailers/barnes-noble.png" alt="" width="34" height="34" loading="lazy"><span><b>Barnes &amp; Noble</b><small>Print and ebook</small></span></a>
-        <a class="ret" href="https://www.target.com/p/untitled-bc-by-to-be-confirmed-gallery-hardcover/-/A-1010684183" target="_blank" rel="noopener"><img src="assets/retailers/target.png" alt="" width="34" height="34" loading="lazy"><span><b>Target</b><small>Hardcover</small></span></a>
-        <a class="ret" href="https://www.walmart.com/ip/Untitled-BC-Hardcover-9781668222089/19654602041" target="_blank" rel="noopener"><img src="assets/retailers/walmart.png" alt="" width="34" height="34" loading="lazy"><span><b>Walmart</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.amazon.com/dp/1668222086" target="_blank" rel="noopener" data-vendor="amazon"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.barnesandnoble.com/w/behind-the-castle-walls-bob-chapek/1151060503" target="_blank" rel="noopener" data-vendor="bn"><img src="assets/retailers/barnes-noble.png" alt="" width="34" height="34" loading="lazy"><span><b>Barnes &amp; Noble</b><small>Print and ebook</small></span></a>
+        <a class="ret" href="https://www.target.com/p/untitled-bc-by-to-be-confirmed-gallery-hardcover/-/A-1010684183" target="_blank" rel="noopener" data-vendor="target"><img src="assets/retailers/target.png" alt="" width="34" height="34" loading="lazy"><span><b>Target</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.walmart.com/ip/Untitled-BC-Hardcover-9781668222089/19654602041" target="_blank" rel="noopener" data-vendor="walmart"><img src="assets/retailers/walmart.png" alt="" width="34" height="34" loading="lazy"><span><b>Walmart</b><small>Hardcover</small></span></a>
       </div>
     </div>
 
-    <div class="buy-group">
+    <div class="buy-group" data-region="digital">
       <h3>Digital and audio</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ" target="_blank" rel="noopener"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Kindle</b><small>Ebook</small></span></a>
-        <a class="ret" href="https://books.apple.com/us/book/behind-the-castle-walls/id6759482608" target="_blank" rel="noopener"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Ebook</small></span></a>
-        <a class="ret" href="https://play.google.com/store/books/details/Bob_Chapek_Behind_the_Castle_Walls?id=9vvDEQAAQBAJ" target="_blank" rel="noopener"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Ebook</small></span></a>
-        <a class="ret" href="https://www.kobo.com/us/en/ebook/behind-the-castle-walls-1" target="_blank" rel="noopener"><img src="assets/retailers/kobo.png" alt="" width="34" height="34" loading="lazy"><span><b>Kobo</b><small>Ebook</small></span></a>
-        <a class="ret" href="https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z" target="_blank" rel="noopener"><img src="assets/retailers/audible.png" alt="" width="34" height="34" loading="lazy"><span><b>Audible</b><small>Audiobook, US</small></span></a>
-        <a class="ret" href="https://books.apple.com/us/audiobook/behind-the-castle-walls-unabridged/id1878909192" target="_blank" rel="noopener"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Audiobook</small></span></a>
-        <a class="ret" href="https://play.google.com/store/audiobooks/details/Behind_the_Castle_Walls_My_Thirty_Years_at_the_Hap?id=AQAAAED6i3HLmM" target="_blank" rel="noopener"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Audiobook</small></span></a>
+        <a class="ret" href="https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ" target="_blank" rel="noopener" data-vendor="amazon"><img src="assets/retailers/amazon.png" alt="" width="34" height="34" loading="lazy"><span><b>Kindle</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://books.apple.com/us/book/behind-the-castle-walls/id6759482608" target="_blank" rel="noopener" data-vendor="apple"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://play.google.com/store/books/details/Bob_Chapek_Behind_the_Castle_Walls?id=9vvDEQAAQBAJ" target="_blank" rel="noopener" data-vendor="google"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://www.kobo.com/us/en/ebook/behind-the-castle-walls-1" target="_blank" rel="noopener" data-vendor="kobo"><img src="assets/retailers/kobo.png" alt="" width="34" height="34" loading="lazy"><span><b>Kobo</b><small>Ebook</small></span></a>
+        <a class="ret" href="https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z" target="_blank" rel="noopener" data-vendor="audible"><img src="assets/retailers/audible.png" alt="" width="34" height="34" loading="lazy"><span><b>Audible</b><small>Audiobook, US</small></span></a>
+        <a class="ret" href="https://books.apple.com/us/audiobook/behind-the-castle-walls-unabridged/id1878909192" target="_blank" rel="noopener" data-vendor="apple"><img src="assets/retailers/apple-books.png" alt="" width="34" height="34" loading="lazy"><span><b>Apple Books</b><small>Audiobook</small></span></a>
+        <a class="ret" href="https://play.google.com/store/audiobooks/details/Behind_the_Castle_Walls_My_Thirty_Years_at_the_Hap?id=AQAAAED6i3HLmM" target="_blank" rel="noopener" data-vendor="google"><img src="assets/retailers/google-play.png" alt="" width="34" height="34" loading="lazy"><span><b>Google Play</b><small>Audiobook</small></span></a>
       </div>
     </div>
 
-    <div class="buy-group">
+    <div class="buy-group" data-region="intl">
       <h3>International</h3>
       <div class="retailers">
-        <a class="ret" href="https://www.amazon.co.uk/dp/1668222086" target="_blank" rel="noopener"><img src="assets/retailers/amazon-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon UK</b><small>Hardcover</small></span></a>
-        <a class="ret" href="https://www.waterstones.com/book/behind-the-castle-walls/bob-chapek/don-yaeger/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/waterstones.png" alt="" width="34" height="34" loading="lazy"><span><b>Waterstones</b><small>UK print</small></span></a>
-        <a class="ret" href="https://www.foyles.co.uk/book/behind-the-castle-walls/bob-chapek/9781668222089" target="_blank" rel="noopener"><img src="assets/retailers/foyles-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Foyles</b><small>UK print</small></span></a>
-        <a class="ret" href="https://uk.bookshop.org/p/books/untitled-bc-to-be-confirmed-gallery/f9ef3dbf036c1573" target="_blank" rel="noopener"><img src="assets/retailers/bookshop.png" alt="" width="34" height="34" loading="lazy"><span><b>Bookshop.org UK</b><small>Supports local shops</small></span></a>
+        <a class="ret" href="https://www.amazon.co.uk/dp/1668222086" target="_blank" rel="noopener" data-vendor="amazon-uk"><img src="assets/retailers/amazon-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Amazon UK</b><small>Hardcover</small></span></a>
+        <a class="ret" href="https://www.waterstones.com/book/behind-the-castle-walls/bob-chapek/don-yaeger/9781668222089" target="_blank" rel="noopener" data-vendor="waterstones"><img src="assets/retailers/waterstones.png" alt="" width="34" height="34" loading="lazy"><span><b>Waterstones</b><small>UK print</small></span></a>
+        <a class="ret" href="https://www.foyles.co.uk/book/behind-the-castle-walls/bob-chapek/9781668222089" target="_blank" rel="noopener" data-vendor="foyles"><img src="assets/retailers/foyles-uk.png" alt="" width="34" height="34" loading="lazy"><span><b>Foyles</b><small>UK print</small></span></a>
+        <a class="ret" href="https://uk.bookshop.org/p/books/untitled-bc-to-be-confirmed-gallery/f9ef3dbf036c1573" target="_blank" rel="noopener" data-vendor="bookshop"><img src="assets/retailers/bookshop.png" alt="" width="34" height="34" loading="lazy"><span><b>Bookshop.org UK</b><small>Supports local shops</small></span></a>
       </div>
     </div>
 
@@ -714,6 +752,168 @@ addEventListener('scroll',function(){
   addEventListener('orientationchange',function(){ setTimeout(init,120); },{passive:true});
   init();
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) draw();
+})();
+</script>
+<script>
+/* ---------- release countdown ----------
+   Dates in local time so "out September 29" means the reader's own 29th, and
+   the display ticks on the minute, not the second. */
+(function(){
+  const target = new Date(2026, 8, 29, 0, 0, 0);
+  const row = document.getElementById('cdRow');
+  const label = document.getElementById('cdLabel');
+  if (!row) return;
+  function paint(){
+    const ms = target - new Date();
+    if (ms <= 0){
+      row.className = 'cd-row out';
+      row.innerHTML = '<div class="out"><b>Out now</b><span>September 29, 2026</span></div>';
+      if (label) label.textContent = 'Out now';
+      return true;
+    }
+    const d = Math.floor(ms / 864e5);
+    const h = Math.floor(ms % 864e5 / 36e5);
+    const m = Math.floor(ms % 36e5 / 6e4);
+    row.querySelectorAll('[data-cd]').forEach(function(el){
+      el.textContent = String({d:d, h:h, m:m}[el.dataset.cd]);
+    });
+    return false;
+  }
+  if (paint()) return;
+  const t = setInterval(function(){ if (paint()) clearInterval(t); }, 20000);
+})();
+
+/* ---------- preorder reminder ----------
+   Two controls, because only one of them survives a closed tab. The calendar
+   file is the dependable path; the browser notification is a convenience that
+   fires only while this page is open, and the note says so rather than
+   implying a reminder that will arrive after the reader leaves. */
+(function(){
+  const btn = document.getElementById('remindBtn');
+  const cal = document.getElementById('calBtn');
+  const note = document.getElementById('remindNote');
+  if (!btn || !note) return;
+  const KEY = 'bc_remind';
+  const target = new Date(2026, 8, 29, 0, 0, 0);
+  const supported = typeof Notification !== 'undefined';
+
+  function say(msg){ note.textContent = msg; note.hidden = false; }
+
+  function arm(label){
+    btn.textContent = label;
+    btn.disabled = true;
+  }
+
+  function schedule(){
+    const ms = target - new Date();
+    if (ms <= 0 || ms > 2147483647) return;
+    setTimeout(function(){
+      try {
+        new Notification('Behind the Castle Walls is out today', {
+          body: 'The memoir by Bob Chapek is released September 29, 2026.'
+        });
+      } catch (e) {}
+    }, ms);
+  }
+
+  function armed(){
+    arm('Reminder on');
+    say('Reminder set for September 29, 2026. It is a browser notification, so it '
+        + 'fires while this tab stays open. Add it to your calendar for a reminder '
+        + 'that still works after you close the page.');
+  }
+
+  // Already chosen on a past visit: never ask again.
+  if (supported && Notification.permission === 'granted' && localStorage.getItem(KEY) === '1'){
+    armed(); schedule();
+  } else if (supported && Notification.permission === 'denied'){
+    // A blocked permission cannot be re-asked from the page, so offer the path
+    // that does work instead of a button that would do nothing.
+    btn.disabled = true;
+    btn.textContent = 'Notifications blocked';
+    say('This browser has notifications blocked for the site, so use Add to '
+        + 'calendar. It sets the reminder where the browser cannot.');
+  }
+
+  btn.addEventListener('click', function(){
+    if (!supported){
+      // iOS Safari and older browsers have no Notification constructor at all.
+      say('This browser cannot show notifications, so use Add to calendar. It '
+          + 'works on every browser and after the page is closed.');
+      if (cal) cal.focus();
+      return;
+    }
+    if (Notification.permission === 'denied'){
+      say('Notifications are blocked for the site. Use Add to calendar instead.');
+      return;
+    }
+    const ask = Notification.permission === 'granted'
+      ? Promise.resolve('granted')
+      : Notification.requestPermission();
+    ask.then(function(perm){
+      if (perm === 'granted'){
+        localStorage.setItem(KEY, '1');
+        armed(); schedule();
+      } else {
+        say('No notification permission, so use Add to calendar. It sets the '
+            + 'reminder where the browser cannot.');
+        if (cal) cal.focus();
+      }
+    });
+  });
+})();
+
+/* ---------- buy row, ordered for the visitor ----------
+   Timezone and language only: a reorder is cosmetic, and a location prompt
+   for a cosmetic reorder is a bad trade. Nothing is hidden or removed; the
+   order is the only thing that changes. */
+(function(){
+  const groups = document.querySelectorAll('#buy .buy-group');
+  if (!groups.length) return;
+  let tz = '', lang = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  lang = navigator.language || '';
+  const ua = navigator.userAgent;
+  const uk = /^Europe\/(London|Dublin|Lisbon)$/.test(tz) || /^en-(GB|IE)\b/i.test(lang);
+  const ios = /iPad|iPhone|iPod/.test(ua)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const android = /Android/.test(ua);
+
+  const ORDER = {
+    us: ['amazon', 'bn', 'target', 'walmart'],
+    digital: ios ? ['apple', 'amazon', 'google', 'kobo', 'audible']
+      : android ? ['google', 'amazon', 'apple', 'kobo', 'audible']
+      : ['amazon', 'apple', 'google', 'kobo', 'audible'],
+    intl: uk ? ['waterstones', 'foyles', 'amazon-uk', 'bookshop']
+      : ['amazon-uk', 'waterstones', 'foyles', 'bookshop']
+  };
+
+  let moved = false;
+  groups.forEach(function(g){
+    const order = ORDER[g.dataset.region];
+    if (!order) return;
+    const box = g.querySelector('.retailers');
+    if (!box) return;
+    const items = [].slice.call(box.children);
+    const rank = function(el){
+      const i = order.indexOf(el.dataset.vendor);
+      return i < 0 ? order.length : i;
+    };
+    const sorted = items.map(function(el, i){ return {el: el, i: i, r: rank(el)}; })
+      .sort(function(a, b){ return a.r - b.r || a.i - b.i; })
+      .map(function(x){ return x.el; });
+    if (sorted.some(function(el, i){ return el !== items[i]; })) moved = true;
+    sorted.forEach(function(el){ box.appendChild(el); });
+  });
+
+  if (moved){
+    const note = document.getElementById('buyNote');
+    if (note){
+      note.innerHTML = 'Ordered for how readers near you usually shop. Every '
+        + 'seller is still listed, in the same three groups.';
+      note.hidden = false;
+    }
+  }
 })();
 </script>
 </body>
