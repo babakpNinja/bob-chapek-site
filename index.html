@@ -191,20 +191,26 @@
   .meta span{font-size:.76rem;color:var(--mist);border:1px solid rgba(255,255,255,.1);padding:5px 11px;border-radius:999px}
 
   /* ---------- release countdown + reminder ---------- */
-  /* A minute hand, not a second hand: nobody reads the seconds on a page they
-     visit once, and a per-second repaint is a per-second repaint on a phone.
-     The numbers are tabular so they do not jitter as the minutes change. */
+  /* The display ticks on the second, at the client's explicit request: the
+     original build showed days/hours/minutes only, and Babak asked for a live
+     seconds counter so the countdown reads as more interactive. A per-second
+     repaint is still a per-second repaint on a phone, so the numbers are
+     tabular so the row cannot jitter as the seconds change. */
   .countdown{
     margin-top:26px;max-width:560px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
-    padding:18px 20px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
+    padding:18px 16px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
   }
   .countdown .eyebrow{margin:0 0 12px}
-  .cd-row{display:flex;gap:26px}
+  /* Four cells now, so the gap tightens and the numerals step down a touch: the
+     row has to hold Days/Hours/Minutes/Seconds on one line at 320px without
+     wrapping mid-number, and its min-content must fit the hero grid column or the
+     whole page goes 5px wide. */
+  .cd-row{display:flex;gap:clamp(10px,3.2vw,24px)}
   .cd-row .num{
-    display:block;font-family:Fraunces,serif;font-size:clamp(1.55rem,5vw,2.2rem);
+    display:block;font-family:Fraunces,serif;font-size:clamp(1.35rem,5vw,2.2rem);
     color:var(--gold);line-height:1;font-variant-numeric:tabular-nums
   }
-  .cd-row span.lbl{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+  .cd-row span.lbl{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
   .cd-row .out .num{font-size:clamp(1.1rem,3.4vw,1.4rem)}
   .remind{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
   .remind .btn{padding:11px 18px;font-size:.86rem}
@@ -422,10 +428,11 @@
       <div class="countdown" id="countdown">
         <p class="eyebrow" id="cdLabel">Out September 29, 2026</p>
         <div class="cd-row" id="cdRow" role="timer" aria-live="off"
-             aria-label="Days, hours and minutes until the book is out">
+             aria-label="Days, hours, minutes and seconds until the book is out">
           <div><span class="num" data-cd="d">&mdash;</span><span class="lbl">Days</span></div>
           <div><span class="num" data-cd="h">&mdash;</span><span class="lbl">Hours</span></div>
           <div><span class="num" data-cd="m">&mdash;</span><span class="lbl">Minutes</span></div>
+          <div><span class="num" data-cd="s">&mdash;</span><span class="lbl">Seconds</span></div>
         </div>
         <div class="remind">
           <a class="btn" id="calBtn" href="reminder.ics" download>Add to calendar</a>
@@ -761,31 +768,36 @@ addEventListener('scroll',function(){
 </script>
 <script>
 /* ---------- release countdown ----------
-   Dates in local time so "out September 29" means the reader's own 29th, and
-   the display ticks on the minute, not the second. */
+   Dates in local time so "out September 29" means the reader's own 29th. The
+   display ticks every second at the client's request (the seconds cell is the
+   only part that needs it). When the reader asks for reduced motion we keep the
+   numbers but drop them to a minute cadence, so there is no per-second repaint
+   for someone who does not want the motion. */
 (function(){
   const target = new Date(2026, 8, 29, 0, 0, 0);
   const row = document.getElementById('cdRow');
   const label = document.getElementById('cdLabel');
   if (!row) return;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function paint(){
     const ms = target - new Date();
     if (ms <= 0){
       row.className = 'cd-row out';
-      row.innerHTML = '<div class="out"><b>Out now</b><span>September 29, 2026</span></div>';
+      row.innerHTML = '<div class="out"><span class="num">Out now</span><span class="lbl">September 29, 2026</span></div>';
       if (label) label.textContent = 'Out now';
       return true;
     }
     const d = Math.floor(ms / 864e5);
     const h = Math.floor(ms % 864e5 / 36e5);
     const m = Math.floor(ms % 36e5 / 6e4);
+    const s = Math.floor(ms % 6e4 / 1000);
     row.querySelectorAll('[data-cd]').forEach(function(el){
-      el.textContent = String({d:d, h:h, m:m}[el.dataset.cd]);
+      el.textContent = String({d:d, h:h, m:m, s:s}[el.dataset.cd]);
     });
     return false;
   }
   if (paint()) return;
-  const t = setInterval(function(){ if (paint()) clearInterval(t); }, 20000);
+  const t = setInterval(function(){ if (paint()) clearInterval(t); }, calm ? 20000 : 1000);
 })();
 
 /* ---------- preorder reminder ----------
