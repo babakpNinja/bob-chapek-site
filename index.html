@@ -296,6 +296,20 @@
     color:var(--paper);font:inherit;font-size:.86rem;cursor:pointer}
   .cut-switch button[aria-pressed="true"]{border-color:var(--gold);color:#0b1020;
     background:var(--gold);font-weight:600}
+  /* Reviewer preview: a quiet, collapsed way for Bob to try candidate cuts
+     against the one player. Collapsed by default, so an ordinary visitor sees a
+     finished trailer section rather than a build menu. */
+  .reviewer{margin-top:16px;border-top:1px solid rgba(255,255,255,.08);padding-top:12px}
+  .reviewer summary{cursor:pointer;font-size:.8rem;color:rgba(246,244,238,.5);list-style:none}
+  .reviewer summary::-webkit-details-marker{display:none}
+  .reviewer summary::before{content:"\25B8  ";color:rgba(246,244,238,.4)}
+  .reviewer[open] summary::before{content:"\25BE  "}
+  .reviewer-note{margin:10px 0 0;font-size:.8rem;color:rgba(246,244,238,.5)}
+  .reviewer .cut-switch{margin-top:10px}
+  .reviewer .cut-switch button{font-size:.8rem;padding:9px 14px;
+    border-color:rgba(255,255,255,.12);background:transparent;color:rgba(246,244,238,.72)}
+  .reviewer .cut-switch button[aria-pressed="true"]{border-color:rgba(217,177,105,.55);
+    color:var(--gold);background:rgba(217,177,105,.08);font-weight:600}
   details.transcript p{color:var(--mist);font-size:.9rem;margin:2px 0 14px;line-height:1.6}
 
   /* ---------- panels / press ---------- */
@@ -444,52 +458,43 @@
     <p class="lede">Within weeks of taking the top job, a pandemic closed the parks and the cruise ships. Two years later he was out and his predecessor was back in the chair. This is his account of both, written with New York Times bestselling co-author Don Yaeger.</p>
 
     <figure class="trailer" id="trailer">
-      <video id="trailer-video" src="assets/trailer.mp4" controls preload="metadata"
-             poster="assets/trailer-poster.jpg" playsinline
-             width="1280" height="720" title="Claymation trailer for Behind the Castle Walls">
+      <video id="trailer-video" src="assets/trailer-feel-good.mp4" controls preload="metadata"
+             poster="assets/trailer-feel-good-poster.jpg" playsinline
+             width="1280" height="720" title="Trailer for Behind the Castle Walls">
         Your browser cannot play this video. The book is <em>Behind the Castle Walls</em> by
         Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
       </video>
-      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in three cuts, made with NinjaTech.ai.</span>
+      <span class="sr" id="trailer-desc">A 60-second trailer for the book, made with NinjaTech.ai.</span>
     </figure>
-    <div class="cut-switch" role="group" aria-label="Choose a trailer cut" data-target="trailer-video">
-      <button type="button" data-cut="assets/trailer.mp4"
-              data-poster="assets/trailer-poster.jpg" aria-pressed="true">The singalong (60s)</button>
-      <button type="button" data-cut="assets/trailer-playful.mp4"
-              data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful (60s)</button>
-      <button type="button" data-cut="assets/trailer-corporate.mp4"
-              data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation (60s)</button>
-    </div>
-    <p class="note" aria-hidden="false">Three 60-second cuts of the trailer, plus two films about the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <p class="note" aria-hidden="false">A 60-second trailer for the book. The lessons are on screen, the date is on the end card, and the links below are where to buy it.</p>
 
-    <h3 style="margin:34px 0 0">Two films about the book</h3>
-    <p class="lede" style="margin-top:8px">The same story told two ways: one in clay, one in live action. Neither has anyone in it but the book, the desk, the city and the castle.</p>
-    <figure class="trailer" id="film">
-      <video id="film-video" src="assets/trailer-book-clay.mp4" controls preload="metadata"
-             poster="assets/trailer-book-clay-poster.jpg" playsinline
-             width="1280" height="720" title="Film about Behind the Castle Walls">
-        Your browser cannot play this video. Preorder <em>Behind the Castle Walls</em> by
-        Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
-      </video>
-      <span class="sr" id="film-desc">A 60-second film about the book, in claymation and in live action, made with NinjaTech.ai.</span>
-    </figure>
-    <div class="cut-switch" role="group" aria-label="Choose a film" data-target="film-video">
-      <button type="button" data-cut="assets/trailer-book-clay.mp4"
-              data-poster="assets/trailer-book-clay-poster.jpg" aria-pressed="true">Claymation (60s)</button>
-      <button type="button" data-cut="assets/trailer-book-photo.mp4"
-              data-poster="assets/trailer-book-photo-poster.jpg" aria-pressed="false">Live action (60s)</button>
-    </div>
-    <p class="note" aria-hidden="false">Both films cover how long the book took, why it was not written sooner, the lessons in it, and where to get it.</p>
-    <details class="transcript">
-      <summary>Trailer transcript</summary>
-      <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
-      Order your copy today at bob-chapek.com. Created by NinjaTech.AI.</p>
+    <details class="reviewer" id="reviewer">
+      <summary>Reviewer preview: try the other cuts</summary>
+      <p class="reviewer-note">Internal only. Every cut below plays in the same player above, so Bob can compare candidates and name the one to keep.</p>
+      <div class="cut-switch" role="group" aria-label="Reviewer: preview a trailer cut" data-target="trailer-video">
+        <button type="button" data-cut="assets/trailer-feel-good.mp4"
+                data-poster="assets/trailer-feel-good-poster.jpg" aria-pressed="true">Feel-good</button>
+        <button type="button" data-cut="assets/trailer-futuristic.mp4"
+                data-poster="assets/trailer-futuristic-poster.jpg" aria-pressed="false">Futuristic</button>
+        <button type="button" data-cut="assets/trailer-book-clay.mp4"
+                data-poster="assets/trailer-book-clay-poster.jpg" aria-pressed="false">Claymation film</button>
+        <button type="button" data-cut="assets/trailer-book-photo.mp4"
+                data-poster="assets/trailer-book-photo-poster.jpg" aria-pressed="false">Live-action film</button>
+        <button type="button" data-cut="assets/trailer.mp4"
+                data-poster="assets/trailer-poster.jpg" aria-pressed="false">Singalong</button>
+        <button type="button" data-cut="assets/trailer-playful.mp4"
+                data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful</button>
+        <button type="button" data-cut="assets/trailer-corporate.mp4"
+                data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation</button>
+      </div>
     </details>
 
-    <div class="grid g2" style="margin-top:30px">
-      <div class="card"><span class="ic">THE STORY</span><h3>Ambition, power and the price of Disney magic</h3><p>The publisher's description: a revealing account of the executive who ran The Walt Disney Company through its hardest years, and of the succession that ended in 2022. The book opens in a refinery town in Indiana and closes on the weekend the board made its call.</p></div>
-      <div class="card"><span class="ic">THE FACTS</span><h3>Gallery Books, September 29, 2026</h3><p>272 pages. Hardcover lists at $30.00. Hardcover ISBN 9781668222089, ebook ISBN 9781668222102. The hardcover, the ebook and the unabridged audio all release on the same day, with a UK edition from Simon &amp; Schuster.</p></div>
-    </div>
+    <details class="transcript">
+      <summary>Trailer transcript</summary>
+      <p>A four-year memoir by Bob Chapek: <em>Behind the Castle Walls</em>. Inside are the wins,
+      the failures and the call that ended it. Out September 29, 2026. Find it at Amazon,
+      Barnes &amp; Noble and Apple, or at bob-chapek.com. Created by NinjaTech.AI.</p>
+    </details>
 
     <div class="panel" style="margin-top:22px">
       <p style="margin:0;color:var(--mist)">In 2022 the end came in a weekend, over a phone call, with the board pointing at a quarterly report. Chapek has spent four years working out what he thinks happened. This book is the answer.</p>
