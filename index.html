@@ -263,7 +263,7 @@
   details.transcript summary::-webkit-details-marker{display:none}
   details.transcript summary::before{content:"\25B8  ";color:var(--gold)}
   details.transcript[open] summary::before{content:"\25BE  "}
-  /* Three cuts, one player: the buttons swap the <source> and the poster. */
+  /* Six cuts, one player: each button sets the <video> src and poster. */
   .cut-switch{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
   .cut-switch button{flex:0 1 auto;min-height:44px;padding:9px 16px;border-radius:999px;
     border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);
@@ -403,23 +403,29 @@
     <p class="lede">Within weeks of taking the top job, a pandemic closed the parks and the cruise ships. Two years later he was out and his predecessor was back in the chair. This is his account of both, written with New York Times bestselling co-author Don Yaeger.</p>
 
     <figure class="trailer" id="trailer">
-      <video id="trailer-video" controls preload="metadata" poster="assets/trailer-poster.jpg" playsinline
+      <video id="trailer-video" src="assets/trailer.mp4" controls preload="metadata"
+             poster="assets/trailer-poster.jpg" playsinline
              width="1280" height="720" title="Claymation trailer for Behind the Castle Walls">
-        <source id="trailer-source" src="assets/trailer.mp4" type="video/mp4">
         Your browser cannot play this video. The book is <em>Behind the Castle Walls</em> by
         Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
       </video>
-      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in three cuts, made with NinjaTech.ai.</span>
+      <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in six cuts, made with NinjaTech.ai.</span>
     </figure>
     <div class="cut-switch" role="group" aria-label="Choose a trailer cut">
       <button type="button" data-cut="assets/trailer.mp4"
               data-poster="assets/trailer-poster.jpg" aria-pressed="true">The singalong (60s)</button>
       <button type="button" data-cut="assets/trailer-playful.mp4"
-              data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful cut (60s)</button>
+              data-poster="assets/trailer-playful-poster.jpg" aria-pressed="false">Playful (60s)</button>
+      <button type="button" data-cut="assets/trailer-upbeat.mp4"
+              data-poster="assets/trailer-upbeat-poster.jpg" aria-pressed="false">Upbeat (60s)</button>
       <button type="button" data-cut="assets/trailer-corporate.mp4"
               data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation (60s)</button>
+      <button type="button" data-cut="assets/trailer-impact.mp4"
+              data-poster="assets/trailer-impact-poster.jpg" aria-pressed="false">Impact (60s)</button>
+      <button type="button" data-cut="assets/trailer-heart.mp4"
+              data-poster="assets/trailer-heart-poster.jpg" aria-pressed="false">Heart (60s)</button>
     </div>
-    <p class="note" aria-hidden="false">Three 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <p class="note" aria-hidden="false">Six 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
     <details class="transcript">
       <summary>Trailer transcript</summary>
       <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
@@ -578,8 +584,7 @@ document.querySelectorAll('.cut-switch button').forEach(function(b){
   b.addEventListener('click', function(){
     const v = document.getElementById('trailer-video');
     if (!v) return;
-    const s = document.getElementById('trailer-source');
-    s.setAttribute('src', b.dataset.cut);
+    v.setAttribute('src', b.dataset.cut);
     v.setAttribute('poster', b.dataset.poster);
     v.load();
     document.querySelectorAll('.cut-switch button').forEach(function(o){
