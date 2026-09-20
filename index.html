@@ -342,7 +342,16 @@
     border:1px solid rgba(255,255,255,.12);text-decoration:none;color:var(--paper);background:rgba(255,255,255,.04)
   }
   .ninja-credit:hover{border-color:var(--gold)}
-  .ninja-credit img{height:26px;width:26px;display:block;border-radius:50%}
+  /* The credit mark is the client's transparent NTA art: a dark navy ninja head
+     on a near-black footer, so it would read as invisible. Legibility comes from
+     LAYOUT - a light backing plate behind the mark - never from a filter (an
+     invert() once turned the brand's blue eyes orange) and never by flattening
+     the file, which must keep its alpha. The plate is the only light surface. */
+  .ninja-credit .mark{
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+    width:38px;height:38px;border-radius:50%;background:var(--paper)
+  }
+  .ninja-credit .mark img{height:26px;width:26px;display:block}
   .ninja-credit span{font-size:.76rem;color:var(--mist);letter-spacing:.04em}
 
   @media(max-width:980px){
@@ -626,7 +635,7 @@
       </div>
       <div>
         <a class="ninja-credit" href="https://ninjatech.ai" target="_blank" rel="noopener">
-          <img src="assets/ninjatech-badge.png" alt="NinjaTech AI">
+          <span class="mark"><img src="assets/nta-logo-art-transparent.png" alt="NinjaTech AI"></span>
           <span>Powered by NinjaTech.AI 24/7 AI Employees</span>
         </a>
       </div>
