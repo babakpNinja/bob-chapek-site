@@ -200,12 +200,12 @@
   }
   .countdown .eyebrow{margin:0 0 12px}
   .cd-row{display:flex;gap:26px}
-  .cd-row b{
+  .cd-row .num{
     display:block;font-family:Fraunces,serif;font-size:clamp(1.55rem,5vw,2.2rem);
     color:var(--gold);line-height:1;font-variant-numeric:tabular-nums
   }
-  .cd-row span{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
-  .cd-row .out b{font-size:clamp(1.1rem,3.4vw,1.4rem)}
+  .cd-row span.lbl{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+  .cd-row .out .num{font-size:clamp(1.1rem,3.4vw,1.4rem)}
   .remind{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
   .remind .btn{padding:11px 18px;font-size:.86rem}
   .remind .btn[disabled]{opacity:.55;cursor:default;transform:none}
@@ -249,8 +249,8 @@
     border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 16px;
     background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
   }
-  .stat b{display:block;font-family:Fraunces,serif;font-size:1.7rem;color:var(--gold);line-height:1}
-  .stat span{font-size:.78rem;color:var(--mist);display:block;margin-top:7px}
+  .stat .num{display:block;font-family:Fraunces,serif;font-size:1.7rem;color:var(--gold);line-height:1}
+  .stat .lbl{font-size:.78rem;color:var(--mist);display:block;margin-top:7px}
 
   /* ---------- cards ---------- */
   .grid{display:grid;gap:16px}
@@ -423,9 +423,9 @@
         <p class="eyebrow" id="cdLabel">Out September 29, 2026</p>
         <div class="cd-row" id="cdRow" role="timer" aria-live="off"
              aria-label="Days, hours and minutes until the book is out">
-          <div><b data-cd="d">&mdash;</b><span>Days</span></div>
-          <div><b data-cd="h">&mdash;</b><span>Hours</span></div>
-          <div><b data-cd="m">&mdash;</b><span>Minutes</span></div>
+          <div><span class="num" data-cd="d">&mdash;</span><span class="lbl">Days</span></div>
+          <div><span class="num" data-cd="h">&mdash;</span><span class="lbl">Hours</span></div>
+          <div><span class="num" data-cd="m">&mdash;</span><span class="lbl">Minutes</span></div>
         </div>
         <div class="remind">
           <a class="btn" id="calBtn" href="reminder.ics" download>Add to calendar</a>
@@ -443,10 +443,10 @@
   </div>
   <div class="wrap">
     <div class="stats">
-      <div class="stat"><b data-count="272">0</b><span>Pages, out September 29, 2026</span></div>
-      <div class="stat"><b data-count="30">0</b><span>Years inside Disney that the book covers</span></div>
-      <div class="stat"><b data-count="3">0</b><span>Formats at launch: print, ebook, audio</span></div>
-      <div class="stat"><b data-count="1">0</b><span>Account, told from the room where it happened</span></div>
+      <div class="stat"><span class="num" data-count="272">0</span><span class="lbl">Pages, out September 29, 2026</span></div>
+      <div class="stat"><span class="num" data-count="30">0</span><span class="lbl">Years inside Disney that the book covers</span></div>
+      <div class="stat"><span class="num" data-count="3">0</span><span class="lbl">Formats at launch: print, ebook, audio</span></div>
+      <div class="stat"><span class="num" data-count="1">0</span><span class="lbl">Account, told from the room where it happened</span></div>
     </div>
   </div>
 </header>
