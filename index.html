@@ -415,7 +415,7 @@
       </video>
       <span class="sr" id="trailer-desc">A 60-second claymation trailer for the book, in three cuts, made with NinjaTech.ai.</span>
     </figure>
-    <div class="cut-switch" role="group" aria-label="Choose a trailer cut">
+    <div class="cut-switch" role="group" aria-label="Choose a trailer cut" data-target="trailer-video">
       <button type="button" data-cut="assets/trailer.mp4"
               data-poster="assets/trailer-poster.jpg" aria-pressed="true">The singalong (60s)</button>
       <button type="button" data-cut="assets/trailer-playful.mp4"
@@ -423,7 +423,26 @@
       <button type="button" data-cut="assets/trailer-corporate.mp4"
               data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation (60s)</button>
     </div>
-    <p class="note" aria-hidden="false">Three 60-second claymation cuts for the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+    <p class="note" aria-hidden="false">Three 60-second cuts of the trailer, plus two films about the book, made with <a href="https://ninjatech.ai" target="_blank" rel="noopener">NinjaTech.ai</a>.</p>
+
+    <h3 style="margin:34px 0 0">Two films about the book</h3>
+    <p class="lede" style="margin-top:8px">The same story told two ways: one in clay, one in live action. Neither has anyone in it but the book, the desk, the city and the castle.</p>
+    <figure class="trailer" id="film">
+      <video id="film-video" src="assets/trailer-book-clay.mp4" controls preload="metadata"
+             poster="assets/trailer-book-clay-poster.jpg" playsinline
+             width="1280" height="720" title="Film about Behind the Castle Walls">
+        Your browser cannot play this video. Preorder <em>Behind the Castle Walls</em> by
+        Bob Chapek, out September 29, 2026. <a href="#buy">Preorder it here</a>.
+      </video>
+      <span class="sr" id="film-desc">A 60-second film about the book, in claymation and in live action, made with NinjaTech.ai.</span>
+    </figure>
+    <div class="cut-switch" role="group" aria-label="Choose a film" data-target="film-video">
+      <button type="button" data-cut="assets/trailer-book-clay.mp4"
+              data-poster="assets/trailer-book-clay-poster.jpg" aria-pressed="true">Claymation (60s)</button>
+      <button type="button" data-cut="assets/trailer-book-photo.mp4"
+              data-poster="assets/trailer-book-photo-poster.jpg" aria-pressed="false">Live action (60s)</button>
+    </div>
+    <p class="note" aria-hidden="false">Both films cover how long the book took, why it was not written sooner, the lessons in it, and where to get it.</p>
     <details class="transcript">
       <summary>Trailer transcript</summary>
       <p>A memoir by Bob Chapek: <em>Behind the Castle Walls</em>, four years in the making.
@@ -581,7 +600,8 @@
    load() (see the comment in the handler). */
 document.querySelectorAll('.cut-switch button').forEach(function(b){
   b.addEventListener('click', function(){
-    const v = document.getElementById('trailer-video');
+    const grp = b.closest('.cut-switch');
+    const v = document.getElementById(grp.dataset.target || 'trailer-video');
     if (!v) return;
     /* Set the attribute and let the element load the new resource itself.
        Calling v.load() here is the iOS bug: after src changes, WebKit aborts
@@ -589,9 +609,11 @@ document.querySelectorAll('.cut-switch button').forEach(function(b){
        box goes black with no controls and play() rejects. Measured on the
        WebKit engine at an iPhone profile: with load(), 3-5 of 10 switches
        failed; without it, 10 of 10 loaded and playback advanced. */
-    v.setAttribute('src', b.dataset.cut);
-    v.setAttribute('poster', b.dataset.poster);
-    document.querySelectorAll('.cut-switch button').forEach(function(o){
+    if (!v.getAttribute('src') || !v.getAttribute('src').endsWith(b.dataset.cut)) {
+      v.setAttribute('src', b.dataset.cut);
+      v.setAttribute('poster', b.dataset.poster);
+    }
+    grp.querySelectorAll('button').forEach(function(o){
       o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
     });
   });
