@@ -1,5 +1,4 @@
+# UNLISTED (temporary, awaiting Bob's approval): see README.md "Unlisted toggle".
+# To re-list, restore the Allow block and the Sitemap line from that README.
 User-agent: *
-Allow: /
-Disallow: /404.html
-
-Sitemap: https://bob-chapek.com/sitemap.xml
+Disallow: /

@@ -20,5 +20,8 @@ RUN set -eux; \
     done < media.sha256; \
     apk del curl
 
-RUN printf "server { listen 8080; root /usr/share/nginx/html; index index.html; }" > /etc/nginx/conf.d/default.conf
+# UNLISTED (temporary, awaiting Bob's approval): the X-Robots-Tag header is the
+# reliable control - bots read it without rendering the page. To re-list, remove
+# the add_header line below. See README.md "Unlisted toggle".
+RUN printf "server { listen 8080; root /usr/share/nginx/html; index index.html; add_header X-Robots-Tag \"noindex, nofollow, noarchive\" always; }" > /etc/nginx/conf.d/default.conf
 EXPOSE 8080
