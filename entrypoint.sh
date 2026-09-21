@@ -22,6 +22,14 @@ set -eu
 : "${PREVIEW_PASSCODE:=bob-ninja}"
 
 CONF=/etc/nginx/conf.d/default.conf
+ROOT=/usr/share/nginx/html
+
+# `COPY .` drops the build-only files into the served root; they name the
+# fallback passcode and the deploy internals, so they must never be fetchable.
+# The Dockerfile also removes them, but this runs at start too, so a cached image
+# layer cannot leave them served.
+rm -f "$ROOT/entrypoint.sh" "$ROOT/Dockerfile" "$ROOT/README.md" \
+      "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore"
 
 if [ "$PREVIEW_PASSCODE" = "__OFF__" ]; then
   echo "[entrypoint] PREVIEW_PASSCODE=__OFF__ - passcode gate DISABLED (unlisted only)"
