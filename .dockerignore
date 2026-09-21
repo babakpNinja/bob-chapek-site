@@ -1,0 +1,5 @@
+# Keep the repo history and local junk out of the image. The Dockerfile removes
+# the remaining build-only files from the served root after the media fetch, so
+# nothing but the site itself is ever reachable.
+.git
+*.mp4

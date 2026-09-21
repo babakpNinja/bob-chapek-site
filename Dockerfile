@@ -31,4 +31,12 @@ RUN set -eux; \
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+# `COPY .` also drops the build-only files into the served root. They name the
+# fallback passcode and the deploy internals, so they must not be fetchable - the
+# gate protects the site, but no reason to serve its own how-to. Removed after the
+# fetches above have used media.sha256.
+RUN rm -f /usr/share/nginx/html/entrypoint.sh /usr/share/nginx/html/Dockerfile \
+    /usr/share/nginx/html/README.md /usr/share/nginx/html/media.sha256 \
+    /usr/share/nginx/html/.gitignore
 EXPOSE 8080
