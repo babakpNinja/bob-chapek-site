@@ -10,7 +10,7 @@ COPY . /usr/share/nginx/html
 # there and its checksum matches.
 RUN set -eux; \
     cd /usr/share/nginx/html; \
-    apk add --no-cache curl; \
+    apk add --no-cache curl openssl; \
     base="https://github.com/babakpNinja/bob-chapek-site/releases/download/media-v1"; \
     while read -r sum name; do \
       case "$name" in ''|\#*) continue;; esac; \
@@ -20,8 +20,15 @@ RUN set -eux; \
     done < media.sha256; \
     apk del curl
 
-# UNLISTED (temporary, awaiting Bob's approval): the X-Robots-Tag header is the
-# reliable control - bots read it without rendering the page. To re-list, remove
-# the add_header line below. See README.md "Unlisted toggle".
-RUN printf "server { listen 8080; root /usr/share/nginx/html; index index.html; add_header X-Robots-Tag \"noindex, nofollow, noarchive\" always; }" > /etc/nginx/conf.d/default.conf
+# UNLISTED (temporary, awaiting Bob's approval). Two mechanisms live in this
+# image and both are documented in README.md:
+#   - X-Robots-Tag "noindex, nofollow, noarchive": added by the nginx config the
+#     entrypoint writes at start, so every response carries it.
+#   - the passcode gate (issue #37): entrypoint.sh writes the nginx config and an
+#     htpasswd from the Railway variable PREVIEW_PASSCODE at start. The passcode
+#     is enforced by nginx, never by client JS; __OFF__ disables it. See the
+#     README for both toggles.
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 EXPOSE 8080

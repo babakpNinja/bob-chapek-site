@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Private preview | Behind the Castle Walls</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1020'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23d9b169' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0b1020;--paper:#f6f4ee;--gold:#d9b169;--gold-soft:#f0dcb4;--mist:rgba(246,244,238,.68);--line:rgba(217,177,105,.28)}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;min-height:100vh;background:var(--ink);color:var(--paper);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:300;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    background-image:
+      radial-gradient(60vw 60vw at 15% 10%,rgba(217,177,105,.16),transparent 60%),
+      radial-gradient(50vw 50vw at 85% 90%,rgba(96,132,255,.14),transparent 60%);
+  }
+  .scrim{position:fixed;inset:0;background:rgba(5,7,15,.72);backdrop-filter:blur(6px);z-index:0}
+  .card{
+    position:relative;z-index:1;width:100%;max-width:400px;text-align:center;
+    background:rgba(11,16,32,.9);border:1px solid var(--line);border-radius:20px;
+    padding:34px 28px 30px;box-shadow:0 24px 60px rgba(0,0,0,.55)
+  }
+  h1{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:1.32rem;line-height:1.2;margin:0 0 8px}
+  p.sub{margin:0 0 22px;font-size:.92rem;color:var(--mist)}
+  .mark{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 auto 16px}
+  .mark img{width:44px;height:44px;display:block}
+  label{display:block;text-align:left;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 8px}
+  input[type=password]{
+    width:100%;min-height:48px;padding:12px 14px;font:inherit;font-size:1rem;color:var(--paper);
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:12px
+  }
+  input[type=password]:focus{outline:2px solid var(--gold);outline-offset:2px;border-color:var(--gold)}
+  button{
+    width:100%;min-height:48px;margin-top:14px;padding:12px 16px;font:inherit;font-size:.95rem;font-weight:500;
+    color:#0b1020;background:var(--gold);border:0;border-radius:12px;cursor:pointer;transition:.2s
+  }
+  button:hover{background:var(--gold-soft)}
+  button:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+  button[disabled]{opacity:.6;cursor:default}
+  .err{margin:14px 0 0;font-size:.86rem;color:#f4b8ad;min-height:1.2em}
+  .note{margin:18px 0 0;font-size:.78rem;line-height:1.5;color:rgba(246,244,238,.45)}
+</style>
+</head>
+<body>
+<div class="scrim" aria-hidden="true"></div>
+<main class="card" role="dialog" aria-modal="true" aria-labelledby="gateTitle" aria-describedby="gateSub">
+  <span class="mark" aria-hidden="true">
+    <svg viewBox="0 0 512 512" width="44" height="44" role="presentation" focusable="false">
+      <defs>
+        <linearGradient id="g1" x1="388.83" y1="100.87" x2="60.47" y2="429.23" gradientTransform="translate(0 514) scale(1 -1)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#0a0e10"/><stop offset=".5" stop-color="#1e282d"/><stop offset=".7" stop-color="#506e7c"/><stop offset=".9" stop-color="#83a1af" stop-opacity=".7"/><stop offset="1" stop-color="#c1d0d7" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="-25.29" y1="95.65" x2="11.08" y2="269.4" gradientTransform="translate(270 124)" gradientUnits="userSpaceOnUse">
+          <stop offset=".22" stop-color="#506e7c"/><stop offset="1" stop-color="#a2b9c3" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="g3" x1="206.15" y1="394.1" x2="437.54" y2="394.1" gradientTransform="translate(-130.52 623.05) rotate(10) scale(1 -1)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#0cc5ff"/><stop offset="1" stop-color="#0a74ff"/>
+        </linearGradient>
+      </defs>
+      <path d="M256,128c-53.23,0-100.75,14.91-132.04,44.72-1.41-1.84-2.55-3.41-3.29-4.6-4.72-7.52-10.23-16.34-14.25-25.24-.74-1.65-1.39-3.2-1.95-4.66,3.46.85,7.59,1.46,12.05,1.17,4.24-.27,8.81-1.73,12.88-4.79,3.89-2.92,6.17-6.43,7.48-9.24,2.39-5.12,2.64-10.2,2.61-13.29-.05-6.73-1.66-14.6-3.5-21.75-3.83-14.8-11.43-68.39-16.06-79.65l-33.83,52.15c3.81,9.25,8.68,22.39,12.06,34.09-.79-.16-1.62-.29-2.47-.4-3.14-.39-7.8-.49-12.97,1.38-12.59,4.56-16.71,15.71-17.98,22.6-2.61,14.24,2.28,28.59,7.04,39.14,4.98,11.05,9.96,15.3,9.96,15.3l13.71,15.82,8.28,7.38c-6.56,10.89-11.62,22.97-14.69,36.41-7-3.58-15.18-7.77-22.36-12.5-1.33-.88-2.55-1.72-3.66-2.53,2.83-.54,6-1.46,8.96-3.09,2.81-1.55,5.27-4.01,6.59-7.4,1.26-3.23,1.11-6.35.63-8.68-.87-4.24-3.21-7.77-4.76-9.86-3.36-4.55-8.37-9.37-13.2-13.62-9.98-8.8-41.77-42.7-50.57-48.85l2.26,46.29c7.22,5.05,17.11,12.38,25.25,19.23-.63.15-1.27.32-1.92.53-2.37.75-5.67,2.19-8.34,5.12-6.5,7.15-3.85,16.04-1.33,21.12,5.22,10.5,15.72,18.66,24.25,24.28,8.93,5.89,14.5,7.17,14.5,7.17l17.36,6.31,3.11.77c-.18,3.12-.49,6.15-.49,9.38,0,93.5,76.41,190.46,170.67,190.46s170.67-96.96,170.67-190.46-76.41-140.2-170.67-140.2h0Z" fill="url(#g1)"/>
+      <path d="M397.33,272.81c0,61.09-69.45,121.85-141.33,121.85s-141.33-60.76-141.33-121.85,69.45-47.53,141.33-47.53,141.33-13.56,141.33,47.53Z" fill="url(#g2)" fill-opacity=".4"/>
+      <path d="M371.64,276.48c5.99,15.25-6.59,33.43-28.11,40.61-21.51,7.17-43.81.63-49.8-14.63-5.99-15.25,6.06-21.56,27.58-28.74,21.51-7.18,44.34-12.5,50.33,2.76h0ZM140.36,276.48c-5.99,15.25,6.59,33.43,28.11,40.61,21.51,7.17,43.81.63,49.8-14.63,5.99-15.25-6.06-21.56-27.58-28.74-21.51-7.18-44.34-12.5-50.33,2.76h0Z" fill="url(#g3)"/>
+    </svg>
+  </span>
+  <h1 id="gateTitle">This preview is private</h1>
+  <p class="sub" id="gateSub">Enter the passcode to view the site.</p>
+  <form id="gateForm" novalidate>
+    <label for="pc">Passcode</label>
+    <input id="pc" name="passcode" type="password" autocomplete="current-password"
+           inputmode="text" spellcheck="false" autocapitalize="off" required>
+    <button type="submit" id="go">Open the site</button>
+    <p class="err" id="err" role="alert" aria-live="polite"></p>
+  </form>
+  <p class="note">This is a preview pending approval. The link is private to you; please do not share it.</p>
+</main>
+<script>
+(function(){
+  var form=document.getElementById('gateForm'),
+      field=document.getElementById('pc'),
+      go=document.getElementById('go'),
+      err=document.getElementById('err');
+
+  function target(){
+    var rd=new URLSearchParams(location.search).get('rd')||'/';
+    if(rd.charAt(0)!=='/'||rd.charAt(1)==='/') rd='/';
+    return rd;
+  }
+
+  // keep focus inside the dialog: Escape must not dismiss the gate
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.preventDefault();}
+    if(e.key==='Tab'){
+      var f=document.querySelectorAll('#pc,#go'),first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    }
+  });
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var code=field.value;
+    if(!code){err.textContent='Please enter the passcode.';field.focus();return;}
+    go.disabled=true;err.textContent='';
+    fetch('gate-api/check',{
+      method:'POST',headers:{'X-Passcode':code},credentials:'same-origin'
+    }).then(function(r){
+      if(r.ok){ location.replace(target()); return null; }
+      return r.json().catch(function(){return {};});
+    }).then(function(j){
+      if(j===null) return;
+      go.disabled=false;field.value='';
+      err.textContent='That passcode is not correct.';
+      field.focus();
+    }).catch(function(){
+      go.disabled=false;err.textContent='Could not reach the server. Please try again.';
+    });
+  });
+
+  field.focus();
+})();
+</script>
+</body>
+</html>

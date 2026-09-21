@@ -24,6 +24,31 @@ all four of the following:
 
 To unlist again, reverse those five steps.
 
+## Passcode gate
+
+While the preview is unlisted, it also sits behind a server-enforced passcode so
+the content is not served to anyone who has not entered it. This is the second
+layer, separate from the unlisted toggle above.
+
+- The passcode is read at container start from the Railway variable
+  `PREVIEW_PASSCODE` (default `bob-ninja`). To change it, set that variable on
+  the service and redeploy. No code edit.
+- The check happens in nginx, not in JavaScript: an unauthenticated request is
+  redirected to `gate.html` (the lightbox) and never receives the page or its
+  assets, so the passcode cannot be read from view-source or bypassed on the
+  client. On success nginx sets an HttpOnly cookie; the lightbox only posts the
+  code to that endpoint and then reloads.
+- To turn the gate OFF (unlisted-only, the fallback), set
+  `PREVIEW_PASSCODE=__OFF__` and redeploy.
+
+To remove the gate from the image entirely, delete the `COPY entrypoint.sh` /
+`ENTRYPOINT` lines from the Dockerfile. The whole gate lives in `entrypoint.sh`,
+which the Dockerfile runs as the container entrypoint.
+
+The passcode is a real protection, not just a curtain: the page source is never
+sent to an unauthenticated client. It is not HTTP basic auth, so there is no
+second username prompt; the only thing a visitor sees is the lightbox.
+
 ### What unlisted does and does not do
 
 It stops search engines from listing the page. It does NOT make the page private:
