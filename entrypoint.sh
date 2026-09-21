@@ -57,6 +57,9 @@ server {
   root /usr/share/nginx/html;
   index index.html;
   add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+  # Railway terminates TLS and forwards to :8080, so an absolute redirect would
+  # name the internal port and the browser could not follow it. Relative it is.
+  absolute_redirect off;
 
   # The verifier. The lightbox POSTs the passcode in the X-Passcode header; the
   # $bpc_codeok map compares it. Only on a match does nginx set the session
