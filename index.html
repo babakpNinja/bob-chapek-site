@@ -292,12 +292,6 @@
   .trailer figcaption a{color:var(--gold-soft)}
   .trailer .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap;border:0}
-  details.transcript{margin-top:14px;border:1px solid rgba(255,255,255,.09);border-radius:12px;
-    background:rgba(255,255,255,.03);padding:6px 16px}
-  details.transcript summary{cursor:pointer;padding:10px 0;font-size:.85rem;color:var(--gold-soft);list-style:none}
-  details.transcript summary::-webkit-details-marker{display:none}
-  details.transcript summary::before{content:"\25B8  ";color:var(--gold)}
-  details.transcript[open] summary::before{content:"\25BE  "}
   /* Six cuts, one player: each button sets the <video> src and poster. */
   .cut-switch{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
   .cut-switch button{flex:0 1 auto;min-height:44px;padding:9px 16px;border-radius:999px;
@@ -319,7 +313,6 @@
     border-color:rgba(255,255,255,.12);background:transparent;color:rgba(246,244,238,.72)}
   .reviewer .cut-switch button[aria-pressed="true"]{border-color:rgba(217,177,105,.55);
     color:var(--gold);background:rgba(217,177,105,.08);font-weight:600}
-  details.transcript p{color:var(--mist);font-size:.9rem;margin:2px 0 14px;line-height:1.6}
 
   /* ---------- panels / press ---------- */
   .panel{border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px;background:rgba(255,255,255,.035)}
@@ -579,13 +572,6 @@
         <button type="button" data-cut="assets/trailer-corporate.mp4"
                 data-poster="assets/trailer-corporate-poster.jpg" aria-pressed="false">Lessons for the next generation</button>
       </div>
-    </details>
-
-    <details class="transcript">
-      <summary>Trailer transcript</summary>
-      <p>A four-year memoir by Bob Chapek: <em>Behind the Castle Walls</em>. Inside are the wins,
-      the failures and the call that ended it. Out September 29, 2026. Find it at Amazon,
-      Barnes &amp; Noble and Apple, or at bob-chapek.com. Created by NinjaTech.AI.</p>
     </details>
 
     <div class="panel" style="margin-top:22px">
