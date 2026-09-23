@@ -170,12 +170,18 @@ else
 #   $asset   1 for an asset extension. An asset WITHOUT ?v= is still mutable
 #            (an inlined or hand-written reference), so it gets a short TTL.
 #   everything else, the HTML above all, is never cached: the next deploy shows.
+# A `private` (not `public`) cache directive matters here: the site is only
+# served to a cookie-holder, but a SHARED cache (Cloudflare) would store the
+# first authed 200 and hand it to the next anonymous visitor, which is exactly
+# the "an unauthenticated request never receives the assets" promise of #37
+# broken. `private` lets the viewer's own browser cache while forbidding any
+# shared cache, so the gate keeps holding at the edge.
 map $arg_v $busted { default 0; ~. 1; }
 map $uri   $asset  { default 0; ~*\.(?:jpg|jpeg|png|gif|svg|webp|avif|ico|woff2?|mp4|css|js|txt|ics)$ 1; }
 map "$asset$busted" $cache_hdr {
   default "no-store";
-  "10"    "public, max-age=3600";
-  "11"    "public, max-age=31536000, immutable";
+  "10"    "private, max-age=3600";
+  "11"    "private, max-age=31536000, immutable";
 }
 
 server {
