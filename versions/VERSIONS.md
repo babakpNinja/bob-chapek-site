@@ -10,6 +10,7 @@ comparison and never age out.
 | 1.0 | Book site: cover, buy row, 7 cuts, career record, passcode gate | 2026-09-23 | `a1f26f1d` |
 | 1.1 | Bob batch 1: trimmed tenure, video removed, press fixes | 2026-09-23 | `4ac0b1a5` |
 | 1.2 | Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth | 2026-09-23 | `fc6e97ec` |
+| 1.3 | Cache-bust: assets served under content-stamped URLs with an explicit nginx cache policy | 2026-09-23 | `9075581d` |
 
 ## Switching back
 

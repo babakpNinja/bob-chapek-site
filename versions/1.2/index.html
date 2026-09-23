@@ -425,7 +425,7 @@
 /* version-toggle:start */
   .version-strip{margin-top:26px;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
   .vt-label{display:block;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px}
-  .vt-list{display:flex;flex-wrap:wrap;gap:8px}
+  .vt-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
   .vt-list a,.vt-list .vt-here{font-size:.8rem;text-decoration:none;border:1px solid rgba(255,255,255,.16);padding:7px 12px;border-radius:999px;color:rgba(246,244,238,.82);min-height:44px;display:inline-flex;align-items:center}
   .vt-list a:hover{border-color:var(--gold);color:var(--paper)}
   .vt-list a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -744,7 +744,13 @@
   </div>
     <nav class="version-strip" id="versionToggle" aria-label="Site version">
   <span class="vt-label">Version</span>
-  <div class="vt-list"><a class="vt-live" href="/">Live site</a><a href="/versions/1.0/">1.0 · Book site: cover, buy row, 7 cuts, career record, passcode gate</a><a href="/versions/1.1/">1.1 · Bob batch 1: trimmed tenure, video removed, press fixes</a><span class="vt-here" aria-current="page">1.2 · Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth</span></div>
+  <ul class="vt-list">
+    <li><a class="vt-live" href="/">Live site</a></li>
+    <li><a href="/versions/1.0/">1.0 · Book site: cover, buy row, 7 cuts, career record, passcode gate</a></li>
+    <li><a href="/versions/1.1/">1.1 · Bob batch 1: trimmed tenure, video removed, press fixes</a></li>
+    <li><span class="vt-here" aria-current="page">1.2 · Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth</span></li>
+    <li><a href="/versions/1.3/">1.3 · Cache-bust: assets served under content-stamped URLs with an explicit nginx cache policy</a></li>
+  </ul>
   <p class="vt-note">Reference builds for review. Live site is the current build; earlier versions are frozen copies kept for comparison.</p>
 </nav>
 </footer>
