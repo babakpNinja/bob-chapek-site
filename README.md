@@ -41,6 +41,27 @@ layer, separate from the unlisted toggle above.
 - To turn the gate OFF (unlisted-only, the fallback), set
   `PREVIEW_PASSCODE=__OFF__` and redeploy.
 
+## Admin area (`/admin/`)
+
+The admin dashboard (feature flags, version control, and the planned content
+editor) lives at `/admin/` and is protected by HTTP basic auth enforced by
+nginx, not by JavaScript.
+
+- The credentials come ONLY from the Railway service variables `ADMIN_USER` and
+  `ADMIN_PASS`; they are read at container start and hashed into
+  `/etc/nginx/.htpasswd` inside the container. No username or password is ever
+  written into `index.html`, the dashboard, or any served asset, and none is
+  committed to git.
+- **Fail closed:** if `ADMIN_PASS` is unset, the `/admin/` location answers
+  `404` rather than falling back to a guessable default. There is no default
+  admin password.
+- The `/admin/` location is longest-prefix, so it beats the `location /`
+  passcode gate: reach the dashboard with the admin credentials, not the
+  preview cookie. Admin auth is independent of the preview passcode, so both
+  can be on at once.
+- Revoking access is a variable change and a redeploy; rotating the password is
+  the same. The `.htpasswd` is generated fresh at every container start.
+
 To remove the gate from the image entirely, delete the `COPY entrypoint.sh` /
 `ENTRYPOINT` lines from the Dockerfile. The whole gate lives in `entrypoint.sh`,
 which the Dockerfile runs as the container entrypoint.
