@@ -14,5 +14,13 @@
     "path": "/versions/1.1/",
     "created": "2026-09-23",
     "commit": "4ac0b1a5fb8530cad09fe358d9297eef3e3f0f5f"
+  },
+  {
+    "id": "1.2",
+    "label": "1.2",
+    "desc": "Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth",
+    "path": "/versions/1.2/",
+    "created": "2026-09-23",
+    "commit": "fc6e97ec0ff1f72e0bfc3aa62aec52f18f3297a8"
   }
 ]
