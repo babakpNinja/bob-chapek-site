@@ -420,6 +420,7 @@
   .vt-list a:hover{border-color:var(--gold);color:var(--paper)}
   .vt-list a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .vt-list .vt-here{border-color:var(--gold);color:#0b1020;background:var(--gold);font-weight:600}
+  .vt-list a.vt-live{border-color:rgba(217,177,105,.55);color:var(--gold-soft)}
   .vt-note{margin:12px 0 0;font-size:.8rem;color:rgba(246,244,238,.5);max-width:70ch}
 /* version-toggle:end */</style>
 <script>document.documentElement.classList.add('js');</script>
@@ -730,8 +731,8 @@
   </div>
     <nav class="version-strip" id="versionToggle" aria-label="Site version">
   <span class="vt-label">Version</span>
-  <div class="vt-list"><a href="/versions/1.0/">1.0 · Book site: cover, buy row, 7 cuts, career record, passcode gate</a><span class="vt-here" aria-current="page">1.1 · Bob batch 1: trimmed tenure, video removed, press fixes</span><a href="/versions/1.2/">1.2 · Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth</a></div>
-  <p class="vt-note">Reference builds for review. The live site is the latest; earlier versions are frozen copies kept for comparison.</p>
+  <div class="vt-list"><a class="vt-live" href="/">Live site</a><a href="/versions/1.0/">1.0 · Book site: cover, buy row, 7 cuts, career record, passcode gate</a><span class="vt-here" aria-current="page">1.1 · Bob batch 1: trimmed tenure, video removed, press fixes</span><a href="/versions/1.2/">1.2 · Hero realigned with a high-res cover; public version toggle removed; admin dashboard at /admin/ behind server auth</a></div>
+  <p class="vt-note">Reference builds for review. Live site is the current build; earlier versions are frozen copies kept for comparison.</p>
 </nav>
 </footer>
 
