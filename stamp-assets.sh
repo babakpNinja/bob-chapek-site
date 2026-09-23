@@ -18,13 +18,22 @@ set -eu
 
 ROOT=${1:?usage: stamp-assets.sh <web-root>}
 
-echo "[entrypoint] stamping asset URLs (cache-bust)"
+# Cache generation. The stamp is "<GEN>-<sha1>". Bump GEN only to abandon every
+# previously stamped URL at once: a first deploy cached these URLs `public` (a
+# shared cache stored the authed bytes and would hand them to a stranger), and a
+# `public, immutable` edge entry cannot be invalidated without Cloudflare access.
+# Changing GEN makes every referenced URL new, so nothing resolves to the old
+# object; the new URLs are served `private` and the edge bypasses them. Steady
+# state is GEN unchanged, so a file whose bytes are unchanged keeps its URL.
+GEN=g2
+
+echo "[entrypoint] stamping asset URLs (cache-bust, gen $GEN)"
 # Every HTML page in the image, once, into a list. The snapshots under
 # /versions/ reference the same shared assets, so they are stamped too.
 find "$ROOT" -name '*.html' -type f > /tmp/_pages.txt
 find "$ROOT/assets" -type f | while IFS= read -r f; do
   rel=${f#"$ROOT/"}
-  sum=$(sha1sum "$f" | cut -c1-12)
+  sum="$GEN-$(sha1sum "$f" | cut -c1-12)"
   while IFS= read -r page; do
     # Both quote styles, and the root-absolute form the snapshots use. Each
     # pattern demands the URL end right after the path, so an already-stamped
