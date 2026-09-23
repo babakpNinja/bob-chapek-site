@@ -42,7 +42,13 @@ ADMIN_ENABLED=0
 if [ -n "${ADMIN_USER:-}" ] && [ -n "${ADMIN_PASS:-}" ]; then
   # -apr1 is the MD5 crypt nginx understands; openssl is already in the image.
   printf '%s:%s\n' "$ADMIN_USER" "$(openssl passwd -apr1 "$ADMIN_PASS")" > "$HTPASSWD"
-  chmod 600 "$HTPASSWD"
+  # The nginx master runs as root but its workers run as the unprivileged
+  # `nginx` user, and it is the worker that reads this file to check the
+  # credentials. Root-only (600) fails closed on the read -> every authed
+  # request 500s. Group-read for the nginx group lets the worker read it while
+  # keeping it out of reach of anyone else.
+  chown root:nginx "$HTPASSWD"
+  chmod 640 "$HTPASSWD"
   ADMIN_ENABLED=1
   echo "[entrypoint] admin auth ON (user: $ADMIN_USER)"
 else
