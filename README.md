@@ -62,6 +62,32 @@ nginx, not by JavaScript.
 - Revoking access is a variable change and a redeploy; rotating the password is
   the same. The `.htpasswd` is generated fresh at every container start.
 
+## Asset caching (why a changed image can look unchanged)
+
+A CDN/browser caches a file under its URL. When an image changes but its
+filename does not, the cache keeps serving the old bytes, so a freshly deployed
+page can show the previous image. That reads as "the deploy failed" when the
+origin is perfectly correct (this bit us: Bob saw the old cover after it shipped).
+
+Two mechanisms prevent that here:
+
+- **Content-stamped asset URLs.** At container start `stamp-assets.sh` rewrites
+  every asset reference in the served HTML to `assets/foo.jpg?v=<sha1>`, using the
+  sha1 prefix of the file's own bytes. A changed file gets a new URL, so no cache
+  can resolve it to the old object; an unchanged file keeps its URL and stays
+  cacheable. The page in git is left clean, because the stamp is added at start
+  and only the served copy carries it. This covers `index.html` and the
+  `/versions/<id>/` snapshots, which share the same `/assets/`.
+- **Explicit cache headers in nginx.** A stamped asset is content-addressed, so
+  it is safe to cache for a year (`immutable`). An asset without a stamp is still
+  mutable and gets a short `max-age=3600`. Everything else, the HTML above all,
+  is `no-store`, so a deploy is visible on the next load.
+
+If you ever see a changed asset look stale in the browser, confirm against the
+origin before suspecting the deploy: fetch the plain URL with `?cb=<ts>` added,
+or check `curl -I` for the `Cache-Control`/`age` headers. A stale asset at the
+edge looks exactly like deploy drift.
+
 To remove the gate from the image entirely, delete the `COPY entrypoint.sh` /
 `ENTRYPOINT` lines from the Dockerfile. The whole gate lives in `entrypoint.sh`,
 which the Dockerfile runs as the container entrypoint.

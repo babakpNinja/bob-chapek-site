@@ -29,7 +29,21 @@ ROOT=/usr/share/nginx/html
 # The Dockerfile also removes them, but this runs at start too, so a cached image
 # layer cannot leave them served.
 rm -f "$ROOT/entrypoint.sh" "$ROOT/Dockerfile" "$ROOT/README.md" \
-      "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore"
+      "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore" \
+      "$ROOT/stamp-assets.sh"
+
+# ---- cache-busting for mutable asset URLs (issue #47) ------------------------
+# The edge and browsers cache a file for hours, so a changed image with an
+# unchanged name keeps serving the OLD bytes -- Bob opened the fresh page and got
+# the previous cover. The page was correct; the cached asset was not.
+#
+# Fix: stamp every referenced asset URL with a token that changes only when the
+# file's bytes change. The token is the file's own sha1 prefix, so an unchanged
+# asset keeps its URL (still cacheable) while a changed one becomes a new URL
+# that no cache can resolve to the old object. The stamp rides a query string
+# (?v=<sha1>), so no file is renamed and no path breaks. Idempotent: the pattern
+# requires the token to be absent, so re-running never double-stamps.
+sh /usr/share/nginx/stamp-assets.sh "$ROOT"
 
 # ---- /admin/ credentials (issue #45) -----------------------------------------
 # The admin credentials live ONLY in Railway service variables (ADMIN_USER /
@@ -103,6 +117,19 @@ fi
 if [ "$PREVIEW_PASSCODE" = "__OFF__" ]; then
   echo "[entrypoint] PREVIEW_PASSCODE=__OFF__ - passcode gate DISABLED (unlisted only)"
   cat > "$CONF" <<'CONF'
+# Cache policy (issue #47). Long cache is granted ONLY to an asset URL that
+# carries the ?v=<hash> stamp the entrypoint adds; a mutable (unstamped) asset
+# name gets a short TTL, and anything else -- the HTML -- is never cached, so a
+# deploy is visible on the next load. See the gate-on block below for the full
+# explanation of the three maps.
+map $arg_v $busted { default 0; ~. 1; }
+map $uri   $asset  { default 0; ~*\.(?:jpg|jpeg|png|gif|svg|webp|avif|ico|woff2?|mp4|css|js|txt|ics)$ 1; }
+map "$asset$busted" $cache_hdr {
+  default "no-store";
+  "10"    "public, max-age=3600";
+  "11"    "public, max-age=31536000, immutable";
+}
+
 server {
   listen 8080;
   server_name _;
@@ -113,7 +140,13 @@ server {
   location = /gate-api/check { return 404; }
   location = /gate.html      { return 404; }
   include /etc/nginx/admin.conf;
-  location / { try_files $uri $uri/ =404; }
+  location / {
+    # Defining add_header here stops the server-level one being inherited, so
+    # X-Robots-Tag is repeated or the header would silently vanish.
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+    add_header Cache-Control $cache_hdr always;
+    try_files $uri $uri/ =404;
+  }
 }
 CONF
 else
@@ -128,6 +161,22 @@ else
   printf 'map $http_x_passcode $bpc_codeok { default 0; "%s" 1; }\n' "$PREVIEW_PASSCODE" >> "$CONF"
   printf 'map $cookie_bpcgate   $bpc_ok     { default 0; "%s" 1; }\n' "$TOKEN"          >> "$CONF"
   cat >> "$CONF" <<'CONF'
+# Cache policy (issue #47). The edge and browsers kept serving a changed asset
+# under its old name, so a fresh page showed a stale image. The entrypoint now
+# stamps every referenced asset with ?v=<sha1>, so a changed file is a new URL.
+# These maps turn that stamp into headers:
+#   $busted  1 when ?v= is present -> the URL is content-addressed, safe to
+#            cache forever.
+#   $asset   1 for an asset extension. An asset WITHOUT ?v= is still mutable
+#            (an inlined or hand-written reference), so it gets a short TTL.
+#   everything else, the HTML above all, is never cached: the next deploy shows.
+map $arg_v $busted { default 0; ~. 1; }
+map $uri   $asset  { default 0; ~*\.(?:jpg|jpeg|png|gif|svg|webp|avif|ico|woff2?|mp4|css|js|txt|ics)$ 1; }
+map "$asset$busted" $cache_hdr {
+  default "no-store";
+  "10"    "public, max-age=3600";
+  "11"    "public, max-age=31536000, immutable";
+}
 
 server {
   listen 8080;
@@ -166,6 +215,9 @@ server {
   include /etc/nginx/admin.conf;
   location / {
     if ($bpc_ok = 0) { return 302 /gate.html?rd=$request_uri; }
+    # A new header set here stops the inherited one, so X-Robots-Tag is repeated.
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+    add_header Cache-Control $cache_hdr always;
     try_files $uri $uri/ =404;
   }
 }

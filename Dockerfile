@@ -29,7 +29,8 @@ RUN set -eux; \
 #     is enforced by nginx, never by client JS; __OFF__ disables it. See the
 #     README for both toggles.
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY stamp-assets.sh /usr/share/nginx/stamp-assets.sh
+RUN chmod +x /entrypoint.sh /usr/share/nginx/stamp-assets.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # `COPY .` also drops the build-only files into the served root. They name the
@@ -38,5 +39,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 # fetches above have used media.sha256.
 RUN rm -f /usr/share/nginx/html/entrypoint.sh /usr/share/nginx/html/Dockerfile \
     /usr/share/nginx/html/README.md /usr/share/nginx/html/media.sha256 \
-    /usr/share/nginx/html/.gitignore
+    /usr/share/nginx/html/.gitignore /usr/share/nginx/html/stamp-assets.sh
 EXPOSE 8080
