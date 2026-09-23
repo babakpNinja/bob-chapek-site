@@ -9,20 +9,22 @@ the `media-v1` release and checked against `media.sha256`.
 
 The site is currently UNLISTED while we await Bob's approval: search engines may
 not list it, but anyone with the link can still open and share it. This is
-temporary and it is reversible in one place per file. To re-list the site, do
-all four of the following:
+temporary and reversible. Do it with the switch, not by hand:
 
-1. `index.html`: delete the `<meta name="robots" ...>` line that begins
-   `noindex, nofollow, noarchive` (marked UNLISTED in the head).
-2. `press-kit.html`: change its robots meta back to `index,follow`.
-3. `robots.txt`: replace the `Disallow: /` block with
-   `User-agent: *` then `Allow: /`, and restore the line
-   `Sitemap: https://bob-chapek.com/sitemap.xml`.
-4. `sitemap.xml`: restore the two `<url>` entries (homepage and press kit).
-5. `Dockerfile`: remove the `add_header X-Robots-Tag ...` clause from the
-   `default.conf` line.
+    python tools/go_live.py status    # what state are we in
+    python tools/go_live.py list      # go live (indexable)
+    python tools/go_live.py unlist    # back to link-only
+    python tools/go_live.py list --deploy
 
-To unlist again, reverse those five steps.
+The switch edits four files (`index.html`, `press-kit.html`, `robots.txt`,
+`sitemap.xml`) and is an exact inverse, so unlist-then-list returns the files
+byte for byte. A test proves that round trip against the real files.
+
+The `X-Robots-Tag` response header is NOT a fifth file to edit: `entrypoint.sh`
+derives it at container start from the same robots meta that ships in
+`index.html`, so the header and the page can never disagree. When the page is
+listed the header lines are commented out in the generated config; the admin
+dashboard keeps its own permanent `noindex` either way. See `tools/go_live.py`.
 
 ## Passcode gate
 

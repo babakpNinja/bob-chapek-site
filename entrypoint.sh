@@ -84,6 +84,17 @@ if grep -q 'name="robots" content="noindex' "$ROOT/index.html" 2>/dev/null; then
 else
   UNLISTED=false
 fi
+
+# The X-Robots-Tag response header is derived from that SAME shipped meta, so
+# the header and the page cannot disagree: one source of truth. Each config
+# heredoc below is written with the header live; when the meta says the page is
+# LISTED, one pass comments those lines out in $CONF. That is why re-listing is
+# a single edit of the robots meta and nothing in this generated config needs to
+# be kept in step by hand. The pass runs only on $CONF, never on $ADMIN_CONF,
+# so the admin dashboard keeps its own permanent noindex either way.
+unlist_headers() {
+  sed -i 's|^\([[:space:]]*\)add_header X-Robots-Tag "noindex|\1# bpc-noindex: add_header X-Robots-Tag "noindex|' "$1"
+}
 mkdir -p "$ROOT/admin"
 printf '{"gate":"%s","unlisted":%s}\n' "$GATE_STATE" "$UNLISTED" > "$ROOT/admin/status.json"
 # The dashboard reads versions.json from its own path so a single location block
@@ -237,6 +248,13 @@ server {
 CONF
   # $bpc_cookieval is not a real variable; substitute the token literally.
   sed -i "s/bpcgate=\$bpc_cookieval/bpcgate=$TOKEN/" "$CONF"
+fi
+
+# One place decides the noindex response header for the whole site, from the
+# state the page itself was built with (see unlist_headers above).
+if [ "$UNLISTED" = "false" ]; then
+  echo "[entrypoint] page is LISTED - commenting out the noindex response headers"
+  unlist_headers "$CONF"
 fi
 
 nginx -t
