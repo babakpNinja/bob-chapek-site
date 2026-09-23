@@ -31,6 +31,69 @@ ROOT=/usr/share/nginx/html
 rm -f "$ROOT/entrypoint.sh" "$ROOT/Dockerfile" "$ROOT/README.md" \
       "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore"
 
+# ---- /admin/ credentials (issue #45) -----------------------------------------
+# The admin credentials live ONLY in Railway service variables (ADMIN_USER /
+# ADMIN_PASS), read here at start. They are never written into git, index.html or
+# any served asset. Fail CLOSED: with no ADMIN_PASS set, /admin/ is disabled
+# outright (404) rather than falling back to a guessable default baked in the
+# repo. nginx checks the basic-auth password itself, so view-source sees nothing.
+HTPASSWD=/etc/nginx/.htpasswd
+ADMIN_ENABLED=0
+if [ -n "${ADMIN_USER:-}" ] && [ -n "${ADMIN_PASS:-}" ]; then
+  # -apr1 is the MD5 crypt nginx understands; openssl is already in the image.
+  printf '%s:%s\n' "$ADMIN_USER" "$(openssl passwd -apr1 "$ADMIN_PASS")" > "$HTPASSWD"
+  chmod 600 "$HTPASSWD"
+  ADMIN_ENABLED=1
+  echo "[entrypoint] admin auth ON (user: $ADMIN_USER)"
+else
+  echo "[entrypoint] ADMIN_PASS unset - /admin/ DISABLED (fail closed)"
+fi
+
+# The admin dashboard shows gate + unlisted state. Derive both truthfully at
+# start (the gate from the passcode var, unlisted from the meta actually shipped
+# in index.html) so the page reports reality rather than a hardcoded guess.
+if [ "$PREVIEW_PASSCODE" = "__OFF__" ]; then GATE_STATE=off; else GATE_STATE=on; fi
+if grep -q 'name="robots" content="noindex' "$ROOT/index.html" 2>/dev/null; then
+  UNLISTED=true
+else
+  UNLISTED=false
+fi
+mkdir -p "$ROOT/admin"
+printf '{"gate":"%s","unlisted":%s}\n' "$GATE_STATE" "$UNLISTED" > "$ROOT/admin/status.json"
+# The dashboard reads versions.json from its own path so a single location block
+# gates the page, the status and the version listing together.
+if [ -f "$ROOT/versions/versions.json" ]; then
+  cp "$ROOT/versions/versions.json" "$ROOT/admin/versions.json"
+else
+  printf '[]\n' > "$ROOT/admin/versions.json"
+fi
+
+# ---- the /admin/ location ------------------------------------------------
+# Shared by both branches (gate on and off): admin auth is independent of the
+# preview passcode. Written once here and `include`d, so the two server blocks
+# cannot drift. Longest-prefix match means /admin/ beats the `location /` gate,
+# so the dashboard is reached with the admin credentials, not the preview cookie.
+ADMIN_CONF=/etc/nginx/admin.conf
+if [ "$ADMIN_ENABLED" = "1" ]; then
+  cat > "$ADMIN_CONF" <<'CONF'
+  # Everything under /admin/ needs the basic-auth credentials nginx holds in
+  # /etc/nginx/.htpasswd (generated at start from the Railway variables). The
+  # check is the server's; no credential is in any served file.
+  location /admin/ {
+    auth_basic "Admin";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+    add_header Cache-Control "no-store" always;
+    try_files $uri $uri/ =404;
+  }
+CONF
+else
+  # Fail closed: no credentials configured means the admin area does not exist.
+  cat > "$ADMIN_CONF" <<'CONF'
+  location /admin/ { return 404; }
+CONF
+fi
+
 if [ "$PREVIEW_PASSCODE" = "__OFF__" ]; then
   echo "[entrypoint] PREVIEW_PASSCODE=__OFF__ - passcode gate DISABLED (unlisted only)"
   cat > "$CONF" <<'CONF'
@@ -43,6 +106,7 @@ server {
 
   location = /gate-api/check { return 404; }
   location = /gate.html      { return 404; }
+  include /etc/nginx/admin.conf;
   location / { try_files $uri $uri/ =404; }
 }
 CONF
@@ -93,6 +157,7 @@ server {
 
   # Everything else is gated. Any request without the access cookie is sent to
   # the lightbox, carrying the URI so it lands there after the code is accepted.
+  include /etc/nginx/admin.conf;
   location / {
     if ($bpc_ok = 0) { return 302 /gate.html?rd=$request_uri; }
     try_files $uri $uri/ =404;

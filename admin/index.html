@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin | Behind the Castle Walls</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1020'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23d9b169' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0b1020;--paper:#f6f4ee;--gold:#d9b169;--gold-soft:#f0dcb4;--mist:rgba(246,244,238,.68);--line:rgba(217,177,105,.28)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--paper);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:300;line-height:1.6}
+  a{color:var(--gold-soft)}
+  .wrap{max-width:960px;margin:0 auto;padding:36px 22px 80px}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;line-height:1.2}
+  h1{font-size:clamp(1.6rem,4vw,2.1rem);margin:0 0 6px}
+  h2{font-size:1.15rem;margin:34px 0 10px}
+  h3{font-size:1rem;margin:0 0 6px}
+  .eyebrow{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 10px}
+  .sub{color:var(--mist);margin:0 0 4px}
+  .panel{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px;background:rgba(255,255,255,.035);margin-top:12px}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .row:last-child{border-bottom:0}
+  .row .k{font-size:.9rem}
+  .row .d{display:block;font-size:.8rem;color:var(--mist)}
+  .pill{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    padding:4px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:var(--mist);white-space:nowrap}
+  .pill.on{border-color:var(--gold);color:#0b1020;background:var(--gold)}
+  .pill.off{border-color:rgba(255,255,255,.2);color:var(--mist)}
+  .pill.planned{border-color:rgba(96,132,255,.5);color:#b9c8ff}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+  th{color:var(--gold);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84rem;color:var(--gold-soft);
+    background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+  .note{font-size:.84rem;color:var(--mist)}
+  .live{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+  .soon{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#b9c8ff}
+  .signout{display:inline-flex;align-items:center;min-height:44px;font-size:.86rem;color:var(--mist)}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Admin</p>
+  <h1>Behind the Castle Walls</h1>
+  <p class="sub">Content, versions and feature flags for bob-chapek.com.</p>
+  <p class="note" style="margin-top:10px">Signed in with HTTP basic auth. This page and everything it loads is served only after the server has verified the credentials &mdash; nothing here is readable without them.</p>
+
+  <h2>Feature flags <span class="live">Live</span></h2>
+  <div class="panel" id="flags">
+    <p class="note" id="flagsNote">Loading current state&hellip;</p>
+  </div>
+
+  <h2>Versions <span class="live">Live</span></h2>
+  <div class="panel">
+    <p class="note" style="margin:0 0 12px">Frozen reference builds. Click a version to open that snapshot; the live site is the current build. To make a snapshot the served page ("go back to version N"), restore <code>versions/N/index.html</code> as the page and deploy &mdash; the history lives in <code>versions/VERSIONS.md</code>.</p>
+    <div id="versions"><p class="note" style="margin:0">Loading&hellip;</p></div>
+  </div>
+
+  <h2>Content editing <span class="soon">Planned</span></h2>
+  <div class="panel">
+    <p class="note" style="margin:0">Editing the copy blocks (hero lede, About Bob badges, book blurb, buy links, press desk) and publishing straight from here needs a write-back service that commits and redeploys. That is the next slice; today those edits go through the normal build, and this panel will replace that.</p>
+  </div>
+
+  <h2>Media <span class="soon">Planned</span></h2>
+  <div class="panel">
+    <p class="note" style="margin:0">Choosing the default trailer cut (if any) and uploading or replacing assets, from here. Next slice, with the write-back service above.</p>
+  </div>
+
+  <p style="margin-top:34px"><a class="signout" href="/">&larr; Back to bob-chapek.com</a></p>
+</div>
+<script>
+(function(){
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+
+  fetch('status.json',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null;}).then(function(s){
+    var el=document.getElementById('flags'), note=document.getElementById('flagsNote');
+    if(!s){note.textContent='Could not read the current state.';return;}
+    note.remove();
+    function row(k,d,on,onLabel,offLabel){
+      var p=on?'<span class="pill on">'+esc(onLabel)+'</span>':'<span class="pill off">'+esc(offLabel)+'</span>';
+      return '<div class="row"><span><span class="k">'+esc(k)+'</span><span class="d">'+esc(d)+'</span></span>'+p+'</div>';
+    }
+    el.innerHTML =
+      row('Passcode gate','The private-preview gate. On: visitors need the passcode. Each snapshot under /versions/ carries it too.',
+          s.gate==='on','On','Off')
+      + row('Unlisted (noindex)','Search engines are asked not to list the site. It does not make the page private.',
+          s.unlisted,'Unlisted','Listed')
+      + '<p class="note" style="margin:12px 0 0">These two are set at container start from the service variables <code>PREVIEW_PASSCODE</code> and <code>SITE_UNLISTED</code>. Changing one takes a variable update and a redeploy; the switches that do that from this page ship with the write-back service above.</p>';
+  }).catch(function(){document.getElementById('flagsNote').textContent='Could not read the current state.';});
+
+  fetch('versions.json',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null;}).then(function(v){
+    var el=document.getElementById('versions');
+    if(!v||!v.length){el.innerHTML='<p class="note" style="margin:0">No versions recorded yet.</p>';return;}
+    var rows=v.map(function(e){
+      return '<tr><td><b>'+esc(e.label)+'</b></td><td>'+esc(e.desc)+'</td><td>'+esc(e.created)+'</td>'
+           + '<td><a href="/versions/'+esc(e.id)+'/">open &rarr;</a></td></tr>';
+    }).join('');
+    el.innerHTML='<table><thead><tr><th>Version</th><th>What it was</th><th>Date</th><th>Snapshot</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }).catch(function(){document.getElementById('versions').innerHTML='<p class="note" style="margin:0">Could not read the version list.</p>';});
+})();
+</script>
+</body>
+</html>

@@ -171,14 +171,19 @@
   }
 
   /* ---------- hero: the book leads ---------- */
+  /* Row 1: the cover and the opening paragraph are a PAIR, aligned on a shared
+     top and scaled up so the book leads. Row 2: the countdown sits centered
+     under them. Row 3+: the About/stat blocks sit on the same measure below. */
   .hero{padding:48px 0 40px}
-  .hero-grid{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:center}
-  .hero h1{font-size:clamp(2.3rem,6vw,3.9rem);margin:.1em 0 .2em}
+  .hero-top{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);
+    gap:clamp(28px,5vw,64px);align-items:start}
+  .hero h1{font-size:clamp(2.4rem,5.4vw,4.2rem);margin:.1em 0 .28em}
   .hero h1 em{font-style:normal;color:var(--gold);display:block}
-  .hero .sub{font-size:1.06rem;color:var(--mist);max-width:54ch}
+  .hero .sub{font-size:clamp(1.08rem,1.5vw,1.24rem);color:var(--mist);max-width:56ch}
+  .hero-copy{padding-top:6px}
   .cover{position:relative;perspective:1200px;margin:0}
   .cover img{
-    width:100%;border-radius:6px;display:block;box-shadow:0 30px 70px rgba(0,0,0,.6);
+    width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 36px 80px rgba(0,0,0,.62);
     transition:transform .5s cubic-bezier(.2,.7,.3,1)
   }
   .cover:hover img{transform:rotateY(-8deg) rotateX(3deg) scale(1.02)}
@@ -200,15 +205,16 @@
      repaint is still a per-second repaint on a phone, so the numbers are
      tabular so the row cannot jitter as the seconds change. */
   .countdown{
-    margin-top:26px;max-width:560px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
-    padding:18px 16px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
+    margin:34px auto 0;max-width:640px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
+    padding:20px 16px;text-align:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
   }
   .countdown .eyebrow{margin:0 0 12px}
-  /* Four cells now, so the gap tightens and the numerals step down a touch: the
-     row has to hold Days/Hours/Minutes/Seconds on one line at 320px without
-     wrapping mid-number, and its min-content must fit the hero grid column or the
-     whole page goes 5px wide. */
-  .cd-row{display:flex;gap:clamp(10px,3.2vw,24px)}
+  .cd-row{display:flex;justify-content:center;gap:clamp(10px,3.2vw,24px)}
+  /* The reminder buttons are centered with the row above them, so the whole
+     block reads as one centered unit under the cover+paragraph pair. */
+  .countdown .remind{justify-content:center}
+  .countdown .remind-note{margin-left:auto;margin-right:auto}
   .cd-row .num{
     display:block;font-family:Fraunces,serif;font-size:clamp(1.35rem,5vw,2.2rem);
     color:var(--gold);line-height:1;font-variant-numeric:tabular-nums
@@ -367,8 +373,12 @@
   .about-link:hover{color:var(--gold)}
 
   @media(max-width:980px){
-    .hero-grid{grid-template-columns:1fr;gap:32px}
-    .cover{max-width:250px;order:-1}
+    .hero-top{grid-template-columns:1fr;gap:26px}
+    .cover{max-width:300px;margin:0 auto}
+    .hero-copy{padding-top:0;text-align:center}
+    .hero .sub{margin-left:auto;margin-right:auto}
+    .hero .cta{justify-content:center}
+    .hero .meta{justify-content:center}
     .hero h1{font-size:clamp(2.1rem,9vw,3rem)}
     .stats{grid-template-columns:repeat(2,1fr)}
     .about-badges{grid-template-columns:repeat(2,1fr)}
@@ -412,16 +422,7 @@
     *{animation:none!important;transition:none!important}
     .js .card{opacity:1;transform:none}
   }
-/* version-toggle:start */
-  .version-strip{margin-top:26px;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
-  .vt-label{display:block;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px}
-  .vt-list{display:flex;flex-wrap:wrap;gap:8px}
-  .vt-list a,.vt-list .vt-here{font-size:.8rem;text-decoration:none;border:1px solid rgba(255,255,255,.16);padding:7px 12px;border-radius:999px;color:rgba(246,244,238,.82);min-height:44px;display:inline-flex;align-items:center}
-  .vt-list a:hover{border-color:var(--gold);color:var(--paper)}
-  .vt-list a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  .vt-list .vt-here{border-color:var(--gold);color:#0b1020;background:var(--gold);font-weight:600}
-  .vt-note{margin:12px 0 0;font-size:.8rem;color:rgba(246,244,238,.5);max-width:70ch}
-/* version-toggle:end */</style>
+</style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -446,57 +447,60 @@
 </nav>
 
 <header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">The memoir · September 29, 2026</p>
-      <h1>Behind the<em>Castle Walls</em></h1>
-      <p class="sub">My Thirty Years at the Happiest Place on Earth. The executive who sold Disney videotapes, managed its parks on three continents, and then ran the whole company through its hardest years tells it from the inside. Written with Don Yaeger.</p>
-      <div class="cta">
-        <a class="btn solid" href="#buy">Preorder the book</a>
-        <a class="btn" href="#inside">What's inside</a>
-      </div>
-
-      <div class="countdown" id="countdown">
-        <p class="eyebrow" id="cdLabel">Out September 29, 2026</p>
-        <div class="cd-row" id="cdRow" role="timer" aria-live="off"
-             aria-label="Days, hours, minutes and seconds until the book is out">
-          <div><span class="num" data-cd="d">&mdash;</span><span class="lbl">Days</span></div>
-          <div><span class="num" data-cd="h">&mdash;</span><span class="lbl">Hours</span></div>
-          <div><span class="num" data-cd="m">&mdash;</span><span class="lbl">Minutes</span></div>
-          <div><span class="num" data-cd="s">&mdash;</span><span class="lbl">Seconds</span></div>
+  <div class="wrap">
+    <div class="hero-top">
+      <figure class="cover">
+        <img src="assets/book-cover.jpg" alt="Cover of Behind the Castle Walls by Bob Chapek, Gallery Books" width="840" height="1268" loading="eager" fetchpriority="high">
+      </figure>
+      <div class="hero-copy">
+        <p class="eyebrow">The memoir · September 29, 2026</p>
+        <h1>Behind the<em>Castle Walls</em></h1>
+        <p class="sub">My Thirty Years at the Happiest Place on Earth. The executive who sold Disney videotapes, managed its parks on three continents, and then ran the whole company through its hardest years tells it from the inside. Written with Don Yaeger.</p>
+        <div class="cta">
+          <a class="btn solid" href="#buy">Preorder the book</a>
+          <a class="btn" href="#inside">What's inside</a>
         </div>
-        <div class="remind">
-          <a class="btn" id="calBtn" href="reminder.ics" download>Add to calendar</a>
-          <button class="btn" type="button" id="remindBtn">Remind me</button>
+        <div class="meta">
+          <span>Hardcover $30.00</span><span>272 pages</span><span>Gallery Books</span><span>With Don Yaeger</span><span>ISBN 9781668222089</span>
         </div>
-        <p class="remind-note" id="remindNote" hidden></p>
-      </div>
-      <div class="meta">
-        <span>Hardcover $30.00</span><span>272 pages</span><span>Gallery Books</span><span>With Don Yaeger</span><span>ISBN 9781668222089</span>
-      </div>
-
-      <div class="about-bob">
-        <h3>About Bob</h3>
-        <p class="about-note">A quick read on who he is and what he ran.</p>
-        <div class="about-badges">
-          <div class="ab-badge"><span><span class="k">Former CEO</span><span class="v">The Walt Disney Company</span></span></div>
-          <div class="ab-badge"><span><span class="k">Tenure</span><span class="v">Nearly 30 years at Disney</span></span></div>
-          <div class="ab-badge">
-            <span class="mk"><img src="assets/ninjatech-mark.svg" alt=""></span>
-            <span><span class="k">Advisor</span><span class="v">Ninja AI</span></span>
-          </div>
-          <div class="ab-badge"><span><span class="k">Author</span><span class="v">Behind the Castle Walls</span></span></div>
-          <div class="ab-badge"><span><span class="k">Alma mater</span><span class="v">Indiana University Bloomington</span></span></div>
-          <div class="ab-badge"><span><span class="k">Also</span><span class="v">Chairman, Disney Parks</span></span></div>
-        </div>
-        <a class="about-link" href="#career">See the full career record <span aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
-    <figure class="cover">
-      <img src="assets/book-cover.jpg" alt="Cover of Behind the Castle Walls by Bob Chapek, Gallery Books" width="265" height="400" loading="eager">
-    </figure>
+
+    <div class="countdown" id="countdown">
+      <p class="eyebrow" id="cdLabel">Out September 29, 2026</p>
+      <div class="cd-row" id="cdRow" role="timer" aria-live="off"
+           aria-label="Days, hours, minutes and seconds until the book is out">
+        <div><span class="num" data-cd="d">&mdash;</span><span class="lbl">Days</span></div>
+        <div><span class="num" data-cd="h">&mdash;</span><span class="lbl">Hours</span></div>
+        <div><span class="num" data-cd="m">&mdash;</span><span class="lbl">Minutes</span></div>
+        <div><span class="num" data-cd="s">&mdash;</span><span class="lbl">Seconds</span></div>
+      </div>
+      <div class="remind">
+        <a class="btn" id="calBtn" href="reminder.ics" download>Add to calendar</a>
+        <button class="btn" type="button" id="remindBtn">Remind me</button>
+      </div>
+      <p class="remind-note" id="remindNote" hidden></p>
+    </div>
   </div>
+
   <div class="wrap">
+    <div class="about-bob">
+      <h3>About Bob</h3>
+      <p class="about-note">A quick read on who he is and what he ran.</p>
+      <div class="about-badges">
+        <div class="ab-badge"><span><span class="k">Former CEO</span><span class="v">The Walt Disney Company</span></span></div>
+        <div class="ab-badge"><span><span class="k">Tenure</span><span class="v">Nearly 30 years at Disney</span></span></div>
+        <div class="ab-badge">
+          <span class="mk"><img src="assets/ninjatech-mark.svg" alt=""></span>
+          <span><span class="k">Advisor</span><span class="v">Ninja AI</span></span>
+        </div>
+        <div class="ab-badge"><span><span class="k">Author</span><span class="v">Behind the Castle Walls</span></span></div>
+        <div class="ab-badge"><span><span class="k">Alma mater</span><span class="v">Indiana University Bloomington</span></span></div>
+        <div class="ab-badge"><span><span class="k">Also</span><span class="v">Chairman, Disney Parks</span></span></div>
+      </div>
+      <a class="about-link" href="#career">See the full career record <span aria-hidden="true">&rarr;</span></a>
+    </div>
+
     <div class="stats">
       <div class="stat"><span class="num" data-count="272">0</span><span class="lbl">Pages, out September 29, 2026</span></div>
       <div class="stat"><span class="num" data-count="30" data-prefix="Nearly ">0</span><span class="lbl">Years inside Disney that the book covers</span></div>
@@ -728,11 +732,6 @@
       <a href="https://www.hollywoodreporter.com/business/business-news/bob-chapek-new-job-medical-device-firm-masimo-1235790287" target="_blank" rel="noopener">The Hollywood Reporter</a>
     </div>
   </div>
-    <nav class="version-strip" id="versionToggle" aria-label="Site version">
-  <span class="vt-label">Version</span>
-  <div class="vt-list"><a href="/versions/1.0/">1.0 · Book site: cover, buy row, 7 cuts, career record, passcode gate</a><span class="vt-here" aria-current="page">1.1 · Bob batch 1: trimmed tenure, video removed, press fixes</span></div>
-  <p class="vt-note">Reference builds for review. The live site is the latest; earlier versions are frozen copies kept for comparison.</p>
-</nav>
 </footer>
 
 <a class="ninja-fab" href="https://ninjatech.ai" target="_blank" rel="noopener"
