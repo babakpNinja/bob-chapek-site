@@ -20,6 +20,13 @@ RUN set -eux; \
     done < media.sha256; \
     apk del curl
 
+# python3 runs the /admin/ write-back (issue #51): the dashboard's first panel
+# that writes. Kept OUT of the served root and off the site's port: it binds
+# loopback and nginx proxies to it behind the admin auth, so nothing reaches it
+# that the server did not authenticate.
+RUN apk add --no-cache python3
+COPY admin_writeback.py /opt/admin-writeback/admin_writeback.py
+
 # UNLISTED (temporary, awaiting Bob's approval). Two mechanisms live in this
 # image and both are documented in README.md:
 #   - X-Robots-Tag "noindex, nofollow, noarchive": added by the nginx config the
@@ -41,5 +48,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 RUN rm -f /usr/share/nginx/html/entrypoint.sh /usr/share/nginx/html/Dockerfile \
     /usr/share/nginx/html/README.md /usr/share/nginx/html/media.sha256 \
     /usr/share/nginx/html/.gitignore /usr/share/nginx/html/stamp-assets.sh \
-    /usr/share/nginx/html/gate-map.sh
+    /usr/share/nginx/html/gate-map.sh /usr/share/nginx/html/admin_writeback.py
 EXPOSE 8080

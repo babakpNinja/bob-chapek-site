@@ -72,6 +72,35 @@ nginx, not by JavaScript.
 - Revoking access is a variable change and a redeploy; rotating the password is
   the same. The `.htpasswd` is generated fresh at every container start.
 
+### Write-back (`/admin/api/`)
+
+The Feature-flags panel writes one thing: the passcode gate. A browser cannot
+hold the credential that flips a production variable, so a small Python process
+(`admin_writeback.py`, in the image at `/opt/admin-writeback/`, not in the served
+root) does the write and nginx proxies to it at `/admin/api/`.
+
+- It binds **loopback only** (127.0.0.1:9099), so the only way in is the nginx
+  `location = /admin/api/...` blocks. Those sit inside the authed `/admin/`
+  prefix and carry the same `auth_basic`, so a write is authenticated by the
+  server before it is forwarded. `limit_except POST { deny all; }` on the write
+  path means a `GET /admin/api/flag` is refused.
+- The write credential is the Railway service variable `ADMIN_RAILWAY_TOKEN`, a
+  **project token** scoped to this project. It is read at start, and it is not
+  logged, not returned in any response, and not committed. Mint one in Railway
+  (Project settings, Tokens) and set it on the service.
+- **Fail closed:** with `ADMIN_RAILWAY_TOKEN` unset the writer still starts but
+  REFUSES every write; the panel reports read-only and the variable stays as it
+  was. With `ADMIN_PASS` unset the `/admin/` location is a `404` and no
+  `/admin/api/` route is written at all.
+- What it accepts is one flag and two values: `gate` = `off` (`PREVIEW_PASSCODE`
+  becomes `__OFF__`) or `gate` = `on` with a passcode of at least 6 characters.
+  Anything else is a `400`. There is no default passcode to fall back to.
+- A variable change does not rebuild on its own; the container reads
+  `PREVIEW_PASSCODE` at start, so the writer re-triggers the deploy of the same
+  commit and the gate flips when the container restarts.
+- The unlisted (noindex) state and the content editor are NOT written here; they
+  are the next slices. The panel labels them honestly.
+
 ## Asset caching (why a changed image can look unchanged)
 
 A CDN/browser caches a file under its URL. When an image changes but its

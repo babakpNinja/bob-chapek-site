@@ -36,7 +36,7 @@ ROOT=/usr/share/nginx/html
 # layer cannot leave them served.
 rm -f "$ROOT/entrypoint.sh" "$ROOT/Dockerfile" "$ROOT/README.md" \
       "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore" \
-      "$ROOT/stamp-assets.sh" "$ROOT/gate-map.sh"
+      "$ROOT/stamp-assets.sh" "$ROOT/gate-map.sh" "$ROOT/admin_writeback.py"
 
 # ---- cache-busting for mutable asset URLs (issue #47) ------------------------
 # The edge and browsers cache a file for hours, so a changed image with an
@@ -116,6 +116,29 @@ if [ "$ADMIN_ENABLED" = "1" ]; then
   # Everything under /admin/ needs the basic-auth credentials nginx holds in
   # /etc/nginx/.htpasswd (generated at start from the Railway variables). The
   # check is the server's; no credential is in any served file.
+  #
+  # /admin/api/ proxies to the write-back (issue #51). It sits INSIDE the authed
+  # prefix, so a write is authenticated by the same basic auth as the dashboard:
+  # the server checks the credential, then forwards. The writer listens on
+  # loopback only, so this location is the only door to it. When admin auth is
+  # off this whole block is replaced by a 404 (fail closed) and no route to the
+  # writer exists at all.
+  location = /admin/api/flag {
+    auth_basic "Admin";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+    add_header Cache-Control "no-store" always;
+    limit_except POST { deny all; }
+    proxy_pass http://127.0.0.1:9099/flag;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+  location = /admin/api/status {
+    auth_basic "Admin";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+    add_header Cache-Control "no-store" always;
+    proxy_pass http://127.0.0.1:9099/status;
+  }
   location /admin/ {
     auth_basic "Admin";
     auth_basic_user_file /etc/nginx/.htpasswd;
@@ -255,6 +278,23 @@ fi
 if [ "$UNLISTED" = "false" ]; then
   echo "[entrypoint] page is LISTED - commenting out the noindex response headers"
   unlist_headers "$CONF"
+fi
+
+# ---- the /admin/ write-back (issue #51) -----------------------------------
+# Start the writer only when the admin area exists: with auth off, /admin/ is a
+# 404 and the proxy locations were not written, so a listener would be dead
+# weight. It binds loopback, so nginx (and nothing else) can reach it. The token
+# comes from the Railway variable ADMIN_RAILWAY_TOKEN and is never logged here;
+# with it unset the process still starts and REFUSES every write (fail closed),
+# so the panel reports read-only rather than the container failing to boot.
+if [ "$ADMIN_ENABLED" = "1" ]; then
+  if [ -n "${ADMIN_RAILWAY_TOKEN:-}" ]; then
+    echo "[entrypoint] admin write-back ON"
+  else
+    echo "[entrypoint] admin write-back read-only (ADMIN_RAILWAY_TOKEN unset)"
+  fi
+  python3 /opt/admin-writeback/admin_writeback.py --host 127.0.0.1 --port 9099 \
+    >/var/log/admin-writeback.log 2>&1 &
 fi
 
 nginx -t

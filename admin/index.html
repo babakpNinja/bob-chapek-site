@@ -42,6 +42,11 @@
   .live{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--gold)}
   .soon{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#b9c8ff}
   .signout{display:inline-flex;align-items:center;min-height:44px;font-size:.86rem;color:var(--mist)}
+  .btn{font:inherit;font-size:.86rem;cursor:pointer;min-height:44px;padding:0 16px;border-radius:10px;
+    border:1px solid var(--gold);background:var(--gold);color:#0b1020;font-weight:600}
+  .btn:disabled{opacity:.55;cursor:default}
+  .inp{font:inherit;font-size:.86rem;min-height:44px;padding:0 12px;border-radius:10px;
+    border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.06);color:var(--paper)}
   @media(max-width:720px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -52,7 +57,7 @@
   <p class="sub">Content, versions and feature flags for bob-chapek.com.</p>
   <p class="note" style="margin-top:10px">Signed in with HTTP basic auth. This page and everything it loads is served only after the server has verified the credentials &mdash; nothing here is readable without them.</p>
 
-  <h2>Feature flags <span class="soon">Read-only</span></h2>
+  <h2>Feature flags <span class="live" id="flagsStatus">Live</span></h2>
   <div class="panel" id="flags">
     <p class="note" id="flagsNote">Loading current state&hellip;</p>
   </div>
@@ -79,21 +84,67 @@
 (function(){
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
 
-  fetch('status.json',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null;}).then(function(s){
-    var el=document.getElementById('flags'), note=document.getElementById('flagsNote');
+  function api(path){return fetch(path,{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null;});}
+  function say(msg,good){var n=document.getElementById('flagsMsg');if(!n)return;n.textContent=msg;n.style.color=good?'var(--gold)':'#ffb4b4';}
+
+  function render(s){
+    var el=document.getElementById('flags');
+    el.innerHTML='<p class="note" id="flagsNote">Loading current state&hellip;</p>';
+    var note=document.getElementById('flagsNote');
     if(!s){note.textContent='Could not read the current state.';return;}
     note.remove();
-    function row(k,d,on,onLabel,offLabel){
-      var p=on?'<span class="pill on">'+esc(onLabel)+'</span>':'<span class="pill off">'+esc(offLabel)+'</span>';
-      return '<div class="row"><span><span class="k">'+esc(k)+'</span><span class="d">'+esc(d)+'</span></span>'+p+'</div>';
+
+    // The unlisted setting is read-only here (a separate flip); the gate is the
+    // one flag this panel writes.
+    var gateOn=s.gate==='on';
+    var pill=function(on,l){return '<span class="pill '+(on?'on':'off')+'">'+esc(l)+'</span>';};
+    var controls;
+    if(!s.can_write){
+      controls='<p class="note" style="margin:8px 0 0">Read-only: no write token is configured on the server. Set <code>ADMIN_RAILWAY_TOKEN</code> on the service to enable the switch.</p>';
+    }else if(gateOn){
+      controls='<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+             + '<button class="btn" id="gateOff">Turn the passcode gate off</button>'
+             + '<span class="note">Visitors reach the page with no code.</span></div>';
+    }else{
+      controls='<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">'
+             + '<input class="inp" id="newCode" type="text" placeholder="new passcode (6+ chars)" autocomplete="new-password">'
+             + '<button class="btn" id="gateOn">Turn the gate back on</button></div>'
+             + '<p class="note" style="margin:8px 0 0">The gate is off. Turning it on requires a passcode; there is no default.</p>';
     }
+    function row(k,d,html){return '<div class="row"><span><span class="k">'+esc(k)+'</span><span class="d">'+esc(d)+'</span></span>'+html+'</div>';}
     el.innerHTML =
-      row('Passcode gate','The private-preview gate. On: visitors need the passcode. Each snapshot under /versions/ carries it too.',
-          s.gate==='on','On','Off')
-      + row('Unlisted (noindex)','Search engines are asked not to list the site. It does not make the page private.',
-          s.unlisted,'Unlisted','Listed')
-      + '<p class="note" style="margin:12px 0 0">These two are set at container start from the service variables <code>PREVIEW_PASSCODE</code> and <code>SITE_UNLISTED</code>. Changing one takes a variable update and a redeploy; the switches that do that from this page ship with the write-back service above.</p>';
-  }).catch(function(){document.getElementById('flagsNote').textContent='Could not read the current state.';});
+      row('Passcode gate','The private-preview gate. On: visitors need the passcode.',
+          pill(gateOn,gateOn?'On':'Off'))
+      + controls
+      + '<p class="note" id="flagsMsg" style="margin:10px 0 0"></p>'
+      + (s.unlisted==null?'' : row('Unlisted (noindex)','Search engines are asked not to list the site. It does not make the page private.',
+          pill(s.unlisted,s.unlisted?'Unlisted':'Listed')))
+      + '<p class="note" style="margin:12px 0 0">The gate is read at container start from <code>PREVIEW_PASSCODE</code>, so a change takes effect on the restart that follows. Unlisted is set separately and is not changed here.</p>';
+    var off=document.getElementById('gateOff'), on=document.getElementById('gateOn');
+    if(off)off.onclick=function(){write({flag:'gate',value:'off'},off);};
+    if(on)on.onclick=function(){var c=(document.getElementById('newCode').value||'').trim();write({flag:'gate',value:'on',passcode:c},on);};
+  }
+
+  function write(payload,btn){
+    btn.disabled=true;say('Applying…',true);
+    fetch('/admin/api/flag',{method:'POST',credentials:'same-origin',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().then(function(b){return {ok:r.ok,body:b};});})
+    .then(function(r){
+      if(!r.ok){say((r.body&&r.body.error)||'The server refused the change.',false);btn.disabled=false;return;}
+      say('Applied. The site restarts and the change takes effect shortly.',true);
+      setTimeout(refresh,3000);
+    }).catch(function(){say('Could not reach the server.',false);btn.disabled=false;});
+  }
+
+  function refresh(){
+    Promise.all([api('/admin/api/status'),api('status.json')]).then(function(r){
+      var s=r[0]||{};
+      if(r[1]){s.unlisted=r[1].unlisted;}
+      render(s);
+    }).catch(function(){render(null);});
+  }
+  refresh();
 
   fetch('versions.json',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null;}).then(function(v){
     var el=document.getElementById('versions');
