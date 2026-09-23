@@ -33,6 +33,12 @@ layer, separate from the unlisted toggle above.
 - The passcode is read at container start from the Railway variable
   `PREVIEW_PASSCODE` (default `bob-ninja`). To change it, set that variable on
   the service and redeploy. No code edit.
+- A SECOND passcode, `REVIEWER_PASSCODE`, can be set alongside it so an outside
+  reviewer (e.g. Simon & Schuster) can be given a code that is not Bob's own.
+  Either passcode opens the same site, and a wrong one is refused. Leaving the
+  variable unset means there is no reviewer code. To revoke reviewer access,
+  clear `REVIEWER_PASSCODE` and redeploy; Bob's own passcode is unaffected.
+  Both stay server-side only, never in a served file, and neither is logged.
 - The check happens in nginx, not in JavaScript: an unauthenticated request is
   redirected to `gate.html` (the lightbox) and never receives the page or its
   assets, so the passcode cannot be read from view-source or bypassed on the

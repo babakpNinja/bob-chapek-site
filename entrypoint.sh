@@ -20,6 +20,12 @@
 set -eu
 
 : "${PREVIEW_PASSCODE:=bob-ninja}"
+# Reviewer key (#48): a SECOND, independent passcode so Bob can hand the link
+# plus a reviewer code to an outside reader (Simon & Schuster) without giving
+# up his own, and can revoke it alone by clearing this variable and redeploying.
+# Empty/unset means the reviewer door does not exist: only the main passcode
+# opens the gate. Both are server-side only, never in a served file.
+: "${REVIEWER_PASSCODE:=}"
 
 CONF=/etc/nginx/conf.d/default.conf
 ROOT=/usr/share/nginx/html
@@ -157,9 +163,26 @@ else
   # Printf-inject the secrets into the generated config. The `%s` placeholders
   # keep the literals (which may contain characters meaningful to the shell) from
   # being interpreted. Server-side only - this file is never served.
-  printf 'map_hash_bucket_size 128;\n'                                                  >  "$CONF"
-  printf 'map $http_x_passcode $bpc_codeok { default 0; "%s" 1; }\n' "$PREVIEW_PASSCODE" >> "$CONF"
-  printf 'map $cookie_bpcgate   $bpc_ok     { default 0; "%s" 1; }\n' "$TOKEN"          >> "$CONF"
+  #
+  # $bpc_codeok is the verifier: ONE map whose lines are the accepted values.
+  # Both the main and the reviewer passcode are entries in the same map, so
+  # either opens the one door; a wrong value matches no line and stays 0. Each
+  # value is emitted between quotes, so a literal with punctuation is matched
+  # exactly and never read as nginx syntax. An empty (unset) REVIEWER_PASSCODE
+  # adds no line, so the reviewer door does not exist until a value is set;
+  # clearing the variable and redeploying revokes it alone. A duplicate key is
+  # an nginx config error, so the reviewer line is skipped when it equals main.
+  {
+    printf 'map_hash_bucket_size 128;\n'
+    printf 'map $http_x_passcode $bpc_codeok {\n'
+    printf '  default 0;\n'
+    printf '  "%s" 1;\n' "$PREVIEW_PASSCODE"
+    if [ -n "$REVIEWER_PASSCODE" ] && [ "$REVIEWER_PASSCODE" != "$PREVIEW_PASSCODE" ]; then
+      printf '  "%s" 1;\n' "$REVIEWER_PASSCODE"
+    fi
+    printf '}\n'
+    printf 'map $cookie_bpcgate $bpc_ok { default 0; "%s" 1; }\n' "$TOKEN"
+  } > "$CONF"
   cat >> "$CONF" <<'CONF'
 # Cache policy (issue #47). The edge and browsers kept serving a changed asset
 # under its old name, so a fresh page showed a stale image. The entrypoint now
