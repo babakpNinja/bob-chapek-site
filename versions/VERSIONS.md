@@ -8,6 +8,7 @@ comparison and never age out.
 | Version | What it was | Date | Commit |
 | --- | --- | --- | --- |
 | 1.0 | Book site: cover, buy row, 7 cuts, career record, passcode gate | 2026-09-23 | `a1f26f1d` |
+| 1.1 | Bob batch 1: trimmed tenure, video removed, press fixes | 2026-09-23 | `4ac0b1a5` |
 
 ## Switching back
 
