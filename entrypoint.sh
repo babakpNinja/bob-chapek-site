@@ -36,7 +36,7 @@ ROOT=/usr/share/nginx/html
 # layer cannot leave them served.
 rm -f "$ROOT/entrypoint.sh" "$ROOT/Dockerfile" "$ROOT/README.md" \
       "$ROOT/media.sha256" "$ROOT/.gitignore" "$ROOT/.dockerignore" \
-      "$ROOT/stamp-assets.sh"
+      "$ROOT/stamp-assets.sh" "$ROOT/gate-map.sh"
 
 # ---- cache-busting for mutable asset URLs (issue #47) ------------------------
 # The edge and browsers cache a file for hours, so a changed image with an
@@ -162,27 +162,11 @@ else
 
   # Printf-inject the secrets into the generated config. The `%s` placeholders
   # keep the literals (which may contain characters meaningful to the shell) from
-  # being interpreted. Server-side only - this file is never served.
-  #
-  # $bpc_codeok is the verifier: ONE map whose lines are the accepted values.
-  # Both the main and the reviewer passcode are entries in the same map, so
-  # either opens the one door; a wrong value matches no line and stays 0. Each
-  # value is emitted between quotes, so a literal with punctuation is matched
-  # exactly and never read as nginx syntax. An empty (unset) REVIEWER_PASSCODE
-  # adds no line, so the reviewer door does not exist until a value is set;
-  # clearing the variable and redeploying revokes it alone. A duplicate key is
-  # an nginx config error, so the reviewer line is skipped when it equals main.
-  {
-    printf 'map_hash_bucket_size 128;\n'
-    printf 'map $http_x_passcode $bpc_codeok {\n'
-    printf '  default 0;\n'
-    printf '  "%s" 1;\n' "$PREVIEW_PASSCODE"
-    if [ -n "$REVIEWER_PASSCODE" ] && [ "$REVIEWER_PASSCODE" != "$PREVIEW_PASSCODE" ]; then
-      printf '  "%s" 1;\n' "$REVIEWER_PASSCODE"
-    fi
-    printf '}\n'
-    printf 'map $cookie_bpcgate $bpc_ok { default 0; "%s" 1; }\n' "$TOKEN"
-  } > "$CONF"
+  # being interpreted. Server-side only - this file is never served. The map
+  # formatting lives in gate-map.sh so a test can exercise it without a
+  # container; that is where "either key opens the one door" is decided.
+  sh /usr/share/nginx/gate-map.sh "$PREVIEW_PASSCODE" "$REVIEWER_PASSCODE" \
+    "$TOKEN" > "$CONF"
   cat >> "$CONF" <<'CONF'
 # Cache policy (issue #47). The edge and browsers kept serving a changed asset
 # under its old name, so a fresh page showed a stale image. The entrypoint now
