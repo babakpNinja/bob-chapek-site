@@ -84,8 +84,12 @@ def upsert_mutation() -> str:
 
 
 def redeploy_mutation() -> str:
-    return ("mutation($s:String!,$e:String!,$c:String!){serviceInstanceDeployV2("
-            "serviceId:$s,environmentId:$e,commitSha:$c)}")
+    # Redeploy the CURRENT image. This intentionally does not pass a commit sha:
+    # that would need RAILWAY_GIT_COMMIT_SHA in the container, which is not
+    # guaranteed, and the goal is only to restart the container so it re-reads
+    # PREVIEW_PASSCODE. No new code is deployed here.
+    return ("mutation($s:String!,$e:String!){serviceInstanceRedeploy("
+            "serviceId:$s,environmentId:$e)}")
 
 
 def upsert_input(project_id: str, environment_id: str, service_id: str,
@@ -158,12 +162,10 @@ def apply_flag(flag: str, value: str, passcode: str, env: dict | None = None,
     gql(upsert_mutation(), {"input": upsert_input(
         ids["project_id"], ids["environment_id"], ids["service_id"], variables)}, token)
     # A variable change does not rebuild on its own; the container regenerates its
-    # config at START, so the new value only takes effect on a fresh deploy.
-    sha = (env.get("RAILWAY_GIT_COMMIT_SHA") or env.get("ADMIN_RAILWAY_COMMIT_SHA") or "").strip()
-    if sha:
-        gql(redeploy_mutation(),
-            {"s": ids["service_id"], "e": ids["environment_id"], "c": sha}, token)
-    return {"ok": True, "flag": flag, "value": value, "redeployed": bool(sha),
+    # config at START, so the new value only takes effect on a restart.
+    gql(redeploy_mutation(),
+        {"s": ids["service_id"], "e": ids["environment_id"]}, token)
+    return {"ok": True, "flag": flag, "value": value, "redeployed": True,
             "note": "the gate flips when the container restarts"}
 
 
