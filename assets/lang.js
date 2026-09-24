@@ -64,7 +64,14 @@
      flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
            '<rect width="22" height="5.34" fill="#fff"/>' +
            '<rect y="5.34" width="22" height="5.33" fill="#0039a6"/>' +
-           '<rect y="10.67" width="22" height="5.33" fill="#d52b1e"/></svg>'}
+           '<rect y="10.67" width="22" height="5.33" fill="#d52b1e"/></svg>'},
+    {code: "pt", name: "Português", href: "/pt/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="16" fill="#da291c"/>' +
+           '<rect width="8.8" height="16" fill="#046a38"/>' +
+           '<circle cx="8.8" cy="8" r="3.3" fill="#ffcc00"/>' +
+           '<circle cx="8.8" cy="8" r="1.9" fill="#da291c"/>' +
+           '<circle cx="8.8" cy="8" r="1.0" fill="#fff"/></svg>'}
   ];
   var cur = window.BC_LANG || document.documentElement.getAttribute("lang") || "en";
   var box = document.getElementById("langPick");

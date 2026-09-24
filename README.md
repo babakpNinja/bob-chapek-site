@@ -54,8 +54,8 @@ layer, separate from the unlisted toggle above.
 ## Languages (the dropdown, issue #52)
 
 The nav carries a top-right language menu (flag plus native name) and the site
-exists in ten languages: English, Spanish, Chinese, Japanese, Korean, French,
-German, Arabic, Persian and Hindi. The English page stays at `/`; each other
+exists in eleven languages: English, Spanish, Chinese, Japanese, Korean, French,
+German, Arabic, Persian, Hindi and Portuguese. The English page stays at `/`; each other
 language is a directory (`/es/`, `/zh/`, `/ja/` ...) holding translated copies of
 the three pages and a symlink to the one shared `assets` tree, so no image is
 duplicated. Arabic and Persian carry `dir="rtl"` on `<html>` so the browser
