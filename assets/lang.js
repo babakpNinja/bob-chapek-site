@@ -23,7 +23,48 @@
     {code: "zh", name: "中文", href: "/zh/",
      flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
            '<rect width="22" height="16" fill="#de2910"/>' +
-           '<path d="M4.2 3.2l.8 2.5H7.6L5.6 7.2l.7 2.5-2.2-1.6-2.2 1.6.7-2.5L.6 5.7h2.7z" fill="#ffde00"/></svg>'}
+           '<path d="M4.2 3.2l.8 2.5H7.6L5.6 7.2l.7 2.5-2.2-1.6-2.2 1.6.7-2.5L.6 5.7h2.7z" fill="#ffde00"/></svg>'},
+    {code: "ja", name: "日本語", href: "/ja/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="16" fill="#fff"/>' +
+           '<circle cx="11" cy="8" r="4.4" fill="#bc002d"/></svg>'},
+    {code: "ko", name: "한국어", href: "/ko/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="16" fill="#fff"/>' +
+           '<path d="M11 4.4a3.6 3.6 0 010 7.2 1.8 1.8 0 010-3.6 1.8 1.8 0 000-3.6z" fill="#cd2e3a"/>' +
+           '<path d="M11 4.4a3.6 3.6 0 000 7.2 1.8 1.8 0 000-3.6 1.8 1.8 0 010-3.6z" fill="#0047a0"/></svg>'},
+    {code: "fr", name: "Français", href: "/fr/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="16" fill="#fff"/>' +
+           '<rect width="7.33" height="16" fill="#0055a4"/>' +
+           '<rect x="14.66" width="7.34" height="16" fill="#ef4135"/></svg>'},
+    {code: "de", name: "Deutsch", href: "/de/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="5.34" fill="#000"/>' +
+           '<rect y="5.34" width="22" height="5.33" fill="#dd0000"/>' +
+           '<rect y="10.67" width="22" height="5.33" fill="#ffce00"/></svg>'},
+    {code: "ar", name: "العربية", href: "/ar/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="16" fill="#006c35"/>' +
+           '<path d="M4 9.4c1.4.8 3 .8 4.4 0M8.4 9.4c1.4.8 3 .8 4.4 0M12.8 9.4c1.4.8 3 .8 4.4 0" ' +
+           'stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></svg>'},
+    {code: "fa", name: "فارسی", href: "/fa/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="5.34" fill="#239f40"/>' +
+           '<rect y="5.34" width="22" height="5.33" fill="#fff"/>' +
+           '<rect y="10.67" width="22" height="5.33" fill="#da0000"/>' +
+           '<circle cx="11" cy="8" r="1.7" fill="#da0000"/></svg>'},
+    {code: "hi", name: "हिन्दी", href: "/hi/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="5.34" fill="#ff9933"/>' +
+           '<rect y="5.34" width="22" height="5.33" fill="#fff"/>' +
+           '<rect y="10.67" width="22" height="5.33" fill="#138808"/>' +
+           '<circle cx="11" cy="8" r="1.8" fill="none" stroke="#000080" stroke-width="0.8"/></svg>'},
+    {code: "ru", name: "Русский", href: "/ru/",
+     flag: '<svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<rect width="22" height="5.34" fill="#fff"/>' +
+           '<rect y="5.34" width="22" height="5.33" fill="#0039a6"/>' +
+           '<rect y="10.67" width="22" height="5.33" fill="#d52b1e"/></svg>'}
   ];
   var cur = window.BC_LANG || document.documentElement.getAttribute("lang") || "en";
   var box = document.getElementById("langPick");
