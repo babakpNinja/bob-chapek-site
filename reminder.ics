@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//bob-chapek.com//release reminder//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:behind-the-castle-walls-2026-09-29@bob-chapek.com
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20260929
+DTEND;VALUE=DATE:20260930
+SUMMARY:Behind the Castle Walls is out today
+DESCRIPTION:Behind the Castle Walls by Bob Chapek (Gallery Books) releases today. Where to buy: https://bob-chapek.com/#buy
+URL:https://bob-chapek.com/#buy
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
