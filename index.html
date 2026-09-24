@@ -130,9 +130,9 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid;background:var(--na
 .r2-strip .about-bob{grid-column:1/-1;order:2}
 .r2-strip .stats{grid-column:1/-1;order:1;grid-template-columns:repeat(4,1fr)}
 .r2-flow section{border-top:1px solid rgba(128,128,128,.28);padding:38px 0}
-/* The section's own markup is one inner `.wrap`; THAT is the two-column row.
-   Targeting `section>eyebrow` (a lie: the children sit inside `.wrap`) put the
-   lone `.wrap` in column 1 and left the right ~60% of every row dead. */
+/* The section's own markup is one inner `.wrap`, and that is the two-column
+   row. Targeting `section>eyebrow` is wrong: the children sit inside `.wrap`,
+   so the lone `.wrap` took column 1 and the right side of every row was dead. */
 .r2-flow section>.wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);
   gap:clamp(20px,4vw,54px);align-items:start}
 .r2-flow section>.wrap>.eyebrow{grid-column:1;margin:0}
