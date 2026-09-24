@@ -1,0 +1,80 @@
+/* Language dropdown for the top-right of the nav (issue #52).
+   Scoped to .lang* so it cannot collide with the site's own classes. The control
+   is a real <details> element: it opens and closes without JS, so the menu works
+   even if the script that swaps languages fails to load, and it is keyboard
+   operable and announced as a disclosure by assistive tech for free. */
+
+.lang { position: relative; flex: 0 0 auto; }
+
+.lang summary {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 8px;
+  cursor: pointer;
+  color: var(--mist);
+  font-size: .85rem;
+  white-space: nowrap;
+  border-radius: 8px;
+  transition: color .25s;
+}
+.lang summary::-webkit-details-marker { display: none; }
+.lang summary:hover,
+.lang[open] summary { color: var(--paper); }
+.lang .globe { width: 17px; height: 17px; flex: 0 0 auto; }
+.lang .caret { width: 9px; height: 9px; transition: transform .25s; }
+.lang[open] .caret { transform: rotate(180deg); }
+
+.lang .lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 208px;
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+  background: rgba(17, 23, 41, .98);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+  z-index: 60;
+}
+
+.lang .lang-menu a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--mist);
+  text-decoration: none;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+.lang .lang-menu a:hover { background: rgba(255, 255, 255, .06); color: var(--paper); }
+.lang .lang-menu a[aria-current="true"] { color: var(--gold); }
+.lang .lang-menu a[aria-current="true"]::after { content: "✓"; margin-left: auto; font-size: .8rem; }
+
+/* The flag is drawn as a small round token. Emoji flags are tiny and unsupported
+   on Windows, so this is a deliberate, readable chip rather than the raw glyph. */
+.lang .flag {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 16px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .25);
+}
+
+/* On phones the menu would run off the right edge under the 44px trigger; pin it
+   to the viewport instead so the names are never clipped. */
+@media (max-width: 560px) {
+  .lang .lang-menu { position: fixed; right: 12px; left: 12px; top: 62px; min-width: 0; }
+}
