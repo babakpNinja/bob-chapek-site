@@ -7,6 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <style>
 *{box-sizing:border-box}
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -126,25 +127,26 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
 /* The section's own markup is one inner `.wrap`; THAT is the two-column row.
    Targeting `section>eyebrow` (a lie: the children sit inside `.wrap`) put the
    lone `.wrap` in column 1 and left the right ~60% of every row dead. */
-.r2-flow section>.wrap{display:grid;grid-template-columns:minmax(0,.34fr) minmax(0,1fr);
+.r2-flow section>.wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);
   gap:clamp(20px,4vw,54px);align-items:start}
-.r2-head{grid-column:1;position:sticky;top:86px;padding-top:6px}
-.r2-head .eyebrow{margin:0 0 .7em}
-.r2-head h2{margin:0}
-.r2-body{grid-column:2}
-.r2-body>:last-child{margin-bottom:0}
+.r2-flow section>.wrap>.eyebrow{grid-column:1;margin:0}
+.r2-flow section>.wrap>h2{grid-column:1}
+.r2-flow section>.wrap>*:not(.eyebrow):not(h2){grid-column:2}
 .r2-flow .grid{grid-template-columns:1fr;gap:0}
 .r2-flow .card{border:0;border-radius:0;padding:12px 0;border-top:1px dashed rgba(128,128,128,.35)}
 .r2-flow .card:first-child{border-top:0}
 .r2-flow .grid.g2{grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:820px){.r2-top{grid-template-columns:1fr}
-  .r2-flow section>.wrap{grid-template-columns:1fr;gap:18px}
-  .r2-head{position:static;grid-column:1}
-  .r2-body{grid-column:1}
+  .r2-flow section>.wrap{grid-template-columns:1fr}
+  .r2-flow section>.wrap>*{grid-column:1!important}
   .r2-strip .stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body class="r2">
+<script id="bc-i18n">window.BC_LANG="en";window.BC_I18N={};window.bcT=function(k,en){return (window.BC_I18N&&window.BC_I18N[k])||en;};</script>
+
+<canvas class="stars" id="stars" aria-hidden="true"></canvas>
+
 <div class="var-ribbon" role="note"><b>Design 2 of 5: Folio</b><span>Author feature: cover right, sections as editorial rows.</span><a class="var-back" href="https://bob-chapek.com/">Live site</a></div>
 <nav>
   <div class="wrap nav-in">
@@ -211,23 +213,25 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
     </div></div>
 <main class="wrap r2-flow"><section id="author">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">The author</p>
-    <h2>About Bob Chapek</h2></div><div class="r2-body">
+    <p class="eyebrow">The author</p>
+    <h2>About Bob Chapek</h2>
     <p class="lede">Robert A. Chapek spent nearly 30 years at The Walt Disney Company, leading home entertainment, consumer products and the parks before serving as chief executive from 2020 to 2022. This memoir is his first book, written from inside the company he joined in 1993.</p>
     <p class="lede" style="margin-top:14px">He grew up in Robertsdale, the Hammond, Indiana neighborhood beside the Whiting oil refinery, studied microbiology at Indiana University, and earned an MBA at Michigan State before a career in brand management and advertising took him to Disney in 1993. He and his wife Cynthia married in 1981 and have three children. The book was written with Don Yaeger, who has written or co-written more than thirty books, most of them with athletes, coaches and executives.</p>
-  </div></div></section><section id="book">
+  </div>
+</section><section id="book">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">The book</p>
-    <h2>A memoir four years in the making</h2></div><div class="r2-body">
+    <p class="eyebrow">The book</p>
+    <h2>A memoir four years in the making</h2>
     <p class="lede">Within weeks of taking the top job, a pandemic closed the parks and the cruise ships. Two years later he was out and his predecessor was back in the chair. This is his account of both, written with New York Times bestselling co-author Don Yaeger.</p>
 
     <div class="panel" style="margin-top:22px">
       <p style="margin:0;color:var(--mist)">In 2022 the end came in a weekend, over a phone call, with the board pointing at a quarterly report. Chapek has spent four years working out what he thinks happened. This book is the answer.</p>
     </div>
-  </div></div></section><section id="inside">
+  </div>
+</section><section id="inside">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">What's inside</p>
-    <h2>A memoir in four parts</h2></div><div class="r2-body">
+    <p class="eyebrow">What's inside</p>
+    <h2>A memoir in four parts</h2>
     <p class="lede" style="margin-bottom:30px">Thirty years at one company, from a division that sold films on cassette to the chair at the top.</p>
 
     <div class="grid g2">
@@ -236,10 +240,11 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
       <div class="card"><span class="ic">THREE</span><h3>The corner office</h3><p>The pandemic shutdown and the reopening, Disneyland turned into a mass vaccination site, and the pivot to streaming. The decisions that defined the job, told from inside the room.</p></div>
       <div class="card"><span class="ic">FOUR</span><h3>The exit</h3><p>The weekend in November 2022 when the board replaced him with Bob Iger, five months after a three-year extension. What he thinks happened, and why he waited four years to say it.</p></div>
     </div>
-  </div></div></section><section id="career">
+  </div>
+</section><section id="career">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">Background</p>
-    <h2>Career record</h2></div><div class="r2-body">
+    <p class="eyebrow">Background</p>
+    <h2>Career record</h2>
     <p class="lede" style="margin-bottom:30px">A factual timeline of Bob Chapek's career, newest first: his current advisory work, then the Disney years, then his education. Most entries link to the source they come from.</p>
 
     <div class="grid g2">
@@ -313,10 +318,11 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
       <a href="https://www.pbs.org/newshour/economy/disney-ceo-bob-iger-steps-down-bob-chapek-named-new-head" target="_blank" rel="noopener">PBS NewsHour</a>,
       <a href="https://www.sec.gov/Archives/edgar/data/937556/000093755625000009/masi-20250130.htm" target="_blank" rel="noopener">Masimo resignation (SEC)</a>.
     </p>
-  </div></div></section><section id="buy">
+  </div>
+</section><section id="buy">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">Preorder</p>
-    <h2>Where to buy</h2></div><div class="r2-body">
+    <p class="eyebrow">Preorder</p>
+    <h2>Where to buy</h2>
     <p class="lede">Every link below is a product page for <em>Behind the Castle Walls</em>, checked in a browser on September 19, 2026. Editions are grouped by where you shop, with the publisher first.</p>
     <p class="remind-note" id="buyNote" hidden></p>
 
@@ -359,10 +365,11 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
     </div>
 
     <p class="note" style="margin-top:20px">Bookshop.org is listed for both the US and the UK; the US page is titled with the placeholder catalog name until the cover is finalized.</p>
-  </div></div></section><section id="press">
+  </div>
+</section><section id="press">
   <div class="wrap">
-    <div class="r2-head"><p class="eyebrow">Press</p>
-    <h2>Press kit and photographs</h2></div><div class="r2-body">
+    <p class="eyebrow">Press</p>
+    <h2>Press kit and photographs</h2>
     <p class="lede">Everything a producer, booker or reporter needs, in one place.</p>
 
     <div class="grid g2" style="margin-top:24px">
@@ -390,7 +397,8 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
         <figcaption class="credit">Bob Chapek presents Star Wars: Galaxy's Edge at D23 Expo, July 2017. Photo by <a href="https://www.flickr.com/photos/disneyabc/35531762030" rel="noopener">Walt Disney Television</a>, <a href="https://creativecommons.org/licenses/by-nd/2.0/" rel="noopener">CC BY-ND 2.0</a>, used unmodified.</figcaption>
       </figure>
     </div>
-  </div></div></section></main>
+  </div>
+</section></main>
 <footer>
   <div class="wrap">
     <div class="foot-flex">
