@@ -54,9 +54,12 @@ layer, separate from the unlisted toggle above.
 ## Languages (the dropdown, issue #52)
 
 The nav carries a top-right language menu (flag plus native name) and the site
-exists in English, Spanish and Chinese. The English page stays at `/`; each other
-language is a directory (`/es/`, `/zh/`) holding translated copies of the three
-pages and a symlink to the one shared `assets` tree, so no image is duplicated.
+exists in ten languages: English, Spanish, Chinese, Japanese, Korean, French,
+German, Arabic, Persian and Hindi. The English page stays at `/`; each other
+language is a directory (`/es/`, `/zh/`, `/ja/` ...) holding translated copies of
+the three pages and a symlink to the one shared `assets` tree, so no image is
+duplicated. Arabic and Persian carry `dir="rtl"` on `<html>` so the browser
+mirrors the layout.
 
 - The menu is a `<details>` element with a `<summary>` trigger: it opens and
   closes without JavaScript, is keyboard operable, and is announced as a
@@ -76,6 +79,19 @@ pages and a symlink to the one shared `assets` tree, so no image is duplicated.
   each page's head at build time.
 - Each language page points its canonical at itself and the set cross-links with
   `hreflang` (plus `x-default`), so the copies are not read as duplicates.
+- **A copy cannot ship with English left in it.** `tools/check_lang.py` walks
+  each language page's visible text runs and flags any run still reading as
+  English, past an allowlist of the names that stay untranslated by instruction.
+  It uses a script test for non-Latin targets (a phrase of Latin words) and a
+  function-word test for Latin-script targets (Spanish and French are all Latin
+  letters, so the script test cannot help). `deploy_railway.lang_gate` runs it
+  pre-push, so a dirty language blocks the deploy. This exists because the
+  Chinese hero once kept the book's English subtitle sentence in prose.
+- **The English slop rules do not run on a translation.** deslop's em-dash and
+  cadence rules and `verify_site`'s rendered-dash check are English-LLM
+  fingerprints; a faithful Russian or French page uses its own language's
+  punctuation and would be flagged for it. Those checks skip a `/<lang>/` copy,
+  which is held to `check_lang.py` instead.
 
 ## Admin area (`/admin/`)
 
