@@ -8,6 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1020'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23d9b169' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <style>
 *{box-sizing:border-box}
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -76,7 +77,7 @@ footer{border-top:1px solid;padding:34px 0;font-size:.9rem}
   gap:8px;align-items:center;padding:10px 14px;border:1px solid;border-radius:999px;
   text-decoration:none;min-height:44px;font-size:.85rem}
 .ninja-fab .mk img{width:20px;height:20px}
-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
+nav{position:sticky;top:0;z-index:50;border-bottom:1px solid;background:var(--navbg,transparent)}
 .nav-in{display:flex;align-items:center;gap:16px;min-height:58px}
 .brand{font-family:Fraunces,serif;font-weight:600;font-size:1.05rem;text-decoration:none;
   white-space:nowrap}
@@ -98,7 +99,12 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
   min-height:44px;padding:0 4px;text-decoration:none;white-space:nowrap}
 @media(max-width:900px){.nav-toggle{display:inline-flex}.nav-links{position:absolute;
   left:0;right:0;top:100%;flex-direction:column;gap:0;margin:0;padding:6px 22px 12px;
-  border-bottom:1px solid;display:none}
+  border-bottom:1px solid;display:none;
+  background:var(--navbg,solid #fff);backdrop-filter:blur(14px)}
+  /* No background here meant the absolute dropdown was transparent: the links
+     drew straight over the hero text (Bob, #65). Each design sets --navbg to
+     its own nav colour (cream/white/dark, some translucent); the panel and the
+     bar both read it, and the blur keeps a translucent one readable. */
   nav[data-open="true"] .nav-links{display:flex}
   .nav-links a{min-height:44px;border-bottom:1px solid rgba(128,128,128,.18)}}
 @media(max-width:820px){
@@ -112,7 +118,7 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
   .var-ribbon .var-back{margin-left:0}
   .brand,.srcs a{display:inline-flex;align-items:center;min-height:44px}}
 </style>
-<style>/* ---- design r5 (Index) ---- */body.r5{background:#111318;color:#f2f0eb;--accent:#d9b169}body.r5 nav{background:rgba(17,19,24,.9)}body.r5 a{color:#f0dcb4}.r5 .btn.solid{background:#d9b169;color:#20180a;border-color:#d9b169}body.r5 .card,body.r5 .panel,body.r5 .stat,body.r5 .ret,body.r5 .ab-badge,body.r5 .countdown{background:rgba(255,255,255,.035);border-color:rgba(217,177,105,.24)}
+<style>/* ---- design r5 (Index) ---- */body.r5{background:#111318;color:#f2f0eb;--accent:#d9b169;--navbg:rgba(17,19,24,.97)}body.r5 nav{background:rgba(17,19,24,.9)}body.r5 a{color:#f0dcb4}.r5 .btn.solid{background:#d9b169;color:#20180a;border-color:#d9b169}body.r5 .card,body.r5 .panel,body.r5 .stat,body.r5 .ret,body.r5 .ab-badge,body.r5 .countdown{background:rgba(255,255,255,.035);border-color:rgba(217,177,105,.24)}
 .r5-spread{display:grid;grid-template-columns:minmax(0,340px) 1fr;
   gap:clamp(26px,5vw,64px);align-items:start;padding-top:40px}
 .r5-rail{position:sticky;top:76px}
@@ -135,18 +141,13 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
   .r5-rail{position:static;max-width:340px}}
 @media(max-width:560px){.r5-main .card{grid-template-columns:1fr}
   .r5-main .card .ic{grid-column:1}}
-.r5 .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
-.r5 .glow{position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background:
-    radial-gradient(60vw 60vw at 12% 8%, rgba(217,177,105,.16), transparent 60%),
-    radial-gradient(50vw 50vw at 88% 22%, rgba(96,132,255,.14), transparent 60%),
-    radial-gradient(70vw 70vw at 50% 105%, rgba(217,177,105,.10), transparent 60%)}
 </style>
-<script id="bc-i18n">window.BC_LANG="en";window.BC_I18N={};window.bcT=function(k,en){return (window.BC_I18N&&window.BC_I18N[k])||en;};</script>
 </head>
 <body class="r5">
-<div class="glow"></div>
+<script id="bc-i18n">window.BC_LANG="en";window.BC_I18N={};window.bcT=function(k,en){return (window.BC_I18N&&window.BC_I18N[k])||en;};</script>
+
 <canvas class="stars" id="stars" aria-hidden="true"></canvas>
+
 <div class="var-ribbon" role="note"><b>Design 5 of 5: Index</b><span>Sticky cover rail, table-led content, magazine spread.</span><a class="var-back" href="https://bob-chapek.com/">Live site</a></div>
 <nav>
   <div class="wrap nav-in">
