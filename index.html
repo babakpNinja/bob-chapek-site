@@ -77,7 +77,7 @@ footer{border-top:1px solid;padding:34px 0;font-size:.9rem}
   gap:8px;align-items:center;padding:10px 14px;border:1px solid;border-radius:999px;
   text-decoration:none;min-height:44px;font-size:.85rem}
 .ninja-fab .mk img{width:20px;height:20px}
-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
+nav{position:sticky;top:0;z-index:50;border-bottom:1px solid;background:var(--navbg,transparent)}
 .nav-in{display:flex;align-items:center;gap:16px;min-height:58px}
 .brand{font-family:Fraunces,serif;font-weight:600;font-size:1.05rem;text-decoration:none;
   white-space:nowrap}
@@ -99,7 +99,12 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
   min-height:44px;padding:0 4px;text-decoration:none;white-space:nowrap}
 @media(max-width:900px){.nav-toggle{display:inline-flex}.nav-links{position:absolute;
   left:0;right:0;top:100%;flex-direction:column;gap:0;margin:0;padding:6px 22px 12px;
-  border-bottom:1px solid;display:none}
+  border-bottom:1px solid;display:none;
+  background:var(--navbg,solid #fff);backdrop-filter:blur(14px)}
+  /* No background here meant the absolute dropdown was transparent: the links
+     drew straight over the hero text (Bob, #65). Each design sets --navbg to
+     its own nav colour (cream/white/dark, some translucent); the panel and the
+     bar both read it, and the blur keeps a translucent one readable. */
   nav[data-open="true"] .nav-links{display:flex}
   .nav-links a{min-height:44px;border-bottom:1px solid rgba(128,128,128,.18)}}
 @media(max-width:820px){
@@ -113,7 +118,7 @@ nav{position:sticky;top:0;z-index:50;border-bottom:1px solid}
   .var-ribbon .var-back{margin-left:0}
   .brand,.srcs a{display:inline-flex;align-items:center;min-height:44px}}
 </style>
-<style>/* ---- design r2 (Folio) ---- */body.r2{background:#fbfbf9;color:#141414;--accent:#0f7b6c}body.r2 nav{background:rgba(251,251,249,.92)}.r2 .btn.solid{background:#0f7b6c;color:#fff;border-color:#0f7b6c}body.r2 .card,body.r2 .panel,body.r2 .stat,body.r2 .ret,body.r2 .ab-badge,body.r2 .countdown{background:#fff;border-color:rgba(20,20,20,.12)}
+<style>/* ---- design r2 (Folio) ---- */body.r2{background:#fbfbf9;color:#141414;--accent:#0f7b6c;--navbg:rgba(251,251,249,.97)}body.r2 nav{background:rgba(251,251,249,.92)}.r2 .btn.solid{background:#0f7b6c;color:#fff;border-color:#0f7b6c}body.r2 .card,body.r2 .panel,body.r2 .stat,body.r2 .ret,body.r2 .ab-badge,body.r2 .countdown{background:#fff;border-color:rgba(20,20,20,.12)}
 .r2-hero{padding:40px 0 8px}
 .r2-top{display:grid;grid-template-columns:1fr minmax(0,380px);gap:clamp(24px,5vw,60px);
   align-items:center}
