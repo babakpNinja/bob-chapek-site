@@ -54,8 +54,19 @@
       "@type": "Book",
       "@id": "https://bob-chapek.com/#book",
       "name": "Behind the Castle Walls: My Thirty Years at the Happiest Place on Earth",
-      "author": {"@type": "Person", "@id": "https://bob-chapek.com/#person", "name": "Bob Chapek"},
-      "publisher": {"@type": "Organization", "name": "Gallery Books, Simon & Schuster"},
+      "author": [
+        {
+          "@id": "https://bob-chapek.com/#person"
+        },
+        {
+          "@type": "Person",
+          "name": "Don Yaeger"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gallery Books, Simon & Schuster"
+      },
       "datePublished": "2026-09-29",
       "inLanguage": "en",
       "numberOfPages": 272,
@@ -65,28 +76,76 @@
       "description": "A revealing account of ambition, power and the price of Disney magic, from the executive who ran The Walt Disney Company through the pandemic and the succession that ended in 2022.",
       "url": "https://bob-chapek.com/",
       "workExample": [
-        {"@type": "Book", "bookFormat": "https://schema.org/Hardcover", "isbn": "9781668222089",
-         "potentialAction": {"@type": "ReadAction", "target": "https://www.amazon.com/dp/1668222086"}},
-        {"@type": "Book", "bookFormat": "https://schema.org/EBook", "isbn": "9781668222102",
-         "potentialAction": {"@type": "ReadAction", "target": "https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ"}},
-        {"@type": "Book", "bookFormat": "https://schema.org/AudiobookFormat",
-         "potentialAction": {"@type": "ReadAction", "target": "https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z"}}
-      ]
+        {
+          "@type": "Book",
+          "bookFormat": "https://schema.org/Hardcover",
+          "isbn": "9781668222089",
+          "potentialAction": {
+            "@type": "ReadAction",
+            "target": "https://www.amazon.com/dp/1668222086"
+          }
+        },
+        {
+          "@type": "Book",
+          "bookFormat": "https://schema.org/EBook",
+          "isbn": "9781668222102",
+          "potentialAction": {
+            "@type": "ReadAction",
+            "target": "https://www.amazon.com/Behind-Castle-Walls-Thirty-Happiest-ebook/dp/B0GPKC9GSJ"
+          }
+        },
+        {
+          "@type": "Book",
+          "bookFormat": "https://schema.org/AudiobookFormat",
+          "potentialAction": {
+            "@type": "ReadAction",
+            "target": "https://www.audible.com/pd/Behind-the-Castle-Walls-Audiobook/B0GPJX643Z"
+          }
+        }
+      ],
+      "sameAs": [
+        "https://www.simonandschuster.com/books/Behind-the-Castle-Walls/Bob-Chapek/9781668222089",
+        "https://books.google.com/books/about/Behind_the_Castle_Walls.html?id=9vvDEQAAQBAJ"
+      ],
+      "alternateName": "Behind the Castle Walls",
+      "mainEntityOfPage": {
+        "@id": "https://bob-chapek.com/ru/#webpage"
+      }
     },
     {
       "@type": "Person",
       "@id": "https://bob-chapek.com/#person",
-      "name": "Robert A. Chapek",
-      "alternateName": "Bob Chapek",
+      "name": "Bob Chapek",
+      "alternateName": [
+        "Robert A. Chapek",
+        "Robert Alan Chapek"
+      ],
       "jobTitle": "Former Chief Executive Officer, The Walt Disney Company",
       "description": "Bob Chapek spent nearly 30 years at The Walt Disney Company, leading Disney Parks, Experiences and Products before serving as CEO from 2020 to 2022. He is the author of Behind the Castle Walls.",
       "alumniOf": [
-        {"@type": "CollegeOrUniversity", "name": "Indiana University Bloomington"},
-        {"@type": "CollegeOrUniversity", "name": "Michigan State University"}
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Indiana University Bloomington"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Michigan State University"
+        }
       ],
       "sameAs": [
         "https://en.wikipedia.org/wiki/Bob_Chapek",
-        "https://www.linkedin.com/in/bob-chapek"
+        "https://www.wikidata.org/wiki/Q86408516",
+        "https://www.linkedin.com/in/bob-chapek",
+        "https://www.simonandschuster.com/authors/Bob-Chapek/268773586"
+      ],
+      "givenName": "Bob",
+      "familyName": "Chapek",
+      "url": "https://bob-chapek.com/",
+      "image": "https://bob-chapek.com/assets/chapek-d23-2017.jpg",
+      "knowsAbout": [
+        "The Walt Disney Company",
+        "Disney Parks, Experiences and Products",
+        "Corporate leadership"
       ]
     },
     {
@@ -95,7 +154,37 @@
       "name": "Behind the Castle Walls",
       "url": "https://bob-chapek.com/",
       "inLanguage": "en",
-      "about": {"@id": "https://bob-chapek.com/#book"}
+      "about": {
+        "@id": "https://bob-chapek.com/#book"
+      },
+      "publisher": {
+        "@id": "https://bob-chapek.com/#person"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://bob-chapek.com/ru/#webpage",
+      "url": "https://bob-chapek.com/ru/",
+      "name": "Behind the Castle Walls | Bob Chapek, мемуары",
+      "isPartOf": {
+        "@id": "https://bob-chapek.com/#website"
+      },
+      "about": [
+        {
+          "@id": "https://bob-chapek.com/#book"
+        },
+        {
+          "@id": "https://bob-chapek.com/#person"
+        }
+      ],
+      "mainEntity": {
+        "@id": "https://bob-chapek.com/#book"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://bob-chapek.com/assets/book-cover.jpg"
+      },
+      "inLanguage": "en"
     }
   ]
 }

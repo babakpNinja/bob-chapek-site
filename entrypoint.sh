@@ -173,6 +173,9 @@ map "$asset$busted" $cache_hdr {
 server {
   listen 8080;
   server_name _;
+  # One host for search engines: www answers only to send people to the apex,
+  # which is what every canonical, hreflang and sitemap URL names.
+  if ($host = www.bob-chapek.com) { return 301 https://bob-chapek.com$request_uri; }
   root /usr/share/nginx/html;
   index index.html;
   add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
@@ -228,6 +231,9 @@ map "$asset$busted" $cache_hdr {
 server {
   listen 8080;
   server_name _;
+  # One host for search engines: www answers only to send people to the apex,
+  # which is what every canonical, hreflang and sitemap URL names.
+  if ($host = www.bob-chapek.com) { return 301 https://bob-chapek.com$request_uri; }
   root /usr/share/nginx/html;
   index index.html;
   add_header X-Robots-Tag "noindex, nofollow, noarchive" always;

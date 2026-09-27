@@ -1,5 +1,461 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://bob-chapek.com/</loc></url>
-  <url><loc>https://bob-chapek.com/press-kit.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://bob-chapek.com/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+    <image:image><image:loc>https://bob-chapek.com/assets/book-cover.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/es/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/zh/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ja/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ko/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/fr/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/de/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ar/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/fa/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/hi/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ru/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/pt/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+    <image:image><image:loc>https://bob-chapek.com/assets/chapek-d23-2017.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/es/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/zh/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ja/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ko/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/fr/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/de/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ar/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/fa/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/hi/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/ru/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
+  <url>
+    <loc>https://bob-chapek.com/pt/press-kit.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bob-chapek.com/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bob-chapek.com/zh/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bob-chapek.com/ja/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bob-chapek.com/ko/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bob-chapek.com/fr/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bob-chapek.com/de/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bob-chapek.com/ar/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bob-chapek.com/fa/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://bob-chapek.com/hi/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bob-chapek.com/ru/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bob-chapek.com/pt/press-kit.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bob-chapek.com/press-kit.html"/>
+  </url>
 </urlset>
