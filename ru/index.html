@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Behind the Castle Walls | Bob Chapek, мемуары</title>
-<meta name="description" content="Behind the Castle Walls: My Thirty Years at the Happiest Place on Earth — мемуары бывшего генерального директора Disney Bob Chapek, написанные в соавторстве с Don Yaeger. Выходит 29 сентября 2026 года. Предзаказ доступен на Amazon, Barnes &amp; Noble, Target, Walmart, Apple Books, Google Play, Kobo, Audible и у британских книготорговцев.">
+<meta name="description" content="Бестселлер New York Times. Behind the Castle Walls: My Thirty Years at the Happiest Place on Earth — мемуары бывшего генерального директора Disney Bob Chapek, написанные в соавторстве с Don Yaeger. Уже в продаже. Заказать можно на Amazon, Barnes &amp; Noble, Target, Walmart, Apple Books, Google Play, Kobo, Audible и у британских книготорговцев.">
 <link rel="canonical" href="https://bob-chapek.com/ru/">
 <link rel="alternate" hreflang="en" href="https://bob-chapek.com/">
 <link rel="alternate" hreflang="es" href="https://bob-chapek.com/es/">
@@ -27,7 +27,7 @@
 <meta property="og:type" content="book">
 <meta property="og:site_name" content="Behind the Castle Walls">
 <meta property="og:title" content="Behind the Castle Walls | Bob Chapek">
-<meta property="og:description" content="Мои тридцать лет в самом счастливом месте на земле. Мемуары бывшего генерального директора Disney, написанные в соавторстве с Don Yaeger. Выходит 29 сентября 2026 года.">
+<meta property="og:description" content="Бестселлер New York Times. Мои тридцать лет в самом счастливом месте на земле. Мемуары бывшего генерального директора Disney, написанные в соавторстве с Don Yaeger. Уже в продаже.">
 <meta property="og:url" content="https://bob-chapek.com/">
 <meta property="og:image" content="https://bob-chapek.com/assets/og-cover-1200x630.jpg">
 <meta property="og:image:width" content="1200">
@@ -36,7 +36,7 @@
 <meta property="og:book:isbn" content="9781668222089">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Behind the Castle Walls | Bob Chapek">
-<meta name="twitter:description" content="Мемуары бывшего CEO Disney, написанные с Don Yaeger. Выходят 29 сентября 2026 года.">
+<meta name="twitter:description" content="Бестселлер New York Times. Мемуары бывшего CEO Disney, написанные с Don Yaeger. Уже в продаже.">
 <meta name="twitter:image" content="https://bob-chapek.com/assets/og-cover-1200x630.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1020'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23d9b169' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
@@ -121,7 +121,7 @@
         "Robert Alan Chapek"
       ],
       "jobTitle": "Former Chief Executive Officer, The Walt Disney Company",
-      "description": "Bob Chapek spent nearly 30 years at The Walt Disney Company, leading Disney Parks, Experiences and Products before serving as CEO from 2020 to 2022. He is the author of Behind the Castle Walls.",
+      "description": "Bob Chapek spent nearly 30 years at The Walt Disney Company, leading Disney Parks, Experiences and Products before serving as CEO from 2020 to 2022. He is the author of the New York Times bestseller Behind the Castle Walls.",
       "alumniOf": [
         {
           "@type": "CollegeOrUniversity",
@@ -274,8 +274,7 @@
 
   /* ---------- hero: the book leads ---------- */
   /* Row 1: the cover and the opening paragraph are a PAIR, aligned on a shared
-     top and scaled up so the book leads. Row 2: the countdown sits centered
-     under them. Row 3+: the About/stat blocks sit on the same measure below. */
+     top and scaled up so the book leads. Below them the About/stat blocks sit on the same measure below. */
   .hero{padding:48px 0 40px}
   .hero-top{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);
     gap:clamp(28px,5vw,64px);align-items:start}
@@ -284,11 +283,9 @@
   .hero .sub{font-size:clamp(1.08rem,1.5vw,1.24rem);color:var(--mist);max-width:56ch}
   .hero-copy{padding-top:6px}
   .cover{position:relative;perspective:1200px;margin:0}
-  .cover img{
-    width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 36px 80px rgba(0,0,0,.62);
-    transition:transform .5s cubic-bezier(.2,.7,.3,1)
-  }
-  .cover:hover img{transform:rotateY(-8deg) rotateX(3deg) scale(1.02)}
+  .cover .book{position:relative;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+  .cover img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 36px 80px rgba(0,0,0,.62)}
+  .cover:hover .book{transform:rotateY(-8deg) rotateX(3deg) scale(1.02)}
   .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
   .btn{
     display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
@@ -300,32 +297,33 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
   .meta span{font-size:.76rem;color:var(--mist);border:1px solid rgba(255,255,255,.1);padding:5px 11px;border-radius:999px}
 
-  /* ---------- release countdown + reminder ---------- */
-  /* The display ticks on the second, at the client's explicit request: the
-     original build showed days/hours/minutes only, and Babak asked for a live
-     seconds counter so the countdown reads as more interactive. A per-second
-     repaint is still a per-second repaint on a phone, so the numbers are
-     tabular so the row cannot jitter as the seconds change. */
-  .countdown{
-    margin:34px auto 0;max-width:640px;border:1px solid rgba(255,255,255,.1);border-radius:16px;
-    padding:20px 16px;text-align:center;
-    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))
+  /* ---------- accolade (#104): the bestseller line, set like a jacket credit ---------- */
+  /* Plain type in the site's own faces, no seal or starburst, and nothing that
+     imitates the newspaper's wordmark: the source in tracked small caps, a gold
+     hairline, then the word in Fraunces italic. */
+  /* NYT bestseller sash: a gold band across the cover's top-right corner. The
+     clip box sits 7px outside the cover so the band's ends overhang and fold
+     back behind it (the two dark tails). Sized in px, not %, so the type stays
+     legible on the 300px phone cover. */
+  .sash{position:absolute;top:-7px;right:-7px;width:156px;height:156px;margin:0;overflow:hidden;pointer-events:none;z-index:1}
+  .sash::before,.sash::after{content:"";position:absolute;width:7px;height:7px;background:#6f5320}
+  .sash::before{top:0;left:17px}
+  .sash::after{right:0;bottom:17px}
+  .sash .band{
+    position:absolute;left:101px;top:55px;width:250px;height:42px;transform:translate(-50%,-50%) rotate(45deg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;z-index:1;
+    background:linear-gradient(180deg,#f2e0bb 0%,var(--gold) 58%,#c89c50 100%);color:#241a05;
+    box-shadow:0 8px 18px rgba(0,0,0,.42)
   }
-  .countdown .eyebrow{margin:0 0 12px}
-  .cd-row{display:flex;justify-content:center;gap:clamp(10px,3.2vw,24px)}
-  /* The reminder buttons are centered with the row above them, so the whole
-     block reads as one centered unit under the cover+paragraph pair. */
-  .countdown .remind{justify-content:center}
-  .countdown .remind-note{margin-left:auto;margin-right:auto}
-  .cd-row .num{
-    display:block;font-family:Fraunces,serif;font-size:clamp(1.35rem,5vw,2.2rem);
-    color:var(--gold);line-height:1;font-variant-numeric:tabular-nums
-  }
-  .cd-row span.lbl{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
-  .cd-row .out .num{font-size:clamp(1.1rem,3.4vw,1.4rem)}
-  .remind{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-  .remind .btn{padding:11px 18px;font-size:.86rem;min-height:44px}
-  .remind .btn[disabled]{opacity:.55;cursor:default;transform:none}
+  .sash .band::before{content:"";position:absolute;inset:3px 0;border-top:1px solid rgba(36,26,5,.32);border-bottom:1px solid rgba(36,26,5,.32)}
+  .sash .s-src{font-size:8.5px;line-height:1;letter-spacing:.24em;text-transform:uppercase;font-weight:600;padding-left:.24em}
+  .sash .s-word{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:19px;line-height:.9;letter-spacing:.06em;font-variant-caps:all-small-caps}
+  :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:15px;font-weight:700;line-height:1.1;letter-spacing:0}
+  :lang(hi) .sash .band{gap:5px}
+  /* Desktop has room for a larger sash; the phone keeps the px base. */
+  @media(min-width:981px){.sash{transform:scale(1.2);transform-origin:top right}}
+
+  /* buy-row note */
   .remind-note{margin:11px 0 0;font-size:.78rem;color:var(--mist);max-width:52ch}
   .remind-note[hidden]{display:none}
 
@@ -561,36 +559,23 @@
   <div class="wrap">
     <div class="hero-top">
       <figure class="cover">
-        <img src="assets/book-cover.jpg" alt="Обложка Behind the Castle Walls автора Bob Chapek, Gallery Books" width="840" height="1268" loading="eager" fetchpriority="high">
+        <div class="book">
+          <img src="assets/book-cover.jpg" alt="Обложка Behind the Castle Walls автора Bob Chapek, Gallery Books" width="840" height="1268" loading="eager" fetchpriority="high">
+          <p class="sash" aria-label="Бестселлер New York Times"><span class="band" aria-hidden="true"><span class="s-src">New York Times</span><span class="s-word">Бестселлер</span></span></p>
+        </div>
       </figure>
       <div class="hero-copy">
         <p class="eyebrow">Мемуары · 29 сентября 2026</p>
         <h1>Behind the<em>Стены замка</em></h1>
         <p class="sub">Мои тридцать лет в самом счастливом месте на земле. За три десятилетия в Disney Bob Chapek занимался всем: от дистрибуции фильмов Disney до управления парками на трёх континентах и руководства всей компанией в качестве генерального директора во время пандемии Covid. Написано в соавторстве с Don Yaeger.</p>
         <div class="cta">
-          <a class="btn solid" href="#buy">Предзаказать книгу</a>
+          <a class="btn solid" href="#buy">Заказать</a>
           <a class="btn" href="#inside">Что внутри</a>
         </div>
         <div class="meta">
           <span>Твердый переплет $30.00</span><span>272 страницы</span><span>Gallery Books</span><span>С Don Yaeger</span><span>ISBN 9781668222089</span>
         </div>
       </div>
-    </div>
-
-    <div class="countdown" id="countdown">
-      <p class="eyebrow" id="cdLabel">Выходит 29 сентября 2026</p>
-      <div class="cd-row" id="cdRow" role="timer" aria-live="off"
-           aria-label="Дней, часов, минут и секунд до выхода книги">
-        <div><span class="num" data-cd="d">&mdash;</span><span class="lbl">Дни</span></div>
-        <div><span class="num" data-cd="h">&mdash;</span><span class="lbl">Часы</span></div>
-        <div><span class="num" data-cd="m">&mdash;</span><span class="lbl">Минуты</span></div>
-        <div><span class="num" data-cd="s">&mdash;</span><span class="lbl">Секунды</span></div>
-      </div>
-      <div class="remind">
-        <a class="btn" id="calBtn" href="reminder.ics" download>Добавить в календарь</a>
-        <button class="btn" type="button" id="remindBtn">Напомнить мне</button>
-      </div>
-      <p class="remind-note" id="remindNote" hidden></p>
     </div>
   </div>
 
@@ -613,7 +598,7 @@
     </div>
 
     <div class="stats">
-      <div class="stat"><span class="num" data-count="272">0</span><span class="lbl">Страниц, выходит 29 сентября 2026 года</span></div>
+      <div class="stat"><span class="num" data-count="272">0</span><span class="lbl">Страниц, вышла 29 сентября 2026 года</span></div>
       <div class="stat"><span class="num" data-count="30" data-prefix="Nearly ">0</span><span class="lbl">Годы внутри Disney, которые охватывает книга</span></div>
       <div class="stat"><span class="num" data-count="3">0</span><span class="lbl">Форматы при запуске: печатный, электронный, аудио</span></div>
       <div class="stat"><span class="num" data-count="1">0</span><span class="lbl">Рассказ, рассказанный из комнаты, где это произошло</span></div>
@@ -635,7 +620,7 @@
 
 <section id="buy">
   <div class="wrap">
-    <p class="eyebrow">Предзаказ</p>
+    <p class="eyebrow">Уже в продаже</p>
     <h2>Где купить</h2>
     <p class="lede">Каждая ссылка ниже — страница продукта для <em>Behind the Castle Walls</em>, проверено в браузере 19 сентября 2026 г. Издания сгруппированы по тому, где вы совершаете покупки, при этом издатель указан первым.</p>
     <p class="remind-note" id="buyNote" hidden></p>
@@ -678,7 +663,6 @@
       </div>
     </div>
 
-    <p class="note" style="margin-top:20px">Bookshop.org указан как для US, так и для UK; страница для US озаглавлена временным названием каталога, пока обложка не будет окончательно утверждена.</p>
   </div>
 </section>
 
@@ -778,7 +762,7 @@
     <p class="note" style="margin-top:18px">Источники:
       <a href="https://thewaltdisneycompany.com/press-releases/bob-chapek-named-chief-executive-officer-of-the-walt-disney-company" target="_blank" rel="noopener">Disney, фев 2020</a>,
       <a href="https://thewaltdisneycompany.com/press-releases/bob-chapek-elected-to-the-walt-disney-company-board-of-directors" target="_blank" rel="noopener">Объявление совета директоров Disney</a>,
-      <a href="https://thewaltdisneycompany.com/robert-chapek-named-president-of-disney-consumer-products" target="_blank" rel="noopener">Disney, повышение 2011 года</a>,
+      <a href="https://thewaltdisneycompany.com/press-releases/robert-chapek-named-president-of-disney-consumer-products" target="_blank" rel="noopener">Disney, повышение 2011 года</a>,
       <a href="https://www.cnbc.com/2020/02/25/who-is-bob-chapek-the-new-ceo-of-disney.html" target="_blank" rel="noopener">CNBC</a>,
       <a href="https://www.pbs.org/newshour/economy/disney-ceo-bob-iger-steps-down-bob-chapek-named-new-head" target="_blank" rel="noopener">PBS NewsHour</a>,
       <a href="https://www.sec.gov/Archives/edgar/data/937556/000093755625000009/masi-20250130.htm" target="_blank" rel="noopener">Отставка из Masimo (SEC)</a>.
@@ -949,119 +933,6 @@ addEventListener('scroll',function(){
 })();
 </script>
 <script>
-/* ---------- release countdown ----------
-   Dates in local time so "out September 29" means the reader's own 29th. The
-   display ticks every second at the client's request (the seconds cell is the
-   only part that needs it). When the reader asks for reduced motion we keep the
-   numbers but drop them to a minute cadence, so there is no per-second repaint
-   for someone who does not want the motion. */
-(function(){
-  const target = new Date(2026, 8, 29, 0, 0, 0);
-  const row = document.getElementById('cdRow');
-  const label = document.getElementById('cdLabel');
-  if (!row) return;
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function paint(){
-    const ms = target - new Date();
-    if (ms <= 0){
-      row.className = 'cd-row out';
-      row.innerHTML = '<div class="out"><span class="num">' + bcT('outnow','Out now') + '</span><span class="lbl">September 29, 2026</span></div>';
-      if (label) label.textContent = bcT('outnow','Out now');
-      return true;
-    }
-    const d = Math.floor(ms / 864e5);
-    const h = Math.floor(ms % 864e5 / 36e5);
-    const m = Math.floor(ms % 36e5 / 6e4);
-    const s = Math.floor(ms % 6e4 / 1000);
-    row.querySelectorAll('[data-cd]').forEach(function(el){
-      el.textContent = String({d:d, h:h, m:m, s:s}[el.dataset.cd]);
-    });
-    return false;
-  }
-  if (paint()) return;
-  const t = setInterval(function(){ if (paint()) clearInterval(t); }, calm ? 20000 : 1000);
-})();
-
-/* ---------- preorder reminder ----------
-   Two controls, because only one of them survives a closed tab. The calendar
-   file is the dependable path; the browser notification is a convenience that
-   fires only while this page is open, and the note says so rather than
-   implying a reminder that will arrive after the reader leaves. */
-(function(){
-  const btn = document.getElementById('remindBtn');
-  const cal = document.getElementById('calBtn');
-  const note = document.getElementById('remindNote');
-  if (!btn || !note) return;
-  const KEY = 'bc_remind';
-  const target = new Date(2026, 8, 29, 0, 0, 0);
-  const supported = typeof Notification !== 'undefined';
-
-  function say(msg){ note.textContent = msg; note.hidden = false; }
-
-  function arm(label){
-    btn.textContent = label;
-    btn.disabled = true;
-  }
-
-  function schedule(){
-    const ms = target - new Date();
-    if (ms <= 0 || ms > 2147483647) return;
-    setTimeout(function(){
-      try {
-        new Notification(bcT('notifTitle','Behind the Castle Walls is out today'), {
-          body: bcT('notifBody','The memoir by Bob Chapek is released September 29, 2026.')
-        });
-      } catch (e) {}
-    }, ms);
-  }
-
-  function armed(){
-    arm(bcT('remindOn','Reminder on'));
-    say(bcT('remindSet', 'Reminder set for September 29, 2026. It is a browser notification, so it '
-        + 'fires while this tab stays open. Add it to your calendar for a reminder '
-        + 'that still works after you close the page.'));
-  }
-
-  // Already chosen on a past visit: never ask again.
-  if (supported && Notification.permission === 'granted' && localStorage.getItem(KEY) === '1'){
-    armed(); schedule();
-  } else if (supported && Notification.permission === 'denied'){
-    // A blocked permission cannot be re-asked from the page, so offer the path
-    // that does work instead of a button that would do nothing.
-    btn.disabled = true;
-    btn.textContent = bcT('notifBlocked','Notifications blocked');
-    say(bcT('notifBlockedNote','This browser has notifications blocked for the site, so use Add to '
-        + 'calendar. It sets the reminder where the browser cannot.'));
-  }
-
-  btn.addEventListener('click', function(){
-    if (!supported){
-      // iOS Safari and older browsers have no Notification constructor at all.
-      say(bcT('notifUnsupported','This browser cannot show notifications, so use Add to calendar. It '
-          + 'works on every browser and after the page is closed.'));
-      if (cal) cal.focus();
-      return;
-    }
-    if (Notification.permission === 'denied'){
-      say(bcT('notifDenied','Notifications are blocked for the site. Use Add to calendar instead.'));
-      return;
-    }
-    const ask = Notification.permission === 'granted'
-      ? Promise.resolve('granted')
-      : Notification.requestPermission();
-    ask.then(function(perm){
-      if (perm === 'granted'){
-        localStorage.setItem(KEY, '1');
-        armed(); schedule();
-      } else {
-        say(bcT('notifNoPerm','No notification permission, so use Add to calendar. It sets the '
-            + 'reminder where the browser cannot.'));
-        if (cal) cal.focus();
-      }
-    });
-  });
-})();
-
 /* ---------- buy row, ordered for the visitor ----------
    Timezone and language only: a reorder is cosmetic, and a location prompt
    for a cosmetic reorder is a bad trade. Nothing is hidden or removed; the
