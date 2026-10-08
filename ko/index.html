@@ -301,27 +301,23 @@
   /* Plain type in the site's own faces, no seal or starburst, and nothing that
      imitates the newspaper's wordmark: the source in tracked small caps, a gold
      hairline, then the word in Fraunces italic. */
-  /* NYT bestseller sash: a gold band across the cover's top-right corner. The
-     clip box sits 7px outside the cover so the band's ends overhang and fold
-     back behind it (the two dark tails). Sized in px, not %, so the type stays
-     legible on the 300px phone cover. */
-  .sash{position:absolute;top:-7px;right:-7px;width:156px;height:156px;margin:0;overflow:hidden;pointer-events:none;z-index:1}
-  .sash::before,.sash::after{content:"";position:absolute;width:7px;height:7px;background:#6f5320}
-  .sash::before{top:0;left:17px}
-  .sash::after{right:0;bottom:17px}
+  /* NYT bestseller tag: a small, level gold label in the open sky right of
+     "the", hanging just past the cover's right edge. Level and compact so it
+     never touches the title lettering (Bob, 2026-10-08). */
+  .sash{position:absolute;top:19%;right:-8px;margin:0;pointer-events:none;z-index:1}
   .sash .band{
-    position:absolute;left:101px;top:55px;width:250px;height:42px;transform:translate(-50%,-50%) rotate(45deg);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;z-index:1;
+    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    padding:6px 12px 6px 13px;border-radius:2px 0 0 2px;
     background:linear-gradient(180deg,#f2e0bb 0%,var(--gold) 58%,#c89c50 100%);color:#241a05;
-    box-shadow:0 8px 18px rgba(0,0,0,.42)
+    box-shadow:0 6px 14px rgba(0,0,0,.38)
   }
-  .sash .band::before{content:"";position:absolute;inset:3px 0;border-top:1px solid rgba(36,26,5,.32);border-bottom:1px solid rgba(36,26,5,.32)}
-  .sash .s-src{font-size:8.5px;line-height:1;letter-spacing:.24em;text-transform:uppercase;font-weight:600;padding-left:.24em}
-  .sash .s-word{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:19px;line-height:.9;letter-spacing:.06em;font-variant-caps:all-small-caps}
-  :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:15px;font-weight:700;line-height:1.1;letter-spacing:0}
-  :lang(hi) .sash .band{gap:5px}
-  /* Desktop has room for a larger sash; the phone keeps the px base. */
-  @media(min-width:981px){.sash{transform:scale(1.2);transform-origin:top right}}
+  .sash .band::before{content:"";position:absolute;inset:3px 4px;border-top:1px solid rgba(36,26,5,.3);border-bottom:1px solid rgba(36,26,5,.3)}
+  .sash .band::after{content:"";position:absolute;right:0;bottom:-8px;border-top:8px solid #6f5320;border-right:8px solid transparent}
+  .sash .s-src{font-size:7px;line-height:1;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding-left:.22em}
+  .sash .s-word{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:15px;line-height:.95;letter-spacing:.06em;font-variant-caps:all-small-caps}
+  :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:12px;font-weight:700;line-height:1.1;letter-spacing:0}
+  :lang(hi) .sash .band{gap:4px}
+  @media(min-width:981px){.sash{transform:scale(1.15);transform-origin:top right}}
 
   /* buy-row note */
   .remind-note{margin:11px 0 0;font-size:.78rem;color:var(--mist);max-width:52ch}
