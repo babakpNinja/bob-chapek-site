@@ -303,23 +303,23 @@
      hairline, then the word in Fraunces italic. */
   /* NYT bestseller starburst: a modest gold seal in the open sky right of
      "the", clear of the title lettering at every size (Bob, 2026-10-09). */
-  .sash{position:absolute;top:15.5%;right:6%;margin:0;pointer-events:none;z-index:1;transform:rotate(-8deg)}
+  .sash{position:absolute;top:15.5%;right:6%;margin:0;pointer-events:none;z-index:1}
   .sash .band{
     position:relative;width:96px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
     clip-path:polygon(50.00% 0.00%,55.74% 6.38%,62.94% 1.70%,66.84% 9.35%,75.00% 6.70%,76.79% 15.09%,85.36% 14.64%,84.91% 23.21%,93.30% 25.00%,90.65% 33.16%,98.30% 37.06%,93.62% 44.26%,100.00% 50.00%,93.62% 55.74%,98.30% 62.94%,90.65% 66.84%,93.30% 75.00%,84.91% 76.79%,85.36% 85.36%,76.79% 84.91%,75.00% 93.30%,66.84% 90.65%,62.94% 98.30%,55.74% 93.62%,50.00% 100.00%,44.26% 93.62%,37.06% 98.30%,33.16% 90.65%,25.00% 93.30%,23.21% 84.91%,14.64% 85.36%,15.09% 76.79%,6.70% 75.00%,9.35% 66.84%,1.70% 62.94%,6.38% 55.74%,0.00% 50.00%,6.38% 44.26%,1.70% 37.06%,9.35% 33.16%,6.70% 25.00%,15.09% 23.21%,14.64% 14.64%,23.21% 15.09%,25.00% 6.70%,33.16% 9.35%,37.06% 1.70%,44.26% 6.38%);
     background:radial-gradient(circle at 40% 35%,#f6e6c4 0%,var(--gold) 55%,#b98a3e 100%);color:#241a05
   }
   .sash .band::before{content:"";position:absolute;inset:9px;border:1px solid rgba(36,26,5,.35);border-radius:50%}
-  .sash .s-src{font-size:7px;line-height:1.25;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-align:center;width:62px}
-  .sash .s-word{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:14px;line-height:.95;letter-spacing:.06em;font-variant-caps:all-small-caps}
+  .sash .s-src{font-size:6.5px;line-height:1.3;letter-spacing:.16em;text-transform:uppercase;font-weight:600;text-align:center;width:60px;padding-left:.16em;margin-top:2px}
+  .sash .s-word{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:11px;line-height:1;letter-spacing:.03em;padding-left:.03em;font-variant-caps:all-small-caps;padding-top:3px;border-top:1px solid rgba(36,26,5,.35)}
   :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:12px;font-weight:700;line-height:1.1;letter-spacing:0}
   @media(max-width:980px){
     .sash{top:16%;right:4%}
     .sash .band{width:70px;height:70px}
     .sash .band::before{inset:7px}
-    .sash .s-src{font-size:5.5px;width:46px}
-    .sash .s-word{font-size:10.5px}
-    :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:9.5px}
+    .sash .s-src{font-size:5px;width:46px}
+    .sash .s-word{font-size:8px;padding-top:2px}
+    :is(:lang(ar),:lang(fa),:lang(zh),:lang(ja),:lang(ko),:lang(hi)) .sash .s-word{font-size:8.5px}
   }
 
   /* buy-row note */
